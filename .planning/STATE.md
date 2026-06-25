@@ -5,14 +5,14 @@
 See: `.planning/PROJECT.md` (updated 2026-06-25)
 
 **Core value:** A student can ask for or upload material and immediately get relevant practice đề they can take and track.
-**Current focus:** Phase 1 — Foundation (complete)
+**Current focus:** Phase 2 — Authentication (complete)
 
 ## Status
 
 | Phase | Name | Wave | Model | Status |
 |-------|------|------|-------|--------|
 | 1 | Foundation | 1 | GLM-4.6 | ✓ Complete |
-| 2 | Authentication | 2 | Kimi-K2 | ○ Pending |
+| 2 | Authentication | 2 | Kimi-K2 | ✓ Complete |
 | 3 | Content & Matching Engine | 2 | GLM-4.6 | ○ Pending |
 | 4 | Chatbox & PDF Upload | 3 | Kimi-K2 | ○ Pending |
 | 5 | Quiz Engine | 3 | GLM-4.6 | ○ Pending |
@@ -54,9 +54,31 @@ Legend: ○ Pending · ◆ In Progress · ✓ Complete · ✗ Blocked
 - Used Prisma v6 instead of v7 — v7's libSQL adapter had initialization issues with SQLite file URLs on Windows. Future migration to v7 may need revisiting.
 - Tailwind v4 uses CSS-based config (@theme) instead of tailwind.config.ts; design tokens live in globals.css.
 
+### Phase 2 — Authentication (2026-06-26)
+
+**Shipped:**
+- AUTH-01: Signup form + server action with bcryptjs password hashing (salt rounds: 10). Vietnamese validation messages.
+- AUTH-02: Login form + server action with bcrypt.compare verification.
+- AUTH-03: JWT session via jose (HS256, 7-day expiry). HttpOnly, SameSite=Lax, Secure-in-production cookie.
+- AUTH-04: Middleware protects all routes except /login, /signup, _next, favicon. Redirects anon → /login, redirects authenticated users away from auth pages.
+- AUTH-05: Logout via server action, clears session cookie, redirects to /login.
+- AUTH-06: Demo user seeded (demo / demo1234) via idempotent upsert in prisma/seed.mts.
+- Integrated auth into AppShell: user avatar (first letter, pink circle), logout button in desktop rail + mobile nav, personalized greeting ("Xin chào, {username} 👋").
+- Login/signup pages styled to match reference aesthetic: white card on pink wash, Schibsted Grotesk headings, ink pill buttons, cream demo hint box.
+
+**Visual verification:**
+- Build passes clean (next build, 0 errors).
+- Login page returns 200 with full content. Root path redirects to /login for unauthenticated users.
+- Styled auth card: white surface, rounded-card, shadow-panel, brand logo, Vietnamese copy.
+
+**Decisions / Risks:**
+- Next.js 16 deprecates middleware.ts in favor of proxy.ts — still works but may need migration in future.
+- Used useActionState (React 19) for form state management — progressive enhancement compatible.
+- .env file created with dev JWT secret — must be overridden in production.
+
 ## Needs Human Review
 
 (Agents log here any default they had to assume because a decision was unclear. Empty for now.)
 
 ---
-*Last updated: 2026-06-25 after Phase 1 completion*
+*Last updated: 2026-06-26 after Phase 2 completion*
