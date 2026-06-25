@@ -1,6 +1,7 @@
 import { BookOpen, ArrowRight, ArrowUpRight, Star, LayoutGrid } from "lucide-react";
 import Link from "next/link";
 import { AppShell } from "@/components/app-shell";
+import { getSession } from "@/lib/session";
 
 const statCards = [
   { n: "3", label: "môn học\nsẵn sàng", color: "bg-c-pink", href: "/subjects" },
@@ -49,12 +50,13 @@ const subjectCards: SubjectCard[] = [
   },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const session = await getSession();
   return (
-    <AppShell>
+    <AppShell username={session?.username}>
       {/* ── Greeting ── */}
       <h1 className="mb-1 font-serif font-medium text-[clamp(40px,4.4vw,58px)] leading-[1.02] tracking-[-0.015em]">
-        Xin chào<span className="inline-block text-[0.72em] origin-[70%_75%] animate-[wave_2.4s_ease_0.9s_2]">{" "}👋</span>
+        Xin chào{session ? `, ${session.username}` : ""}<span className="inline-block text-[0.72em] origin-[70%_75%] animate-[wave_2.4s_ease_0.9s_2]">{" "}👋</span>
       </h1>
       <Link
         href="/subjects"

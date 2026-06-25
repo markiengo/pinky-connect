@@ -7,8 +7,10 @@ import {
   GraduationCap,
   Home,
   LayoutGrid,
+  LogOut,
   Settings,
 } from "lucide-react";
+import { logout } from "@/app/(auth)/actions";
 
 const navItems = [
   { href: "/", icon: Home, label: "Trang chủ" },
@@ -16,7 +18,13 @@ const navItems = [
   { href: "/practice", icon: BookOpen, label: "Luyện đề" },
 ] as const;
 
-export function AppShell({ children }: { children: React.ReactNode }) {
+export function AppShell({
+  children,
+  username,
+}: {
+  children: React.ReactNode;
+  username?: string | null;
+}) {
   const pathname = usePathname();
 
   return (
@@ -55,6 +63,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
         <div className="flex-1" />
 
+        {/* user avatar */}
+        {username && (
+          <div className="grid place-items-center w-10 h-10 mb-1 rounded-full bg-c-pink text-ink font-display text-[14px] font-bold" title={username}>
+            {username.charAt(0).toUpperCase()}
+          </div>
+        )}
+
         {/* settings */}
         <Link
           href="/settings"
@@ -63,6 +78,17 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         >
           <Settings className="w-[17px] h-[17px]" />
         </Link>
+
+        {/* logout */}
+        <form action={logout}>
+          <button
+            type="submit"
+            title="Đăng xuất"
+            className="grid place-items-center w-10 h-10 rounded-full text-text-muted transition-all duration-150 hover:bg-surface hover:text-ink hover:-translate-y-px"
+          >
+            <LogOut className="w-[17px] h-[17px]" />
+          </button>
+        </form>
       </aside>
 
       {/* ── Main content ── */}
@@ -87,6 +113,16 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </Link>
           );
         })}
+        {/* mobile logout */}
+        <form action={logout}>
+          <button
+            type="submit"
+            className="flex flex-col items-center gap-0.5 px-4 py-2 rounded-xl text-[11px] font-bold text-text-muted transition-colors"
+          >
+            <LogOut className="w-5 h-5" />
+            <span>Thoát</span>
+          </button>
+        </form>
       </nav>
     </div>
   );
