@@ -1,0 +1,103 @@
+// Prisma schema – AI Exam Prep App
+// Datasource: SQLite for local-first dev; swap to PostgreSQL via DATABASE_URL
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// ─── Users ──────────────────────────────────────────────────────────
+model User {
+  id           String   @id @default(cuid())
+  username     String   @unique
+  passwordHash String   @map("password_hash")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  quizAttempts QuizAttempt[]
+
+  @@map("users")
+}
+
+// ─── Subjects ───────────────────────────────────────────────────────
+model Subject {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  createdAt DateTime @default(now()) @map("created_at")
+
+  deThi        DeThi[]
+  quizAttempts QuizAttempt[]
+
+  @@map("subjects")
+}
+
+// ─── Đề thi (Exam papers) ──────────────────────────────────────────
+model DeThi {
+  id              String   @id @default(cuid())
+  subjectId       String   @map("subject_id")
+  title           String
+  source          String   @default("")
+  tags            String   @default("[]") // JSON array stored as text (SQLite)
+  normalizedTitle String   @default("") @map("normalized_title")
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  subject      Subject       @relation(fields: [subjectId], references: [id])
+  questions    Question[]
+  quizAttempts QuizAttempt[]
+
+  @@map("de_thi")
+}
+
+// ─── Questions ──────────────────────────────────────────────────────
+model Question {
+  id            String   @id @default(cuid())
+  deThiId       String   @map("de_thi_id")
+  type          String   @default("mcq") // "mcq" | "essay"
+  content       String
+  options       String?      // JSON array for MCQ options (SQLite stores as text)
+  correctAnswer String       @default("") @map("correct_answer")
+  orderIndex    Int          @default(0) @map("order_index")
+
+  deThi       DeThi        @relation(fields: [deThiId], references: [id])
+  quizAnswers QuizAnswer[]
+
+  @@map("questions")
+}
+
+// ─── Quiz attempts ──────────────────────────────────────────────────
+model QuizAttempt {
+  id             String   @id @default(cuid())
+  userId         String   @map("user_id")
+  deThiId        String   @map("de_thi_id")
+  subjectId      String   @map("subject_id")
+  score          Int      @default(0)
+  totalQuestions Int      @default(0) @map("total_questions")
+  percentage     Float    @default(0)
+  completedAt    DateTime @default(now()) @map("completed_at")
+
+  user    User         @relation(fields: [userId], references: [id])
+  deThi   DeThi        @relation(fields: [deThiId], references: [id])
+  subject Subject      @relation(fields: [subjectId], references: [id])
+  answers QuizAnswer[]
+
+  @@map("quiz_attempts")
+}
+
+// ─── Quiz answers ───────────────────────────────────────────────────
+model QuizAnswer {
+  id         String   @id @default(cuid())
+  attemptId  String   @map("attempt_id")
+  questionId String   @map("question_id")
+  userAnswer String   @default("") @map("user_answer")
+  isCorrect  Boolean? @map("is_correct")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  attempt  QuizAttempt @relation(fields: [attemptId], references: [id])
+  question Question    @relation(fields: [questionId], references: [id])
+
+  @@map("quiz_answers")
+}
