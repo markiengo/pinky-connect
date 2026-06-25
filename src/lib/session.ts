@@ -1,18 +1,52 @@
+import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
-import { verifySession, SESSION_COOKIE, type SessionPayload } from "@/lib/auth";
 
-export async function getSession(): Promise<SessionPayload | null> {
-  const jar = await cookies();
-  const token = jar.get(SESSION_COOKIE)?.value;
-  if (!token) return null;
-  return verifySession(token);
+const SECRET = new TextEncoder().encode(
+  process.env.JWT_SECRET || "dev-secret-change-in-production-please"
+);
+const COOKIE_NAME = "session";
+const MAX_AGE = 60 * 60 * 24 * 7; // 7 days
+
+export interface SessionPayload {
+  userId: string;
+  username: string;
 }
 
-export async function requireSession(): Promise<SessionPayload> {
-  const session = await getSession();
-  if (!session) {
-    redirect("/login");
+export async function createSession(payload: SessionPayload): Promise<void> {
+  const token = await new SignJWT(payload as unknown as Record<string, unknown>)
+    .setProtectedHeader({ alg: "HS256" })
+    .setIssuedAt()
+    .setExpirationTime(`${MAX_AGE}s`)
+    .sign(SECRET);
+
+  const cookieStore = await cookies();
+  cookieStore.set(COOKIE_NAME, token, {
+    httpOnly: true,
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+    maxAge: MAX_AGE,
+    path: "/",
+  });
+}
+
+export async function getSession(): Promise<SessionPayload | null> {
+  const cookieStore = await cookies();
+  const token = cookieStore.get(COOKIE_NAME)?.value;
+  if (!token) return null;
+
+  try {
+    const { payload } = await jwtVerify(token, SECRET);
+    return payload as unknown as SessionPayload;
+  } catch {
+    return null;
   }
-  return session as SessionPayload;
+}
+
+export async function clearSession(): Promise<void> {
+  const cookieStore = await cookies();
+  cookieStore.delete(COOKIE_NAME);
+}
+
+export async function getCurrentUser(): Promise<SessionPayload | null> {
+  return getSession();
 }

@@ -1,38 +1,31 @@
-import { NextResponse, type NextRequest } from "next/server";
-import { jwtVerify } from "jose";
-import { SESSION_COOKIE } from "@/lib/auth";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
 const PUBLIC_PATHS = ["/login", "/signup"];
+const PUBLIC_PREFIXES = ["/_next", "/favicon", "/api"];
 
-function getSecret(): Uint8Array {
-  const secret = process.env.JWT_SECRET || "dev-secret-do-not-use-in-production";
-  return new TextEncoder().encode(secret);
-}
-
-export async function middleware(request: NextRequest) {
+export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  const token = request.cookies.get(SESSION_COOKIE)?.value;
-
-  if (token) {
-    try {
-      await jwtVerify(token, getSecret(), { algorithms: ["HS256"] });
-      if (PUBLIC_PATHS.includes(pathname)) {
-        return NextResponse.redirect(new URL("/", request.url));
-      }
-      return NextResponse.next();
-    } catch {
-      const res = NextResponse.redirect(new URL("/login", request.url));
-      res.cookies.delete(SESSION_COOKIE);
-      return res;
+  // Allow public paths
+  if (PUBLIC_PATHS.includes(pathname) || PUBLIC_PREFIXES.some((p) => pathname.startsWith(p))) {
+    const token = request.cookies.get("session")?.value;
+    // Redirect authenticated users away from login/signup
+    if (token && (pathname === "/login" || pathname === "/signup")) {
+      return NextResponse.redirect(new URL("/", request.url));
     }
-  }
-
-  if (PUBLIC_PATHS.includes(pathname)) {
     return NextResponse.next();
   }
 
-  return NextResponse.redirect(new URL("/login", request.url));
+  // Check session cookie
+  const token = request.cookies.get("session")?.value;
+  if (!token) {
+    const loginUrl = new URL("/login", request.url);
+    loginUrl.searchParams.set("from", pathname);
+    return NextResponse.redirect(loginUrl);
+  }
+
+  return NextResponse.next();
 }
 
 export const config = {

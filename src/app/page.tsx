@@ -59,7 +59,7 @@ export default async function Home() {
         Xin chào{session ? `, ${session.username}` : ""}<span className="inline-block text-[0.72em] origin-[70%_75%] animate-[wave_2.4s_ease_0.9s_2]">{" "}👋</span>
       </h1>
       <Link
-        href="/subjects"
+        href="/practice"
         className="inline-flex items-center gap-2 mt-1.5 mb-6 text-[15.5px] font-bold text-text-muted transition-all duration-150 hover:text-ink hover:gap-3 group"
       >
         Tìm đề thi phù hợp với bài đang học
@@ -163,7 +163,7 @@ export default async function Home() {
           </div>
         </div>
         <Link
-          href="/subjects"
+          href="/practice"
           className="inline-flex items-center justify-center h-12 px-6 rounded-pill bg-surface text-[13.5px] font-extrabold transition-all duration-[280ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:-translate-y-px hover:shadow-[var(--shadow-pop)] whitespace-nowrap"
         >
           Xem tất cả
