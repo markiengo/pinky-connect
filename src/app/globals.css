@@ -183,3 +183,16 @@ body::after {
   50%  { transform: translate(2.5%, -2%) rotate(2deg) scale(1.04); }
   to   { transform: translate(-2%, 2.5%) rotate(-2deg) scale(1); }
 }
+
+@keyframes wave {
+  0%, 100% { transform: rotate(0); }
+  20% { transform: rotate(18deg); }
+  40% { transform: rotate(-8deg); }
+  60% { transform: rotate(14deg); }
+  80% { transform: rotate(-4deg); }
+}
+
+/* mobile safe-area bottom padding for bottom nav */
+.safe-area-pb {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}

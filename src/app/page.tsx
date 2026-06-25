@@ -1,65 +1,172 @@
-import Image from "next/image";
+import { BookOpen, ArrowRight, ArrowUpRight, Star, LayoutGrid } from "lucide-react";
+import Link from "next/link";
+import { AppShell } from "@/components/app-shell";
+
+const statCards = [
+  { n: "3", label: "môn học\nsẵn sàng", color: "bg-c-pink", href: "/subjects" },
+  { n: "4", label: "đề thi\ntrong kho", color: "bg-c-mint", href: "/practice" },
+  { n: "0", label: "bài đã\nluyện tập", color: "bg-c-lilac", href: "/practice" },
+] as const;
+
+interface SubjectCard {
+  tag: string;
+  title: string;
+  meta: string;
+  color: string;
+  rating: string;
+  isTop?: boolean;
+}
+
+const subjectCards: SubjectCard[] = [
+  {
+    tag: "Toán",
+    title: "Đề thi THPT QG 2024 – Toán",
+    meta: "Bộ GD&ĐT",
+    color: "bg-c-pink",
+    rating: "4.8",
+  },
+  {
+    tag: "Vật Lý",
+    title: "Đề thi THPT QG 2024 – Vật Lý",
+    meta: "Bộ GD&ĐT",
+    color: "bg-c-cream border border-ink/7",
+    rating: "4.9",
+  },
+  {
+    tag: "Hóa Học",
+    title: "Đề thi THPT QG 2024 – Hóa Học",
+    meta: "Bộ GD&ĐT",
+    color: "bg-c-lilac",
+    rating: "4.8",
+  },
+  {
+    tag: "Luyện thêm",
+    title: "Đề thi thử Toán – Sở Hà Nội 2024",
+    meta: "Sở GD&ĐT Hà Nội",
+    color: "bg-c-blue",
+    rating: "Top 10",
+    isTop: true,
+  },
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <AppShell>
+      {/* ── Greeting ── */}
+      <h1 className="mb-1 font-serif font-medium text-[clamp(40px,4.4vw,58px)] leading-[1.02] tracking-[-0.015em]">
+        Xin chào<span className="inline-block text-[0.72em] origin-[70%_75%] animate-[wave_2.4s_ease_0.9s_2]">{" "}👋</span>
+      </h1>
+      <Link
+        href="/subjects"
+        className="inline-flex items-center gap-2 mt-1.5 mb-6 text-[15.5px] font-bold text-text-muted transition-all duration-150 hover:text-ink hover:gap-3 group"
+      >
+        Tìm đề thi phù hợp với bài đang học
+        <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+      </Link>
+
+      {/* ── Stat pills ── */}
+      <div className="grid grid-cols-3 gap-3.5 mb-6">
+        {statCards.map((s) => (
+          <Link
+            key={s.label}
+            href={s.href}
+            className={`relative flex flex-col min-h-[120px] p-4 rounded-card ${s.color} transition-all duration-200 hover:-translate-y-[3px] hover:shadow-[var(--shadow-pop)]`}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <span className="font-display text-[clamp(28px,3vw,40px)] font-bold leading-none tracking-tight">
+              {s.n}
+            </span>
+            <span className="mt-auto text-[12.5px] font-semibold leading-tight text-ink/60 whitespace-pre-line">
+              {s.label}
+            </span>
+            <span className="absolute top-3.5 right-3.5 text-ink/30">
+              <ArrowUpRight className="w-4 h-4" strokeWidth={2.6} />
+            </span>
+          </Link>
+        ))}
+      </div>
+
+      {/* ── Filter tabs ── */}
+      <div className="flex gap-2 items-center mb-6 overflow-hidden">
+        {["Tất cả", "Toán", "Vật Lý", "Hóa Học"].map((label, i) => (
+          <button
+            key={label}
+            className={`inline-flex items-center gap-2 h-11 px-[18px] rounded-pill text-[13px] font-bold whitespace-nowrap transition-all duration-150 ${
+              i === 0
+                ? "bg-ink text-on-ink"
+                : "bg-white/90 border border-white/60 text-ink hover:bg-surface hover:-translate-y-px"
+            }`}
           >
-            Documentation
-          </a>
+            {i === 0 && <LayoutGrid className="w-[15px] h-[15px]" />}
+            {label}
+          </button>
+        ))}
+      </div>
+
+      <p className="mb-3.5 text-[13px] font-extrabold text-ink">
+        Đề thi mới nhất
+      </p>
+
+      {/* ── Subject cards grid ── */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-6">
+        {subjectCards.map((card) => (
+          <Link
+            key={card.title}
+            href="/practice"
+            className={`relative flex flex-col min-h-[168px] p-4 rounded-card ${card.color} transition-all duration-200 hover:-translate-y-[3px] hover:shadow-[var(--shadow-pop)]`}
+          >
+            {/* top row */}
+            <div className="flex items-center justify-between gap-2">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-[7px] rounded-pill bg-surface text-[11px] font-extrabold text-ink">
+                <BookOpen className="w-3 h-3" />
+                {card.tag}
+              </span>
+              <span className="inline-flex items-center gap-[5px] px-2.5 py-1.5 rounded-pill bg-surface text-[11px] font-extrabold">
+                {card.isTop ? (
+                  <>🏆 {card.rating}</>
+                ) : (
+                  <>
+                    <Star className="w-[11px] h-[11px] text-star fill-star" />
+                    {card.rating}
+                  </>
+                )}
+              </span>
+            </div>
+
+            {/* title */}
+            <h3 className="mt-3.5 mb-1.5 font-display text-[17.5px] font-bold leading-[1.22] tracking-[-0.01em] max-w-[92%]">
+              {card.title}
+            </h3>
+
+            {/* footer */}
+            <div className="mt-auto flex items-end justify-between">
+              <span className="text-[11.5px] font-semibold text-ink/60">
+                {card.meta}
+              </span>
+            </div>
+          </Link>
+        ))}
+      </div>
+
+      {/* ── CTA strip ── */}
+      <div className="flex items-center gap-4 p-5 rounded-card bg-surface shadow-[var(--shadow-soft)] mb-6 flex-wrap sm:flex-nowrap">
+        <div className="flex items-center gap-3 flex-1 min-w-0">
+          <span className="text-3xl flex-shrink-0">📖</span>
+          <div className="min-w-0">
+            <b className="block text-sm font-extrabold leading-tight">
+              Kho đề thi từ các kỳ thi quốc gia
+            </b>
+            <p className="mt-1 text-[13px] font-medium text-text-muted leading-snug">
+              Tìm kiếm, luyện tập và xem kết quả ngay lập tức.
+            </p>
+          </div>
         </div>
-      </main>
-    </div>
+        <Link
+          href="/subjects"
+          className="inline-flex items-center justify-center h-12 px-6 rounded-pill bg-surface text-[13.5px] font-extrabold transition-all duration-[280ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:-translate-y-px hover:shadow-[var(--shadow-pop)] whitespace-nowrap"
+        >
+          Xem tất cả
+        </Link>
+      </div>
+    </AppShell>
   );
 }
