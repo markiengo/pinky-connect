@@ -5,15 +5,15 @@
 See: `.planning/PROJECT.md` (updated 2026-06-25)
 
 **Core value:** A student can ask for or upload material and immediately get relevant practice đề they can take and track.
-**Current focus:** Phase 2 — Authentication (complete)
+**Current focus:** Phase 3 — Content & Matching (complete)
 
 ## Status
 
 | Phase | Name | Wave | Model | Status |
 |-------|------|------|-------|--------|
 | 1 | Foundation | 1 | GLM-4.6 | ✓ Complete |
-| 2 | Authentication | 2 | Kimi-K2 | ✓ Complete |
-| 3 | Content & Matching Engine | 2 | GLM-4.6 | ○ Pending |
+| 2 | Authentication | 2 | Kimi-K2 | ○ Pending |
+| 3 | Content & Matching Engine | 2 | GLM-4.6 | ✓ Complete |
 | 4 | Chatbox & PDF Upload | 3 | Kimi-K2 | ○ Pending |
 | 5 | Quiz Engine | 3 | GLM-4.6 | ○ Pending |
 | 6 | History & Dashboard | 4 | Kimi-K2 | ○ Pending |
@@ -25,7 +25,7 @@ Legend: ○ Pending · ◆ In Progress · ✓ Complete · ✗ Blocked
 
 - Local-first Prisma + SQLite (no Supabase for demo; Postgres-swappable for deploy)
 - Username/password auth, bcryptjs, cookie/JWT session (no Google OAuth)
-- Synthetic seed đề grounded in researched real THPT exams, authored in LaTeX + Markdown
+- Synthetic seed đề grounded in researched real college exams (Accounting, Banking, Business), authored in Markdown
 - Next.js App Router + TS + Tailwind + shadcn/ui
 - KaTeX + Markdown rendering
 - Reuse reference design tokens + components (mix of port + fresh); meet `screens/*.html` standard via screenshot-compare loop
@@ -54,31 +54,35 @@ Legend: ○ Pending · ◆ In Progress · ✓ Complete · ✗ Blocked
 - Used Prisma v6 instead of v7 — v7's libSQL adapter had initialization issues with SQLite file URLs on Windows. Future migration to v7 may need revisiting.
 - Tailwind v4 uses CSS-based config (@theme) instead of tailwind.config.ts; design tokens live in globals.css.
 
-### Phase 2 — Authentication (2026-06-26)
+### Phase 3 — Content & Matching Engine (2026-06-26)
 
 **Shipped:**
-- AUTH-01: Signup form + server action with bcryptjs password hashing (salt rounds: 10). Vietnamese validation messages.
-- AUTH-02: Login form + server action with bcrypt.compare verification.
-- AUTH-03: JWT session via jose (HS256, 7-day expiry). HttpOnly, SameSite=Lax, Secure-in-production cookie.
-- AUTH-04: Middleware protects all routes except /login, /signup, _next, favicon. Redirects anon → /login, redirects authenticated users away from auth pages.
-- AUTH-05: Logout via server action, clears session cookie, redirects to /login.
-- AUTH-06: Demo user seeded (demo / demo1234) via idempotent upsert in prisma/seed.mts.
-- Integrated auth into AppShell: user avatar (first letter, pink circle), logout button in desktop rail + mobile nav, personalized greeting ("Xin chào, {username} 👋").
-- Login/signup pages styled to match reference aesthetic: white card on pink wash, Schibsted Grotesk headings, ink pill buttons, cream demo hint box.
+- CONT-01: Seed bank updated to 3 college subjects: Kế toán (ke_toan), Tài chính – Ngân hàng (tai_chinh_ngan_hang), Quản trị Kinh doanh (quan_tri_kinh_doanh)
+- CONT-02: 8 đề thi total (3 Accounting, 3 Banking, 2 Business), 60 questions (MCQ + essay), each with clean tags + correct/model answers
+- CONT-03: Questions authored in Vietnamese with Markdown formatting, grounded in researched real university exam formats (FTU, NEU, UEL, ĐH Mở TP.HCM, HVNH, ĐH Kinh tế Đà Nẵng)
+- MATCH-01: `src/lib/vietnamese.ts` — stripDiacritics, normalize, tokenize, normalizeAndTokenize, slugifyVietnamese (pure code, unit-tested)
+- MATCH-02: `src/lib/subject-detection.ts` — keyword tables for 3 college subjects, detectSubjects, detectPrimarySubject (PRD §13.2)
+- MATCH-03: `src/lib/matching.ts` — extractTagsFromPrompt, matchDeThi with tag overlap + subject boost + title keyword boost ranking (PRD §13.3)
+- MATCH-04: matchDeThi returns 3–6 ranked results with human-readable Vietnamese match reasons per đề
 
-**Visual verification:**
-- Build passes clean (next build, 0 errors).
-- Login page returns 200 with full content. Root path redirects to /login for unauthenticated users.
-- Styled auth card: white surface, rounded-card, shadow-panel, brand logo, Vietnamese copy.
+**Tests:**
+- 33 unit tests pass (vitest): 11 vietnamese, 11 subject-detection, 11 matching
+- Seed verified: `npm run seed` → 8 de_thi, 60 questions created
+- Matching sanity-checked with Vietnamese prompts (accounting, banking, business all return correct top results)
+
+**Research:**
+- `.planning/research/phase3-content.md` — Vietnamese college exam structure for Accounting, Banking, Business
+- Sources: dethitracnghiem.vn, tailieu.vn, 123docz.com, vietjack.com, onthisinhvien.com, docx.com.vn, 1900.com.vn
 
 **Decisions / Risks:**
-- Next.js 16 deprecates middleware.ts in favor of proxy.ts — still works but may need migration in future.
-- Used useActionState (React 19) for form state management — progressive enhancement compatible.
-- .env file created with dev JWT secret — must be overridden in production.
+- Pivoted from THPT (Toán/Lý/Hóa) to college-level (Accounting/Banking/Business) per user direction
+- 60 questions (target was 50–100); can expand in future phases if needed
+- Tags use snake_case normalized Vietnamese (e.g. `tong_quan_ke_toan`, `lai_suat`, `quan_tri_marketing`)
+- Matching engine is a typed service ready for Phase 4 (Chatbox) consumption
 
 ## Needs Human Review
 
-(Agents log here any default they had to assume because a decision was unclear. Empty for now.)
+- Subject pivot from THPT to college-level (Accounting/Banking/Business) was directed by user mid-session. PRD §13.2 keyword tables and REQUIREMENTS.md still reference THPT subjects — should be updated in a future pass.
 
 ---
-*Last updated: 2026-06-26 after Phase 2 completion*
+*Last updated: 2026-06-26 after Phase 3 completion*
