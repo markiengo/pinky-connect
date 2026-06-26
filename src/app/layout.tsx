@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Schibsted_Grotesk, EB_Garamond, Plus_Jakarta_Sans } from "next/font/google";
+import { CursorGlow } from "@/components/cursor-glow";
 import "./globals.css";
 
 const schibstedGrotesk = Schibsted_Grotesk({
@@ -39,7 +40,10 @@ export default function RootLayout({
       lang="vi"
       className={`${schibstedGrotesk.variable} ${ebGaramond.variable} ${plusJakartaSans.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <CursorGlow />
+        {children}
+      </body>
     </html>
   );
 }

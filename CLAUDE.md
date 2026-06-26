@@ -8,9 +8,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Stack**: Next.js 16 (App Router) + TypeScript + Tailwind v4 + shadcn/ui, Prisma + SQLite (local-first), bcryptjs + jose for auth.
 
-**Source of truth**: `prd.md` (product requirements), `.planning/` (execution docs, roadmap, state).
+**Source of truth**: `prd.md` (product requirements).
 
-**Design reference**: `design/00-logs.md` and `screens/*.html` are kept as visual reference from the predecessor project. Design tokens are ported into `src/app/globals.css` and `.planning/DESIGN-TOKENS.md`. NEVER ship Angleton Script font (personal-use-only license).
+**Design reference**: `ref/analysis.md` (design extraction & implementation guide). Design tokens live in `src/app/globals.css`. NEVER ship Angleton Script font (personal-use-only license).
 
 **Platform**: Windows 11, PowerShell. Use PowerShell syntax in Bash commands.
 
@@ -36,14 +36,12 @@ npm run lint    # lint
 
 ```
 src/
-  app/            # Next.js App Router pages (layout, home, (auth)/login, (auth)/signup)
-  components/     # Reusable components (app-shell, ui/)
-  lib/            # Utilities (db, auth, session, utils)
+  app/            # Next.js App Router pages (landing, login, signup, dashboard, library, practice, quiz, history, profile)
+  components/     # Reusable components (app-shell, chatbox, quiz-client, charts, de-pane-card, de-thi-card, etc.)
+  lib/            # Utilities (db, auth, session, matching, quiz, history, vietnamese, etc.)
   middleware.ts   # Route protection (redirects anon to /login)
 prisma/           # Prisma schema + seed script
-.planning/        # Execution docs: PROJECT, REQUIREMENTS, ROADMAP, STATE, etc.
-design/           # Reference design docs from predecessor project (read-only reference)
-screens/          # Reference HTML prototypes from predecessor project (visual verification)
+ref/              # Design extraction & reference images
 prd.md            # Product requirements document (source of truth)
 AGENTS.md         # Agent read-order and intake rules
 CLAUDE.md         # This file

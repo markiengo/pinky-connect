@@ -137,13 +137,30 @@ export function Chatbox() {
   return (
     <div className="flex flex-col h-full">
       {/* ── Chat header ── */}
-      <div className="flex items-center gap-3 px-4 py-3 border-b border-line/60 bg-surface/60 backdrop-blur-sm rounded-t-card">
-        <span className="grid place-items-center w-9 h-9 rounded-full bg-ink text-on-ink">
+      <div
+        className="flex items-center gap-3 px-5 py-4 backdrop-blur-sm rounded-t-[16px]"
+        style={{
+          borderBottom: "1px solid rgba(244,137,154,0.15)",
+          background: "rgba(255,255,255,0.5)",
+        }}
+      >
+        <span
+          className="grid place-items-center w-10 h-10 rounded-full"
+          style={{ background: "linear-gradient(135deg, #5B8A7A 0%, #7C6FDB 100%)", color: "#FFFFFF", boxShadow: "0 4px 16px rgba(91,138,122,0.25)" }}
+        >
           <GraduationCap className="w-[18px] h-[18px]" />
         </span>
         <div className="flex-1 min-w-0">
-          <h2 className="font-display text-[15px] font-bold leading-tight">Tìm đề thi</h2>
-          <p className="text-[11.5px] text-text-muted leading-tight">
+          <h2
+            className="font-sans text-[15px] font-bold leading-tight"
+            style={{ color: "#1E1B3A" }}
+          >
+            Tìm đề thi
+          </h2>
+          <p
+            className="text-[11.5px] leading-tight"
+            style={{ color: "#5C5875" }}
+          >
             {promptsRemaining > 0
               ? `${promptsRemaining} lượt hỏi còn lại`
               : "Hết lượt hỏi — tải lại trang"}
@@ -154,7 +171,7 @@ export function Chatbox() {
       {/* ── Messages ── */}
       <div
         ref={scrollRef}
-        className="flex-1 overflow-y-auto px-4 py-5 space-y-4 [scrollbar-width:thin]"
+        className="flex-1 overflow-y-auto px-5 py-6 space-y-5 [scrollbar-width:thin] aurora-bg"
       >
         {messages.map((msg) => (
           <div key={msg.id} className="space-y-2">
@@ -163,27 +180,64 @@ export function Chatbox() {
               className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
             >
               <div
-                className={`max-w-[85%] px-4 py-2.5 rounded-[18px] text-[14px] leading-relaxed ${
+                className={`max-w-[85%] px-5 py-3 rounded-[18px] text-[14px] leading-relaxed ${
                   msg.role === "user"
-                    ? "bg-ink text-on-ink rounded-br-[6px]"
-                    : msg.isError
-                      ? "bg-bad/40 text-bad-ink rounded-bl-[6px]"
-                      : "bg-surface text-ink rounded-bl-[6px] shadow-[var(--shadow-soft)]"
+                    ? "rounded-br-[6px]"
+                    : "rounded-bl-[6px]"
                 }`}
+                style={{
+                  background:
+                    msg.role === "user"
+                      ? "#5B8A7A"
+                      : msg.isError
+                        ? "rgba(244,137,154,0.10)"
+                        : "#FFFFFF",
+                  color:
+                    msg.role === "user"
+                      ? "#FFFFFF"
+                      : msg.isError
+                        ? "#F4899A"
+                        : "#1E1B3A",
+                  boxShadow:
+                    msg.role === "assistant" && !msg.isError
+                      ? "0 1px 4px rgba(244,137,154,0.08)"
+                      : "none",
+                  border:
+                    msg.role === "assistant" && !msg.isError
+                      ? "1px solid rgba(244,137,154,0.10)"
+                      : "none",
+                }}
               >
                 {msg.role === "assistant" && !msg.isError && (
-                  <span className="inline-flex items-center gap-1 text-[11px] font-bold text-accent-deep mb-1">
+                  <span
+                    className="inline-flex items-center gap-1 text-[11px] font-bold mb-1"
+                    style={{ color: "#5B8A7A" }}
+                  >
                     <GraduationCap className="w-3 h-3" />
                     AI Exam Prep
                   </span>
                 )}
                 {msg.isError && (
-                  <span className="inline-flex items-center gap-1 text-[11px] font-bold text-bad-ink mb-1">
+                  <span
+                    className="inline-flex items-center gap-1 text-[11px] font-bold mb-1"
+                    style={{ color: "#F4899A" }}
+                  >
                     <AlertCircle className="w-3 h-3" />
                     Lỗi
                   </span>
                 )}
-                <p className={msg.role === "assistant" && !msg.isError ? "font-medium" : ""}>
+                <p
+                  className={
+                    msg.role === "assistant" && !msg.isError
+                      ? "font-serif"
+                      : ""
+                  }
+                  style={
+                    msg.role === "assistant" && !msg.isError
+                      ? { fontFamily: '"EB Garamond", Garamond, serif', fontSize: "15px" }
+                      : {}
+                  }
+                >
                   {msg.text}
                 </p>
               </div>
@@ -203,8 +257,19 @@ export function Chatbox() {
         {/* Loading indicator */}
         {loading && (
           <div className="flex justify-start">
-            <div className="bg-surface text-ink px-4 py-3 rounded-[18px] rounded-bl-[6px] shadow-[var(--shadow-soft)]">
-              <span className="inline-flex items-center gap-2 text-[13px] font-medium text-text-muted">
+            <div
+              className="px-5 py-3 rounded-[18px] rounded-bl-[6px]"
+              style={{
+                background: "#FFFFFF",
+                color: "#1E1B3A",
+                boxShadow: "0 1px 4px rgba(244,137,154,0.08)",
+                border: "1px solid rgba(244,137,154,0.10)",
+              }}
+            >
+              <span
+                className="inline-flex items-center gap-2 text-[13px] font-medium"
+                style={{ color: "#5C5875" }}
+              >
                 <Loader2 className="w-4 h-4 animate-spin" />
                 Đang tìm đề phù hợp...
               </span>
@@ -215,12 +280,23 @@ export function Chatbox() {
         {/* Suggestions (only on first message) */}
         {messages.length === 1 && !loading && (
           <div className="space-y-2 pt-2">
-            <p className="text-[12px] font-bold text-text-muted px-1">Gợi ý:</p>
+            <p
+              className="text-[12px] font-bold px-1"
+              style={{ color: "#5C5875" }}
+            >
+              Gợi ý:
+            </p>
             {SUGGESTIONS.map((s) => (
               <button
                 key={s}
                 onClick={() => useSuggestion(s)}
-                className="block w-full text-left px-4 py-2.5 rounded-[14px] bg-surface/70 border border-line/60 text-[13px] font-medium text-ink/80 hover:bg-surface hover:border-ink/15 transition-all"
+                className="block w-full text-left px-4 py-2.5 rounded-[14px] text-[13px] font-medium transition-all hover:bg-white/80"
+                style={{
+                  background: "rgba(255,255,255,0.65)",
+                  border: "1px solid rgba(244,137,154,0.20)",
+                  color: "rgba(30,27,58,0.8)",
+                  backdropFilter: "blur(8px)",
+                }}
               >
                 {s}
               </button>
@@ -235,13 +311,18 @@ export function Chatbox() {
           {files.map((f, i) => (
             <span
               key={i}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-pill bg-c-cream border border-ink/8 text-[12px] font-semibold"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[999px] text-[12px] font-semibold"
+              style={{
+                background: "#E8E4F2",
+                border: "1px solid rgba(30,27,58,0.08)",
+              }}
             >
               <Paperclip className="w-3 h-3" />
               {f.name}
               <button
                 onClick={() => removeFile(i)}
-                className="ml-1 text-ink/40 hover:text-ink"
+                className="ml-1"
+                style={{ color: "rgba(30,27,58,0.4)" }}
               >
                 <X className="w-3.5 h-3.5" />
               </button>
@@ -253,7 +334,11 @@ export function Chatbox() {
       {/* ── Composer ── */}
       <form
         onSubmit={handleSubmit}
-        className="flex items-center gap-2 px-4 py-3 border-t border-line/60 bg-surface/60 backdrop-blur-sm rounded-b-card"
+        className="flex items-center gap-2 px-5 py-4 backdrop-blur-sm rounded-b-[16px]"
+        style={{
+          borderTop: "1px solid rgba(244,137,154,0.15)",
+          background: "rgba(255,255,255,0.5)",
+        }}
       >
         <input
           ref={fileInputRef}
@@ -268,7 +353,8 @@ export function Chatbox() {
           onClick={() => fileInputRef.current?.click()}
           disabled={files.length >= 3 || loading}
           title="Tải lên PDF (tối đa 3 file)"
-          className="grid place-items-center w-10 h-10 rounded-full bg-surface-2 text-text-muted hover:text-ink hover:bg-surface transition-all disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0"
+          className="grid place-items-center w-10 h-10 rounded-full transition-all disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0"
+          style={{ background: "rgba(244,137,154,0.10)", color: "#F4899A" }}
         >
           <Paperclip className="w-[18px] h-[18px]" />
         </button>
@@ -279,13 +365,19 @@ export function Chatbox() {
           placeholder="Nhập yêu cầu hoặc tải PDF lên..."
           disabled={loading || promptsRemaining <= 0}
           autoComplete="off"
-          className="flex-1 min-w-0 h-11 px-4 rounded-pill bg-surface-2 border border-line/60 text-[14px] font-medium text-ink placeholder:text-text-faint focus:outline-none focus:border-ink/20 transition-colors disabled:opacity-50"
+          className="flex-1 min-w-0 h-11 px-4 rounded-[999px] text-[14px] font-medium focus:outline-none transition-colors disabled:opacity-50"
+          style={{
+            background: "rgba(244,137,154,0.06)",
+            border: "1px solid rgba(244,137,154,0.18)",
+            color: "#1E1B3A",
+          }}
         />
         <button
           type="submit"
           disabled={loading || (!input.trim() && files.length === 0) || promptsRemaining <= 0}
           title="Gửi"
-          className="grid place-items-center w-11 h-11 rounded-full bg-ink text-on-ink hover:shadow-[var(--shadow-pop)] transition-all disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0"
+          className="grid place-items-center w-11 h-11 rounded-full transition-all disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0"
+          style={{ background: "linear-gradient(135deg, #5B8A7A 0%, #7C6FDB 100%)", color: "#FFFFFF", boxShadow: "0 4px 16px rgba(91,138,122,0.25)" }}
         >
           {loading ? (
             <Loader2 className="w-[18px] h-[18px] animate-spin" />

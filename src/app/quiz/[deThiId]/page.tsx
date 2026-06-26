@@ -20,22 +20,37 @@ export default async function QuizPage({
   return (
     <AppShell>
       <Link
-        href="/"
-        className="inline-flex items-center gap-1.5 text-sm font-bold text-text-muted hover:text-ink transition-colors mb-4"
+        href="/library"
+        className="inline-flex items-center gap-1.5 font-sans font-medium text-[13px] mb-4 transition-colors"
+        style={{ color: "#5C5875" }}
       >
         <ArrowLeft className="w-4 h-4" />
-        Quay lại
+        Quay lại thư viện
       </Link>
 
       <div className="mb-6">
-        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-pill bg-c-lilac text-[11px] font-extrabold text-ink mb-2">
+        <span
+          className="inline-flex items-center px-2.5 py-1 rounded-full font-sans font-medium text-[11px] uppercase tracking-wider mb-2"
+          style={{
+            background: "rgba(244,137,154,0.12)",
+            color: "#5B8A7A",
+          }}
+        >
           {quiz.subjectName}
         </span>
-        <h1 className="font-display text-2xl font-bold tracking-tight leading-tight">
+        <h1
+          className="font-serif font-normal leading-tight tracking-[-0.01em]"
+          style={{ fontSize: "clamp(22px, 3vw, 28px)", color: "#1E1B3A" }}
+        >
           {quiz.title}
         </h1>
         {quiz.source && (
-          <p className="mt-1 text-sm text-text-muted font-medium">{quiz.source}</p>
+          <p
+            className="mt-1 font-sans font-medium text-[13px]"
+            style={{ color: "#5C5875" }}
+          >
+            {quiz.source}
+          </p>
         )}
       </div>
 
