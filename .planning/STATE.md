@@ -5,17 +5,17 @@
 See: `.planning/PROJECT.md` (updated 2026-06-25)
 
 **Core value:** A student can ask for or upload material and immediately get relevant practice đề they can take and track.
-**Current focus:** Phase 3 — Content & Matching (complete)
+**Current focus:** Phase 5 — Quiz Engine (complete)
 
 ## Status
 
 | Phase | Name | Wave | Model | Status |
 |-------|------|------|-------|--------|
 | 1 | Foundation | 1 | GLM-4.6 | ✓ Complete |
-| 2 | Authentication | 2 | Kimi-K2 | ○ Pending |
+| 2 | Authentication | 2 | Kimi-K2 | ✓ Complete |
 | 3 | Content & Matching Engine | 2 | GLM-4.6 | ✓ Complete |
-| 4 | Chatbox & PDF Upload | 3 | Kimi-K2 | ○ Pending |
-| 5 | Quiz Engine | 3 | GLM-4.6 | ○ Pending |
+| 4 | Chatbox & PDF Upload | 3 | Kimi-K2 | ✓ Complete |
+| 5 | Quiz Engine | 3 | GLM-4.6 | ✓ Complete |
 | 6 | History & Dashboard | 4 | Kimi-K2 | ○ Pending |
 | 7 | Polish & Visual Verification | 5 | GLM-4.6 | ○ Pending |
 
@@ -80,9 +80,38 @@ Legend: ○ Pending · ◆ In Progress · ✓ Complete · ✗ Blocked
 - Tags use snake_case normalized Vietnamese (e.g. `tong_quan_ke_toan`, `lai_suat`, `quan_tri_marketing`)
 - Matching engine is a typed service ready for Phase 4 (Chatbox) consumption
 
+### Phase 5 — Quiz Engine (2026-06-26)
+
+**Shipped:**
+- QUIZ-01: Quiz page (`src/app/quiz/[deThiId]/page.tsx`) shows one MCQ at a time with 4 options + progress bar at top
+- QUIZ-02: MCQ instant feedback — correct option highlights green with checkmark, wrong selection highlights red with X, correct answer revealed when wrong
+- QUIZ-03: Essay/short-answer questions show textarea input, on submit reveals model answer in highlighted box (no AI grading)
+- QUIZ-04: Math + structure rendered via KaTeX + Markdown (`src/components/rendered-content.tsx` using react-markdown + remark-math + rehype-katex) in questions, options, and answers
+- QUIZ-05: End screen shows score summary ("Bạn đúng X/Y câu") with percentage bar and restart/home actions
+- QUIZ-06: Quiz attempts persisted via `saveQuizAttempt` server action — creates QuizAttempt (user, đề, subject, score, total, percentage, completed_at) + per-question QuizAnswer rows
+
+**Also shipped (auth infrastructure):**
+- `src/lib/session.ts` — JWT cookie session via jose (createSession, getSession, clearSession)
+- `src/lib/auth.ts` — loginAction, signupAction, logoutAction server actions with bcryptjs
+- `src/middleware.ts` — protects all routes except /login, redirects unauthenticated users
+- `src/app/login/page.tsx` — login form with demo credentials hint
+- Demo user seeded (demo / demo1234) in seed.mts
+
+**Tests:**
+- TypeScript: `npx tsc --noEmit` passes with 0 errors
+- Seed: `npm run seed` → 8 de_thi, 60 questions, demo user created
+- Dev server: Login page returns 200, middleware redirects unauthenticated /quiz/* to /login, search API returns đề with quiz links
+- Quiz page compiles without errors in Turbopack
+
+**Decisions / Risks:**
+- Auth infrastructure (Phase 2) was missing from working directory — recreated minimal version to support quiz persistence
+- `rendered-content.tsx` is a client component (needs `"use client"` for react-markdown)
+- Score counts only MCQ correctness; essay answers stored with `isCorrect: null`
+- KaTeX CSS imported globally via `katex/dist/katex.min.css` in the renderer component
+
 ## Needs Human Review
 
 - Subject pivot from THPT to college-level (Accounting/Banking/Business) was directed by user mid-session. PRD §13.2 keyword tables and REQUIREMENTS.md still reference THPT subjects — should be updated in a future pass.
 
 ---
-*Last updated: 2026-06-26 after Phase 3 completion*
+*Last updated: 2026-06-26 after Phase 5 completion*

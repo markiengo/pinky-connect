@@ -45,6 +45,9 @@ desktop.ini
 *.swp
 *.swo
 
+# Test artifacts
+cookies.txt
+
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts

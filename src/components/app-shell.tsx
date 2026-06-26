@@ -6,15 +6,12 @@ import {
   BookOpen,
   GraduationCap,
   Home,
-  LayoutGrid,
   LogOut,
-  Settings,
 } from "lucide-react";
-import { logout } from "@/app/(auth)/actions";
+import { logoutAction as logout } from "@/lib/auth";
 
 const navItems = [
   { href: "/", icon: Home, label: "Trang chủ" },
-  { href: "/subjects", icon: LayoutGrid, label: "Môn học" },
   { href: "/practice", icon: BookOpen, label: "Luyện đề" },
 ] as const;
 
@@ -69,15 +66,6 @@ export function AppShell({
             {username.charAt(0).toUpperCase()}
           </div>
         )}
-
-        {/* settings */}
-        <Link
-          href="/settings"
-          title="Cài đặt"
-          className="grid place-items-center w-10 h-10 rounded-full text-text-muted transition-all duration-150 hover:bg-surface hover:text-ink hover:-translate-y-px"
-        >
-          <Settings className="w-[17px] h-[17px]" />
-        </Link>
 
         {/* logout */}
         <form action={logout}>

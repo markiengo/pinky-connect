@@ -4,9 +4,9 @@ import { AppShell } from "@/components/app-shell";
 import { getSession } from "@/lib/session";
 
 const statCards = [
-  { n: "3", label: "môn học\nsẵn sàng", color: "bg-c-pink", href: "/subjects" },
-  { n: "4", label: "đề thi\ntrong kho", color: "bg-c-mint", href: "/practice" },
-  { n: "0", label: "bài đã\nluyện tập", color: "bg-c-lilac", href: "/practice" },
+  { n: "3", label: "môn học\nsẵn sàng", color: "bg-c-pink", href: "/practice" },
+  { n: "8", label: "đề thi\ntrong kho", color: "bg-c-mint", href: "/practice" },
+  { n: "60", label: "câu hỏi\nđã soạn", color: "bg-c-lilac", href: "/practice" },
 ] as const;
 
 interface SubjectCard {
@@ -20,32 +20,32 @@ interface SubjectCard {
 
 const subjectCards: SubjectCard[] = [
   {
-    tag: "Toán",
-    title: "Đề thi THPT QG 2024 – Toán",
-    meta: "Bộ GD&ĐT",
+    tag: "Kế toán",
+    title: "Đề thi Nguyên lý Kế toán – FTU",
+    meta: "ĐH Ngoại thương",
     color: "bg-c-pink",
-    rating: "4.8",
+    rating: "10 câu",
   },
   {
-    tag: "Vật Lý",
-    title: "Đề thi THPT QG 2024 – Vật Lý",
-    meta: "Bộ GD&ĐT",
+    tag: "Tài chính",
+    title: "Đề thi Tài chính – Tiền tệ – HVNH",
+    meta: "Học viện Ngân hàng",
     color: "bg-c-cream border border-ink/7",
-    rating: "4.9",
+    rating: "9 câu",
   },
   {
-    tag: "Hóa Học",
-    title: "Đề thi THPT QG 2024 – Hóa Học",
-    meta: "Bộ GD&ĐT",
+    tag: "Quản trị",
+    title: "Đề thi Quản trị Marketing – ĐH Mở TP.HCM",
+    meta: "ĐH Mở TP.HCM",
     color: "bg-c-lilac",
-    rating: "4.8",
+    rating: "9 câu",
   },
   {
-    tag: "Luyện thêm",
-    title: "Đề thi thử Toán – Sở Hà Nội 2024",
-    meta: "Sở GD&ĐT Hà Nội",
+    tag: "Ngân hàng",
+    title: "Đề thi Ngân hàng Thương mại – ĐH Kinh tế Đà Nẵng",
+    meta: "ĐH Kinh tế Đà Nẵng",
     color: "bg-c-blue",
-    rating: "Top 10",
+    rating: "7 câu",
     isTop: true,
   },
 ];
@@ -89,7 +89,7 @@ export default async function Home() {
 
       {/* ── Filter tabs ── */}
       <div className="flex gap-2 items-center mb-6 overflow-hidden">
-        {["Tất cả", "Toán", "Vật Lý", "Hóa Học"].map((label, i) => (
+        {["Tất cả", "Kế toán", "Tài chính", "Quản trị"].map((label, i) => (
           <button
             key={label}
             className={`inline-flex items-center gap-2 h-11 px-[18px] rounded-pill text-[13px] font-bold whitespace-nowrap transition-all duration-150 ${
