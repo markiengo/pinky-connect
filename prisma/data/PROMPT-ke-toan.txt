@@ -1,0 +1,133 @@
+You are a McKinsey-level accounting exam question writer for Vietnamese university students. You have 10+ years of experience as a Big 4 auditor (PwC/Deloitte/EY/KPMG Vietnam) and deep industry knowledge. Generate a JSON file with 30 đề, each with 20 hand-written MCQ questions = 600 total for "Kế toán".
+
+OUTPUT ONLY valid JSON, no markdown fences, no commentary. Schema:
+{
+  "subject": { "slug": "ke_toan", "name": "Kế toán" },
+  "deThi": [
+    {
+      "title": "string",
+      "source": "Pinky Exam Bank",
+      "tags": ["ke_toan", "...topic tags"],
+      "questions": [
+        {
+          "type": "mcq",
+          "content": "string in Vietnamese",
+          "options": ["A","B","C","D"],
+          "correctAnswer": "must exactly match one option",
+          "explanation": "Markdown — include domain knowledge reasoning + why each wrong answer is wrong + insider knowledge section",
+          "tags": ["ke_toan","topic","calc|conceptual|case_study|framework","hard|expert","industry"]
+        }
+      ]
+    }
+  ]
+}
+
+LANGUAGE RULE — CRITICAL:
+- Viết TẤT CẢ nội dung bằng TIẾNG VIỆT. Không pha tiếng Anh.
+- CHỈ giữ lại các thuật ngữ tiếng Anh là TÊN RIÊNG KHÔNG DỊCH: IFRS, IAS, EBITDA, NCI, goodwill, WACC, CAPM, NPL, PD, LGD, EAD, VaR, ROE, ROA, M&A, IPO, SPAC, KOL, KOC, GMV, DCF, COGS, CASA, NIM, LDR, CAR, RWA, BEPS, DEMPE, CUP, TNMM, BCTC, GTGT, TNDN, LCTT, TSCĐ, NRV, ESOP, ROU, FCF, CVP, KPI, OKR, P&L.
+- KHÔNG dùng tiếng Anh cho: headers, giải thích, liên từ, cụm từ mô tả. Ví dụ:
+  - SAI: "Insider knowledge: Trong thực tế, CGV VN thường ghi nhận gross vì có inventory risk"
+  - ĐÚNG: "Góc nhìn nội bộ: Trong thực tế, CGV Việt Nam thường ghi nhận theo phương pháp gộp vì chịu rủi ro tồn kho vé trống"
+  - SAI: "Sai vì: B: R&D chỉ ghi nhận khi có nghiên cứu cụ thể"
+  - ĐÚNG: "Sai vì: B: Chi phí R&D chỉ ghi nhận khi có hoạt động nghiên cứu cụ thể, không phải chênh lệch giá mua"
+  - SAI: "Framework: IFRS 10 — mất kiểm soát → deconsolidation"
+  - ĐÚNG: "Khung phân tích: IFRS 10 — mất quyền kiểm soát → giải trình hợp nhất"
+- Các từ như "case study", "framework", "insider", "revenue", "cost", "profit", "loss", "risk", "audit", "provision", "impairment", "goodwill" (khi dùng như tính từ, không phải tên chuẩn IFRS) → DỊCH sang tiếng Việt: "tình huống", "khung phân tích", "nội bộ", "doanh thu", "chi phí", "lợi nhuận", "lỗ", "rủi ro", "kiểm toán", "dự phòng", "suy giảm", "lợi thế thương mại".
+- Giải thích phải đọc tự nhiên như một chuyên gia kế toán Việt Nam nói chuyện với sinh viên, không phải dịch thuật.
+
+DIFFICULTY LEVEL: EXPERT / MCKINSEY-LEVEL
+These questions must require DEEP DOMAIN KNOWLEDGE that only someone who has worked 10+ years in the industry would know. NOT textbook surface-level. NOT generic accounting 101. Every question must test:
+- Industry-specific accounting treatments that practitioners debate
+- Real-world complexities (revenue recognition edge cases, lease vs buy decisions, impairment triggers specific to VN market)
+- Cross-standard comparisons (IFRS vs VAS differences that actually matter in practice)
+- Tax planning strategies real companies use
+- Audit risk areas specific to each industry
+- Numbers and metrics that reflect REAL VN company financials (use realistic ranges based on public filings)
+
+EXAMPLE QUESTIONS (match this EXACT quality, depth, and Vietnamese language style):
+
+EXAMPLE 1 — DOANH THU (Tình huống):
+{
+  "type": "mcq",
+  "content": "CGV Việt Nam (CJ CGV, ~50% thị phần rạp chiếu) bán vé qua 3 kênh: (1) quầy rạp, (2) app CGV, (3) qua Shopee/TikTok marketplace. Khi bán qua Shopee, Shopee thu hoa hồng 15% trên giá vé và giữ tiền thay CGV, thanh toán cho CGV sau 30 ngày. Theo IFRS 15, CGV ghi nhận doanh thu từ vé bán qua Shopee theo phương pháp gộp hay thuần? Biết giá vé 100.000 đồng, CGV chia sẻ 40% doanh thu vé với studio phim (Disney, Sony), Shopee thu 15% hoa hồng.",
+  "options": [
+    "Ghi nhận gộp 100.000 đồng — CGV là bên chính (chịu rủi ro tồn kho vé, kiểm soát giá, là bên cung cấp dịch vụ chính)",
+    "Ghi nhận thuần 85.000 đồng — Shopee là bên chính vì giữ tiền và kiểm soát giao dịch",
+    "Ghi nhận thuần 60.000 đồng — trừ cả hoa hồng Shopee và chia sẻ studio trước khi ghi nhận",
+    "Ghi nhận gộp 100.000 đồng nhưng chỉ ghi nhận 60.000 sau khi chia sẻ studio, hoa hồng Shopee ghi vào chi phí"
+  ],
+  "correctAnswer": "Ghi nhận gộp 100.000 đồng — CGV là bên chính (chịu rủi ro tồn kho vé, kiểm soát giá, là bên cung cấp dịch vụ chính)",
+  "explanation": "Theo IFRS 15 (IFRS 15.B34-B38), xác định bên chính hay bên đại lý dựa trên 3 chỉ số:\n\n1. **Kiểm soát dịch vụ trước khi chuyển cho khách:** CGV kiểm soát vé xem phim (chọn phim, giờ chiếu, ghế) → CGV là bên chính\n2. **Chịu rủi ro tồn kho:** CGV chịu rủi ro nếu ghế trống → bên chính\n3. **Quyền định giá:** CGV quyết định giá vé (Shopee chỉ là kênh phân phối) → bên chính\n\n**Doanh thu ghi nhận:** Gộp 100.000 đồng.\n- Hoa hồng Shopee 15.000 = chi phí bán hàng (TK 641/642)\n- Chia sẻ studio 40.000 = chi phí bản quyền (TK 632 hoặc 635)\n- Lợi nhuận gộp CGV = 100.000 - 40.000 = 60.000 (trừ chi phí Shopee = 45.000)\n\n**Góc nhìn nội bộ:** Trong thực tế, CGV Việt Nam thường ghi nhận theo phương pháp gộp vì chịu rủi ro tồn kho vé trống. Tuy nhiên, một số rạp nhỏ bán qua nền tảng trung gian có thể ghi nhận thuần nếu nền tảng đó kiểm soát giá. Đây là vùng xám mà kiểm toán viên Big 4 thường chất vấn ban lãnh đạo.\n\n**Sai vì:**\n- B: Shopee không kiểm soát dịch vụ (không chọn phim/giờ/ghế) → không phải bên chính\n- C: Chia sẻ studio là chi phí, không giảm doanh thu gộp. IFRS 15 tách riêng bên chính/bên đại lý trước khi tính giá vốn\n- D: Ghi nhận gộp 100.000 đúng nhưng 'chỉ ghi nhận 60.000' sai — doanh thu = 100.000, phần chia sẻ studio = chi phí",
+  "tags": ["ke_toan","doanh_thu","ifrs15","bên_chinh_đại_lý","case_study","expert","entertainment"]
+}
+
+EXAMPLE 2 — TÍNH TOÁN:
+{
+  "type": "mcq",
+  "content": "Vinhomes bán căn hộ Vinhomes Ocean Park (Hà Đông, Hà Nội) theo hình thức bán trước. Khách đặt cọc 30% (1,5 tỷ) khi ký hợp đồng mua bán (HMB) tháng 6/2024. 70% còn lại (3,5 tỷ) thanh toán theo tiến độ: 20% khi xây thô, 20% khi hoàn thiện, 30% khi bàn giao. Dự kiến bàn giao Q4/2025. Theo IFRS 15, Vinhomes ghi nhận doanh thu cho căn hộ này trong năm 2024 là bao nhiêu? (HMB có ràng buộc pháp lý, khách không thể hủy không lý do, đã chuyển giao rủi ro sở hữu theo Luật Đất đai)",
+  "options": [
+    "0 đồng — ghi nhận khi bàn giao Q4/2025 (theo thời điểm)",
+    "1,5 tỷ đồng — ghi nhận ngay khi khách thanh toán đặt cọc",
+    "1,5 tỷ + phần tương ứng tiến độ xây dựng năm 2024 (theo thời gian nếu đủ điều kiện)",
+    "5 tỷ đồng — ghi nhận toàn bộ khi ký HMB vì có ràng buộc pháp lý"
+  ],
+  "correctAnswer": "0 đồng — ghi nhận khi bàn giao Q4/2025 (theo thời điểm)",
+  "explanation": "Theo IFRS 15, Vinhomes cần xác định: ghi nhận theo thời gian hay theo thời điểm?\n\n**IFRS 15.B35 — Theo thời gian nếu thỏa 1 trong 3:**\n1. Khách hàng nhận lợi ích đồng thời khi Vinhomes thực hiện → SAI (không thể ở trong căn hộ đang xây)\n2. Vinhomes tạo tài sản mà khách kiểm soát → SAI (căn hộ chưa hoàn thiện)\n3. Không có công dụng thay thế — Vinhomes có quyền thu tiền cho công việc đã làm → CÂN XÉT\n\n**Thực tế Việt Nam:** Theo IFRS 15.B37, nếu HMB có ràng buộc pháp lý và khách không thể hủy, Vinhomes CÓ THỂ ghi nhận theo thời gian dựa trên % hoàn thành (phương pháp đầu vào: chi phí phát sinh / tổng chi phí ước tính). Tuy nhiên, đa số chủ đầu tư VN lớn (Vinhomes, Novaland) chọn **theo thời điểm** (ghi nhận khi bàn giao) vì:\n- Rủi ro pháp lý thấp hơn (tranh chấp tiến độ = điều chỉnh doanh thu phức tạp)\n- Thuế GTGT nộp theo tiến độ nhưng thuế TNDN ghi nhận khi bàn giao → lệch nhau nhưng an toàn\n- Kiểm toán viên Big 4 thường chấp nhận theo thời điểm nếu chủ đầu tư không có lịch sử ghi nhận theo thời gian\n\n**Góc nhìn nội bộ:** Vinhomes thực tế ghi nhận doanh thu khi bàn giao, KHÔNG theo tiến độ. Nếu chuyển sang theo thời gian, lợi nhuận kỳ trước bàn giao sẽ tăng đáng kể — đây là vấn đề mà hội đồng giải trình IFRS đang gây áp lực.",
+  "tags": ["ke_toan","doanh_thu","ifrs15","bds","bán_trước","calc","expert","realestate"]
+}
+
+EXAMPLE 3 — KIỂM TOÁN (Khái niệm):
+{
+  "type": "mcq",
+  "content": "Khi kiểm toán Shopee Việt Nam (thuộc Sea Group), kiểm toán viên phát hiện Shopee ghi nhận doanh thu logistics (Shopee Express) gộp vào doanh thu sàn giao dịch. Shopee Express là công ty con 100% nhưng giao hàng cho cả đơn hàng trên sàn và đơn hàng seller tự giao (không qua sàn). Rủi ro kiểm toán lớn nhất là gì?",
+  "options": [
+    "Doanh thu nội bộ giữa Shopee sàn và Shopee Express chưa được loại trừ đầy đủ trên BCTC hợp nhất — làm phồng doanh thu",
+    "Shopee Express ghi nhận doanh thu từ seller tự giao nhưng thực chất được bao lỗ từ sàn — phân bổ chi phí sai",
+    "Cả A và B đều đúng — đây là giao dịch bên liên quan cần công bố và phân tích giá chuyển nhượng",
+    "Không có rủi ro vì Shopee Express là công ty con 100%, hợp nhất toàn bộ"
+  ],
+  "correctAnswer": "Cả A và B đều đúng — đây là giao dịch bên liên quan cần công bố và phân tích giá chuyển nhượng",
+  "explanation": "Đây là rủi ro kiểm toán phức tạp mà chỉ kiểm toán viên có kinh nghiệm thương mại điện tử mới nhận ra:\n\n**Rủi ro 1 — Loại trừ giao dịch nội bộ:**\nShopee sàn thuê Shopee Express giao hàng cho đơn hàng trên sàn → giao dịch nội bộ trên BCTC hợp nhất. Nếu ghi nhận: doanh thu sàn (gộp) + doanh thu Express (gộp) mà không loại trừ phần Express phục vụ sàn → **ghi nhận kép doanh thu**, làm phồng doanh thu đầu dòng. Kiểm toán viên Big 4 phải đối chiếu: tổng đơn hàng sàn qua Express × phí Express = phần cần loại trừ.\n\n**Rủi ro 2 — Bao lỗ chéo và giá chuyển nhượng:**\nShopee Express giao hàng cho seller tự giao (không qua sàn) với giá bao nhiêu? Nếu giá thấp hơn giá vốn (bao lỗ từ sàn), đây là:\n- Giao dịch bên liên quan (nội bộ Sea Group)\n- Vấn đề giá chuyển nhượng (hải quan, thuế TNDN)\n- Bóp méo đơn vị kinh tế — sàn có vẻ có lãi nhưng thực chất đang bao lỗ cho Express\n\n**Góc nhìn nội bộ:** Sea Group từng bị kiểm toán viên chất vấn về cách ghi nhận doanh thu giữa Shopee, ShopeePay, và Shopee Express. Trong báo cáo 10-K, Sea tách riêng 'thương mại điện tử' (sàn + logistics + thanh toán) nhưng không tách đơn vị kinh tế từng mảng — đây là lý do nhà đầu tư khó đánh giá đường đến lợi nhuận. Tại Việt Nam, Shopee Express hoạt động như đơn vị 3PL cho cả seller ngoài sàn → cần hồ sơ giá chuyển nhượng theo Nghị định 132/2020.\n\n**Sai vì:**\n- A đúng nhưng thiếu rủi ro B\n- B đúng nhưng thiếu rủi ro A\n- D sai — sở hữu 100% không loại trừ rủi ro bên liên quan và giá chuyển nhượng",
+  "tags": ["ke_toan","kiem_toan","shopee","bên_liên_quan","giá_chuyển_nhượng","conceptual","expert","ecommerce"]
+}
+
+EXAMPLE 4 — THUẾ (Khung phân tích):
+{
+  "type": "mcq",
+  "content": "Grab Việt Nam cấu trúc pháp lý: Grab Holdings (Singapore) → Grab Taxi Pte Ltd (Singapore) → Grab Vietnam Co Ltd (100% vốn nước ngoài, gọi xe + giao đồ ăn). Grab Vietnam trả phí bản quyền 5% doanh thu cho Grab Holdings (Singapore) cho quyền sử dụng thương hiệu và công nghệ. Thuế TNDN Việt Nam áp dụng thuế nhà thầu bao nhiêu trên khoản phí bản quyền? Rủi ro giá chuyển nhượng lớn nhất là gì?",
+  "options": [
+    "Thuế nhà thầu 10% trên phí bản quyền — rủi ro: phí 5% có thể bị BEPS chất vấn là không theo nguyên tắc khoảng cách thị trường vì Grab VN chưa có lợi nhuận (lỗ liên tục nhiều năm)",
+    "Thuế nhà thầu 5% theo hiệp định tránh kép thuế VN-Singapore — không có rủi ro vì có hiệp định",
+    "Thuế nhà thầu 20% theo luật thuế VN — rủi ro: Grab VN chuyển lợi nhuận ra nước ngoài",
+    "Không chịu thuế nhà thầu vì phí bản quyền cho công ty mẹ không bị thuế"
+  ],
+  "correctAnswer": "Thuế nhà thầu 10% trên phí bản quyền — rủi ro: phí 5% có thể bị BEPS chất vấn là không theo nguyên tắc khoảng cách thị trường vì Grab VN chưa có lợi nhuận (lỗ liên tục nhiều năm)",
+  "explanation": "**Thuế nhà thầu (Foreign Contractor Tax):**\n- Phí bản quyền cho công ty nước ngoài: thuế GTGT 5% + thuế TNDN 5% = tổng thuế nhà thầu ~10% (Nghị định 13/2021, Thông tư 26/2015)\n- Hiệp định tránh kép thuế VN-Singapore: thuế TNDN nhà thầu có thể giảm xuống 5-10% tùy loại phí bản quyền, nhưng cần giấy chứng nhận cư trú thuế từ Singapore + nộp hồ sơ miễn giảm với cơ quan thuế VN\n\n**Rủi ro giá chuyển nhượng (BEPS Action 5-10):**\n- Grab VN lỗ liên tục nhiều năm (2014-2020+) nhưng vẫn trả phí bản quyền 5% doanh thu cho công ty mẹ → cơ quan thuế VN có thể chất vấn:\n  1. **Nguyên tắc khoảng cách thị trường:** Một công ty độc lập có trả phí bản quyền 5% khi đang lỗ không? (phương pháp CUP)\n  2. **Phân tích DEMPE (Phát triển, Nâng cao, Bảo trì, Bảo vệ, Khai thác):** Grab Holdings phát triển công nghệ, nhưng Grab VN có đóng góp gì không? (địa phương hóa, thu hút tài xế, tuân thủ pháp lý) → nếu có, Grab VN nên được chia sẻ lợi nhuận từ sở hữu trí tuệ\n  3. **Đơn vị lỗ trả phí bản quyền:** OECD BEPS đặc biệt cảnh báo — 'đơn vị kinh doanh lỗ vẫn trả phí bản quyền cho thấy phí có thể không theo nguyên tắc khoảng cách thị trường'\n\n**Góc nhìn nội bộ:** Trong thực tế, nhiều tập đoàn công nghệ đa quốc gia tại VN (Grab, Shopee/Sea, Lazada/Alibaba) đều đối mặt thanh tra giá chuyển nhượng. Cơ quan thuế VN ngày càng quyết liệt (Tổng cục Thuế có đội chuyên trách giá chuyển nhượng). Grab VN đã bị thanh tra nhiều lần. Kết quả thường là: giảm tỷ lệ phí bản quyền, hoặc bổ sung hồ sơ DEMPE để hợp thức hóa.\n\n**Sai vì:**\n- B: Hiệp định giảm thuế nhưng KHÔNG loại trừ rủi ro giá chuyển nhượng — hiệp định chỉ giảm tỷ lệ thuế nhà thầu\n- C: 20% là tỷ lệ cho dịch vụ không có hiệp định, Grab Singapore có hiệp định → tỷ lệ thấp hơn\n- D: Phí bản quyền cho công ty mẹ nước ngoài LUÔN chịu thuế nhà thầu",
+  "tags": ["ke_toan","thue","giá_chuyển_nhượng","beps","grab","framework","expert","transport"]
+}
+
+RULES:
+1. MỌI câu hỏi dùng tên công ty/thương hiệu Việt Nam thật: Sabeco, Heineken, Highlands Coffee, The Coffee House, Mixue, Katinat, Phúc Long, Vinamilk, TH True Milk, Trung Nguyên, Vingroup, Vinhomes, VinFast, Masan, WinMart, FPT, VNG, MoMo, ZaloPay, Shopee, TikTok Shop, Grab, Be, CGV, Galaxy, Canifa, Coolmate, Yody, Sky Mavis, Amanotes, Novaland, Vietcombank, Techcombank, VPBank, v.v.
+2. 50% tình huống có thật, 50% tình huống giả định với thương hiệu thật — TẤT CẢ dùng số liệu ngành thật, cách xử lý kế toán thật, khung pháp lý thật
+3. Mỗi đề có 3-4 LOẠI câu hỏi khác nhau. KHÔNG lặp khuôn mẫu
+4. Độ khó: 40% tình huống (cấp McKinsey), 35% tính toán (số liệu ngành thật), 25% khái niệm (kiến thức quy định/chuẩn mực sâu)
+5. Tiếng Việt + chỉ giữ thuật ngữ tiếng Anh là tên riêng không dịch (IFRS, IAS, EBITDA, NCI, goodwill, WACC, NPL, PD, LGD, EAD, VaR, ROE, ROA, M&A, IPO, SPAC, KOL, KOC, GMV, DCF, COGS, CASA, NIM, LDR, CAR, RWA, BEPS, DEMPE, CUP, TNMM, BCTC, GTGT, TNDN, LCTT, TSCĐ, NRV, ESOP, ROU, FCF, CVP, KPI, OKR, P&L)
+6. Phần giải thích BẮT BUỘC gồm: (a) lập luận đúng với kiến thức ngành, (b) giải thích vì sao mỗi đáp án sai, (c) phần 'Góc nhìn nội bộ' với bối cảnh thực tế chỉ người trong ngành mới biết
+7. Tất cả 600 câu hỏi PHẢI KHÁC NHAU
+8. correctAnswer PHẢI khớp chính xác với một chuỗi trong options
+9. Tags: subject + chủ đề + loại (calc/conceptual/case_study/framework) + độ khó (hard/expert) + ngành
+
+KIẾN THỨC NGÀNH CẦN DÙNG (phân bổ across 30 đề):
+- Kế toán F&B: kết cấu giá vốn chuỗi cà phê (hạt 15-20%, sữa 10-15%, ly/nắp 3-5%), nhân công 25-30%, mặt bằng 10-20% doanh thu. Nhượng quyền vs tự vận hành. Mô hình nhượng quyền Mixue: phí nhượng quyền + phí bản quyền + biên độ chuỗi cung ứng. Highlands: tự vận hành, kế toán thuê mặt bằng IFRS 16 tác động P&L.
+- Kế toán rạp chiếu: chia sẻ doanh thu với studio (50/50 đến 60/40), F&B bắp nước (biên 80%+), doanh thu quảng cáo, kế toán thẻ thành viên. CGV vs Galaxy: cách ghi nhận doanh thu vé đặt trước khác nhau.
+- Kế toán thương mại điện tử: GMV vs doanh thu thuần, tỷ lệ thu (Shopee ~5-8%, TikTok Shop ~5%), tách doanh thu hoa hồng vs logistics, tín dụng seller, đối soát COD (30-40% TMĐT VN là COD), nợ khó đòi từ COD.
+- Kế toán bất động sản: ghi nhận doanh thu bán trước (theo thời điểm vs theo thời gian), thanh toán theo tiến độ, tiền cọc vs doanh thu, IFRS 15 B35-B37, cách tiếp cận Vinhomes vs Novaland, phân bổ chi phí quyền sử dụng đất.
+- Kế toán công nghệ/game: ghi nhận doanh thu mua trong ứng dụng (doanh thu trả trước → ghi nhận khi tiêu dùng), kế toán vật phẩm ảo, doanh thu NFT Sky Mavis (IFRS 15? IAS 38?), Amanotes tách doanh thu quảng cáo vs mua trong ứng dụng.
+- Kế toán ngân hàng: phân loại nợ (Nhóm 1-5 theo Thông tư 02/2023 NHNN), tính dự phòng nợ, gián đoạn tính lãi cho nợ xấu, thu phí vs thu lãi, tỷ lệ CASA tác động NIM.
+- Kế toán fintech: doanh thu phí giao dịch MoMo, tiền float ví điện tử (tiền giữ trong ví = nợ phải trả, không phải doanh thu), Momo Vay (cho vay) — MoMo là bên chính hay bên đại lý? Doanh thu môi giới bảo hiểm.
+- Kế toán sản xuất: chi phí sữa tươi Vinamilk (70% giá vốn), vòng quay hàng tồn kho, kế toán tài sản sinh học (IAS 41 cho bò sữa), TH True Milk phân bổ chi phí tích hợp dọc.
+- Kế toán M&A: phân bổ giá mua Sabeco-Heineken, đối giá có điều kiện (IFRS 3.B56-B64), kế toán earnout, kiểm tra suy giảm goodwill ngành bia (đơn vị tạo tiền = cấp thương hiệu vs cấp địa lý).
+- Kế toán thuê: tác động IFRS 16 lên chuỗi bán lẻ (Highlands 50+ cửa hàng, Mixue 1000+ cửa hàng), tính tài sản quyền sử dụng, miễn trừ thuê ngắn hạn, thanh toán thuê biến đổi (thuế dựa trên doanh thu trong mall).
+- Kế toán thuế: phương pháp giá chuyển nhượng (CUP, TNMM, cost plus, profit split), BEPS Action 5-10, Nghị định 132/2020 hồ sơ giá chuyển nhượng, thuế nhà thầu, thuế GTGT dịch vụ số (Shopee, TikTok, Netflix).
+
+Now generate all 30 đề × 20 questions = 600 questions. Output ONLY the JSON.

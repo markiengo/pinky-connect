@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { searchDeThi } from "@/lib/search-service";
 import { normalizeAndTokenize } from "@/lib/vietnamese";
+import { getSession } from "@/lib/session";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
@@ -37,6 +38,15 @@ async function extractPdfText(file: File): Promise<string> {
 
 export async function POST(request: NextRequest) {
   try {
+    const session = await getSession();
+    if (!session) {
+      return errorResponse(
+        "Vui lòng đăng nhập để sử dụng tính năng này.",
+        "UNAUTHORIZED",
+        401,
+      );
+    }
+
     const formData = await request.formData();
     const prompt = (formData.get("prompt") as string | null)?.trim() ?? "";
     const files = formData.getAll("files").filter((f) => f instanceof File) as File[];
@@ -81,7 +91,7 @@ export async function POST(request: NextRequest) {
     }
 
     // ── Session prompt counting via cookie ──
-    const cookieName = "pinky_prompt_count";
+    const cookieName = "crambox_prompt_count";
     let promptCount = 0;
     const existingCookie = request.cookies.get(cookieName);
     if (existingCookie) {

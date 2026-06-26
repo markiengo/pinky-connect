@@ -4,13 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What This Repo Is
 
-**AI Exam Prep App** — a Vietnamese THPT exam-prep web app. Students find practice đề, take quizzes, and track progress. Zero-cost AI (deterministic Vietnamese normalization + keyword/tag matching, no paid LLM).
+**Crambox** — a Vietnamese university exam-prep web app. Students find practice đề, take quizzes, and track progress. Zero-cost AI (deterministic Vietnamese normalization + keyword/tag matching, no paid LLM).
 
-**Stack**: Next.js 16 (App Router) + TypeScript + Tailwind v4 + shadcn/ui, Prisma + SQLite (local-first), bcryptjs + jose for auth.
+**Stack**: Next.js 16 (App Router, Turbopack dev) + TypeScript + Tailwind v4 + shadcn/ui, Prisma + SQLite (local dev) / PostgreSQL via Supabase (production), bcryptjs + jose for auth. Railway deploy auto-swaps Prisma provider from `sqlite` to `postgresql` in the build step.
 
-**Source of truth**: `prd.md` (product requirements).
+**Source of truth**: `docs/prd.md` (product requirements).
 
-**Design reference**: `ref/analysis.md` (design extraction & implementation guide). Design tokens live in `src/app/globals.css`. NEVER ship Angleton Script font (personal-use-only license).
+**Design reference**: `asset/ref/analysis.md` (design extraction & implementation guide). Design tokens live in `src/app/globals.css`. NEVER ship Angleton Script font (personal-use-only license).
 
 **Platform**: Windows 11, PowerShell. Use PowerShell syntax in Bash commands.
 
@@ -25,27 +25,78 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Build & Test
 
-```bash
-npm run dev     # dev server on port 3000
-npm run build   # production build
-npm run seed    # seed database (subjects, đề, demo user)
+```powershell
+npm run dev     # dev server on port 3001 (Turbopack)
+npm run build   # production build (prisma generate + next build)
+npm run seed    # seed database (5 subjects, 150 đề, 3,000 questions, 2 users)
 npm run lint    # lint
+npx vitest run  # unit tests (35 tests: vietnamese, subject-detection, matching)
 ```
 
 ## Repo Structure
 
 ```
 src/
-  app/            # Next.js App Router pages (landing, login, signup, dashboard, library, practice, quiz, history, profile)
-  components/     # Reusable components (app-shell, chatbox, quiz-client, charts, de-pane-card, de-thi-card, etc.)
-  lib/            # Utilities (db, auth, session, matching, quiz, history, vietnamese, etc.)
-  middleware.ts   # Route protection (redirects anon to /login)
-prisma/           # Prisma schema + seed script
-ref/              # Design extraction & reference images
-prd.md            # Product requirements document (source of truth)
-AGENTS.md         # Agent read-order and intake rules
-CLAUDE.md         # This file
+  app/              Next.js App Router pages + API routes
+    api/            API routes (search, dev-clear-session)
+    dashboard/      Dashboard page
+    history/        Quiz history page
+    library/        Exam library page
+    login/          Login page
+    practice/       Chatbox page
+    pricing/        Pricing page
+    profile/        Profile page
+    quiz/[deThiId]  Quiz taking page
+    signup/         Signup page
+    layout.tsx      Root layout (CursorGlow, ClearStorage, DevAutoLogout)
+    page.tsx        Landing page
+    globals.css     Design tokens, animations, global styles
+  components/       UI components
+    app-shell.tsx       Desktop sidebar + mobile bottom nav
+    chatbox.tsx         Multi-chat AI search interface (in-memory sessions)
+    quiz-client.tsx     Quiz taking (MCQ + essay, inline explanations)
+    charts.tsx          Recharts score progression + subject averages
+    de-pane-card.tsx    Library exam card
+    de-thi-card.tsx     Chatbox result card
+    premium-overlay.tsx Upsell modal when prompts run out
+    rendered-content.tsx  Markdown + KaTeX renderer
+    cursor-glow.tsx     Canvas cursor glow effect
+    clear-storage.tsx   Clears localStorage/sessionStorage on mount
+    dev-auto-logout.tsx Dev-only auto-logout on page unload
+  lib/              Business logic
+    auth.ts            Login/signup/logout server actions
+    session.ts         JWT session management (jose, httpOnly cookie)
+    db.ts              Prisma client singleton
+    quiz.ts            Quiz data fetching + attempt saving
+    history.ts         Quiz history + dashboard stats
+    search-service.ts  Search orchestration with 5-min cache
+    matching.ts        Tag matching + rule-based ranking engine
+    subject-detection.ts  Subject detection from keyword tables
+    vietnamese.ts      Vietnamese text normalization (strip diacritics, tokenize)
+    format-date.ts     Deterministic date formatting (no Intl API)
+    __tests__/         Unit tests (vitest)
+  proxy.ts          Middleware: route protection + auth redirect
+prisma/
+  schema.prisma     Database schema (SQLite locally, Postgres on Railway)
+  seed-hard.mts     Seed script (matches Supabase production data)
+  data/             JSON seed data (accounting, finance, business, legal, microecon)
+public/             Static assets (logo, backgrounds, faces, fonts)
+docs/
+  prd.md            Product requirements document (source of truth)
+  pricing-strategy.md  3-tier pricing strategy
+asset/ref/          Design extraction & reference images
+AGENTS.md           Agent read-order and intake rules
+CLAUDE.md           This file
 ```
+
+## Key Architecture Decisions
+
+- **Auth**: username/password (no OAuth). bcryptjs hash, JWT in httpOnly cookie (`session_v2`).
+- **Dev mode**: session cookie is session-only (no maxAge, cleared on browser close). Auto-logout on hard refresh/tab close via `pagehide` + `sendBeacon` to `/api/dev-clear-session`.
+- **Search**: zero-cost deterministic matching. Pipeline: normalize Vietnamese → detect subject → extract tags → match against đề tags → rank by score (tag overlap + subject boost + title keyword boost).
+- **Chatbox**: multi-chat sessions are in-memory only (no DB persistence). Sessions are ephemeral React state.
+- **Quiz**: MCQ + essay. Inline explanations (no modal). Correct=green (#5B8C5A), wrong=red (#C05656), essay answered=purple (#9F7AEA).
+- **Rendering**: react-markdown + remark-math + rehype-katex for math/Markdown in questions and explanations.
 
 ## Hook System
 

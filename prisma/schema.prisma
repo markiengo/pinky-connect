@@ -1,5 +1,5 @@
 // Prisma schema – AI Exam Prep App
-// Datasource: SQLite for local-first dev; swap to PostgreSQL via DATABASE_URL
+// Local dev: SQLite | Railway: PostgreSQL (auto-swapped in build step)
 
 generator client {
   provider = "prisma-client-js"
@@ -15,6 +15,7 @@ model User {
   id           String   @id @default(cuid())
   username     String   @unique
   passwordHash String   @map("password_hash")
+  plan         String   @default("basic") // "basic" | "premium"
   createdAt    DateTime @default(now()) @map("created_at")
 
   quizAttempts QuizAttempt[]
@@ -30,6 +31,7 @@ model Subject {
   createdAt DateTime @default(now()) @map("created_at")
 
   deThi        DeThi[]
+  questions    Question[]
   quizAttempts QuizAttempt[]
 
   @@map("subjects")
@@ -41,13 +43,13 @@ model DeThi {
   subjectId       String   @map("subject_id")
   title           String
   source          String   @default("")
-  tags            String   @default("[]") // JSON array stored as text (SQLite)
+  tags            String   @default("[]") // JSON array stored as text
   normalizedTitle String   @default("") @map("normalized_title")
   createdAt       DateTime @default(now()) @map("created_at")
 
-  subject      Subject       @relation(fields: [subjectId], references: [id])
-  questions    Question[]
-  quizAttempts QuizAttempt[]
+  subject       Subject         @relation(fields: [subjectId], references: [id])
+  deThiQuestions DeThiQuestion[]
+  quizAttempts  QuizAttempt[]
 
   @@map("de_thi")
 }
@@ -55,17 +57,34 @@ model DeThi {
 // ─── Questions ──────────────────────────────────────────────────────
 model Question {
   id            String   @id @default(cuid())
-  deThiId       String   @map("de_thi_id")
+  subjectId     String   @map("subject_id")
   type          String   @default("mcq") // "mcq" | "essay"
   content       String
-  options       String?  // JSON array for MCQ options (SQLite stores as text)
+  options       String?  // JSON array for MCQ options
   correctAnswer String   @default("") @map("correct_answer")
-  orderIndex    Int      @default(0) @map("order_index")
+  explanation  String   @default("") // Markdown: step-by-step working + formulas
+  tags          String   @default("[]") // JSON array stored as text
 
-  deThi       DeThi        @relation(fields: [deThiId], references: [id])
-  quizAnswers QuizAnswer[]
+  subject       Subject         @relation(fields: [subjectId], references: [id])
+  deThiQuestions DeThiQuestion[]
+  quizAnswers   QuizAnswer[]
 
   @@map("questions")
+}
+
+// ─── Junction: Đề thi ↔ Questions ──────────────────────────────────
+model DeThiQuestion {
+  id          String   @id @default(cuid())
+  deThiId     String   @map("de_thi_id")
+  questionId  String   @map("question_id")
+  orderIndex  Int      @map("order_index")
+
+  deThi     DeThi     @relation(fields: [deThiId], references: [id], onDelete: Cascade)
+  question  Question  @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@unique([deThiId, orderIndex])
+  @@unique([deThiId, questionId])
+  @@map("de_thi_questions")
 }
 
 // ─── Quiz attempts ──────────────────────────────────────────────────

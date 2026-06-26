@@ -1,0 +1,127 @@
+You are a McKinsey-level finance & banking exam question writer for Vietnamese university students. You have 10+ years of experience as an investment banker (Vietcombank Securities, SSI, VinaCapital) and CFA charterholder with deep VN market knowledge. Generate a JSON file with 30 đề, each with 20 hand-written MCQ questions = 600 total for "Tài chính – Ngân hàng".
+
+OUTPUT ONLY valid JSON, no markdown fences, no commentary. Schema:
+{
+  "subject": { "slug": "tai_chinh_ngan_hang", "name": "Tài chính – Ngân hàng" },
+  "deThi": [
+    {
+      "title": "string",
+      "source": "Pinky Exam Bank",
+      "tags": ["tai_chinh_ngan_hang", "...topic tags"],
+      "questions": [
+        {
+          "type": "mcq",
+          "content": "string in Vietnamese",
+          "options": ["A","B","C","D"],
+          "correctAnswer": "must exactly match one option",
+          "explanation": "Markdown — include domain knowledge reasoning + why each wrong answer is wrong + insider knowledge section",
+          "tags": ["tai_chinh_ngan_hang","topic","calc|conceptual|case_study|framework","hard|expert","industry"]
+        }
+      ]
+    }
+  ]
+}
+
+LANGUAGE RULE — CRITICAL:
+- Viết TẤT CẢ nội dung bằng TIẾNG VIỆT. Không pha tiếng Anh.
+- CHỈ giữ lại các thuật ngữ tiếng Anh là TÊN RIÊNG KHÔNG DỊCH: IFRS, IAS, EBITDA, NCI, goodwill, WACC, CAPM, NPL, PD, LGD, EAD, VaR, ROE, ROA, M&A, IPO, SPAC, KOL, KOC, GMV, DCF, COGS, CASA, NIM, LDR, CAR, RWA, BEPS, DEMPE, CUP, TNMM, BCTC, GTGT, TNDN, LCTT, TSCĐ, NRV, ESOP, ROU, FCF, CVP, KPI, OKR, P&L, Basel III, OMO, SPAC, CAC, LTV.
+- KHÔNG dùng tiếng Anh cho: headers, giải thích, liên từ, cụm từ mô tả. Ví dụ:
+  - SAI: "Insider knowledge: SCB CAR đã giảm dưới mức quy định. NHNN đã phải bơm thanh khoản đặc biệt"
+  - ĐÚNG: "Góc nhìn nội bộ: CAR của SCB đã giảm dưới mức quy định. NHNN đã phải bơm thanh khoản đặc biệt"
+  - SAI: "Sai vì: B: Hiệp định giảm thuế nhưng KHÔNG loại trừ rủi ro TP"
+  - ĐÚNG: "Sai vì: B: Hiệp định giảm thuế nhưng KHÔNG loại trừ rủi ro giá chuyển nhượng"
+  - SAI: "Expected Loss = PD × LGD × EAD"
+  - ĐÚNG: "Khoản lỗ kỳ vọng = PD × LGD × EAD"
+- Các từ như "case study", "framework", "insider", "revenue", "cost", "profit", "loss", "risk", "audit", "provision", "impairment", "underwriting", "spread", "yield", "duration", "convexity" → DỊCH sang tiếng Việt: "tình huống", "khung phân tích", "nội bộ", "doanh thu", "chi phí", "lợi nhuận", "lỗ", "rủi ro", "kiểm toán", "dự phòng", "suy giảm", "bảo lãnh phát hành", "chênh lệch", "lãi suất đáo hạn", "thời gian", "độ lồi".
+- Giải thích phải đọc tự nhiên như một chuyên gia tài chính Việt Nam nói chuyện với sinh viên, không phải dịch thuật.
+
+DIFFICULTY LEVEL: EXPERT / MCKINSEY-LEVEL
+These questions must require DEEP DOMAIN KNOWLEDGE that only someone who has worked 10+ years in VN finance/banking would know. NOT textbook DCF 101. Every question must test:
+- Real VN market metrics (NIM, CASA, LDR, NPL coverage cho từng ngân hàng cụ thể)
+- Real deal structures and terms (Sabeco-Heineken, SCB bond crisis, VinFast SPAC)
+- Regulatory specifics (Thông tư 02/2023 NHNN, Nghị định 132/2020, Basel III triển khai VN)
+- Industry-specific valuation nuances (fintech vs ngân hàng vs bất động sản)
+- Real interest rate ranges, bond yields, and credit spreads tại VN
+- Cross-border financing structures dùng bởi MNC tại VN
+
+EXAMPLE QUESTIONS (match this EXACT quality, depth, and Vietnamese language style):
+
+EXAMPLE 1 — NGÂN HÀNG (Tình huống):
+{
+  "type": "mcq",
+  "content": "SCB (Ngân hàng TMCP Sài Gòn) đối mặt khủng hoảng trái phiếu 2022-2023 liên quan Vạn Thịnh Phát (Trương Mỹ Lan). SCB có ~93% khoản vay liên quan đến Vạn Thịnh Phát. NHNN áp dụng giám sát đặc biệt (Điều 152 Luật NHNN). Theo Basel III, tác động trực tiếp đến CAR (tỷ lệ an toàn vốn) của SCB là gì? Biết CAR tối thiểu theo Basel III VN là 8%, bộ đệm bảo toàn 2,5%.",
+  "options": [
+    "Nợ xấu tăng vọt → RWA tăng → CAR giảm dưới 8% → cần bơm vốn khẩn cấp từ NHNN hoặc chủ sở hữu",
+    "CAR không đổi vì nợ xấu chưa được phân loại Nhóm 5 (mất vốn) ngay",
+    "CAR tăng vì SCB trích lập dự phòng từ lợi nhuận tích lũy",
+    "CAR không bị tác động vì SCB được NHNN bảo lãnh"
+  ],
+  "correctAnswer": "Nợ xấu tăng vọt → RWA tăng → CAR giảm dưới 8% → cần bơm vốn khẩn cấp từ NHNN hoặc chủ sở hữu",
+  "explanation": "Cơ chế tác động Basel III:\n\n1. **Phân loại nợ:** Khoản vay Vạn Thịnh Phát được tái phân loại từ Nhóm 1-2 (đủ tiêu chuẩn) sang Nhóm 3-5 (dưới tiêu chuẩn, nghi ngờ, mất vốn) theo Thông tư 02/2023 NHNN. Khi Vạn Thịnh Phát vỡ nợ → Nhóm 5 (mất vốn).\n\n2. **Tài sản có rủi ro (RWA):** Khoản vay Nhóm 5 có hệ số rủi ro 150% (so với 100% cho Nhóm 1-2). RWA tăng = mẫu số tăng.\n\n3. **Trích lập dự phòng:** Trích lập dự phòng cụ thể 100% cho Nhóm 5 → giảm lợi nhuận giữ lại → giảm vốn cấp 1 (tử số giảm).\n\n4. **CAR = (Vốn cấp 1 + Vốn cấp 2) / RWA:** Cả tử số giảm (dự phòng ăn vào vốn) VÀ mẫu số tăng (RWA tăng do hệ số rủi ro cao hơn) → **CAR giảm nhanh chóng**.\n\n**Góc nhìn nội bộ:** Trong thực tế, CAR của SCB đã giảm dưới mức quy định. NHNN đã phải: (1) bơm thanh khoản đặc biệt qua OMO, (2) chỉ định NHNN quản lý đặc biệt, (3) sáp nhập SCB vào ngân hàng khác hoặc tái cấu trúc. Đây là tình huống lớn nhất về rủi ro hệ thống trong ngành ngân hàng VN kể từ OceanBank (2015). Khác biệt với Basel III quốc tế: VN áp dụng giai đoạn chuyển tiếp cho Basel III (2020-2028), với CAR tối thiểu 8% (so với 10,5% quốc tế bao gồm bộ đệm). Tuy nhiên, NHNN yêu cầu ngân hàng lớn đạt 12%+.\n\n**Sai vì:**\n- B: Thông tư 02/2023 yêu cầu phân loại ngay khi có thông tin vỡ nợ, không chờ\n- C: Trích lập dự phòng ĂN vào vốn, không tăng CAR\n- D: NHNN không bảo lãnh ngân hàng thương mại — chỉ bảo hiểm tiền gửi (DIC) tối đa 125 triệu đồng/người",
+  "tags": ["tai_chinh_ngan_hang","basel_iii","car","npl","scb","case_study","expert","banking"]
+}
+
+EXAMPLE 2 — FINTECH (Tính toán):
+{
+  "type": "mcq",
+  "content": "MoMo (ví điện tử số 1 VN, ~30 triệu người dùng) có: tỷ lệ thu 1,5% trên GMV, GMV/người/tháng = 500.000 đồng, chi phí thu hút khách hàng (CAC) = 50.000 đồng, tỷ lệ rời bỏ hàng tháng = 3%, biên đóng góp mỗi giao dịch = 70% (sau chi phí xử lý, MDR, gian lận). Giá trị vòng đời (LTV) của 1 người dùng là bao nhiêu? (Theo cohort hàng tháng)",
+  "options": ["~175.000 đồng","~17.500 đồng","~52.500 đồng","~25.000 đồng"],
+  "correctAnswer": "~175.000 đồng",
+  "explanation": "Tính LTV cho MoMo:\n\n1. **Doanh thu mỗi người/tháng:** 1,5% × 500.000 = 7.500 đồng\n2. **Biên đóng góp:** 7.500 × 70% = 5.250 đồng/tháng\n3. **Thời gian sống trung bình:** Rời bỏ 3%/tháng → thời gian sống = 1/0,03 = 33,3 tháng\n4. **LTV = 5.250 × 33,3 = ~175.000 đồng**\n\nVới CAC = 50.000, tỷ lệ LTV/CAC = 175.000/50.000 = 3,5x → khỏe (>3x là tốt cho fintech).\n\n**Góc nhìn nội bộ:** MoMo thực tế có ARPU cao hơn nhiều vì bán chéo (Momo Vay, bảo hiểm, thanh toán hóa đơn). Tỷ lệ thu 1,5% chỉ cho chuyển P2P; cho merchant MDR = 1-2%; cho cho vay tỷ lệ thu 10-15%. ARPU gộp MoMo ~15.000-20.000 đồng/người/tháng. Tỷ lệ LTV/CAC >5x cho cohort trưởng thành. Tuy nhiên, CAC đang tăng do cạnh tranh (ZaloPay, VNPay, ShopeePay) — từ 30.000 (2020) lên 50.000-80.000 (2024).",
+  "tags": ["tai_chinh_ngan_hang","fintech","ltv","cac","đơn_vị_kinh_tế","calc","expert","fintech"]
+}
+
+EXAMPLE 3 — ĐỊNH GIÁ M&A (Khái niệm):
+{
+  "type": "mcq",
+  "content": "Khi Heineken mua 40% Sabeco (2017) với giá 220.000 đồng/cổ phiếu (phần bão 83% so với thị giá 120.000), phương pháp định giá nào Heineken có thể đã sử dụng để hợp thức phần bão này? Biết Sabeco có EBITDA ~3.500 tỷ, EV/EBITDA ngành bia VN = 12-15x, DCF WACC = 12%, tăng trưởng dài hạn = 3%.",
+  "options": [
+    "EV/EBITDA so sánh: EV = 3.500 × 14 = 49.000 tỷ. 40% = 19.600 tỷ. Phần bão cho giá trị cộng hưởng (mạng lưới phân phối, danh mục thương hiệu) + phần bão kiểm soát 30-40%",
+    "Định giá DCF: FCF năm 1 = 3.000 tỷ, WACC 12%, g 3% → EV = 3.000/(12%-3%) = 33.333 tỷ. 40% = 13.333 tỷ",
+    "Giá trị sổ sách: Tài sản thuần = 5.500 tỷ. 40% = 2.200 tỷ. Phần bão = goodwill",
+    "Mô hình chiết khấu cổ tức: DPS = 6.000 đồng, r = 12%, g = 3% → P = 6.000/(12%-3%) = 66.667 đồng. Phần bão không thể hợp thức"
+  ],
+  "correctAnswer": "EV/EBITDA so sánh: EV = 3.500 × 14 = 49.000 tỷ. 40% = 19.600 tỷ. Phần bão cho giá trị cộng hưởng (mạng lưới phân phối, danh mục thương hiệu) + phần bão kiểm soát 30-40%",
+  "explanation": "Phân tích phương pháp định giá M&A Sabeco-Heineken:\n\n**1. EV/EBITDA so sánh (chính):**\n- EV/EBITDA ngành bia VN: 12-15x (Heineken dùng đầu trên 14x vì Sabeco là bia số 1 VN)\n- EV = 3.500 × 14 = 49.000 tỷ\n- 40% cổ phần = 19.600 tỷ\n\n**2. Hợp thức phần bão:**\n- Mạng lưới phân phối miền Nam: 60% thị phần bia miền Nam\n- Danh mục thương hiệu: Bia Sài Gòn (top 3 VN), 333, Sài Gòn Special\n- Năng lực sản xuất: 5 nhà máy, công suất 800 triệu lít/năm\n- Cộng hưởng phân phối với mạng lưới Heineken toàn cầu\n\n**3. Phần bão kiểm soát:**\n- Nghiên cứu M&A: phần bão kiểm soát trung bình 30-40% cho cổ phần thiểu số có đại diện HĐQT\n- Tuy nhiên, 83% phần bão cho 40% cổ phần (không kiểm soát) là cao → cần hợp thức bằng giá trị cộng hưởng\n\n**Góc nhìn nội bộ:** Thực tế, giá đấu giá Sabeco được đẩy lên do: (1) cạnh tranh từ Thai Beverage (Chang Beer) cũng muốn mua, (2) chính phủ VN muốn giá cao (thoái vốn nhà nước), (3) Heineken sẵn sàng trả phần bão vì Sabeco là 'viên ngọc quý' ngành bia VN. EV/EBITDA thực tế giao dịch = ~25x (cao hơn range ngành 12-15x) → phản ánh phần bão khan hiếm + giá trị chiến lược. Đây là giao dịch đắt nhất ngành bia Đông Nam Á lúc đó.\n\n**Sai vì:**\n- B: DCF cho EV thấp hơn (33.333 vs 49.000) — DCF thường bảo thủ, so sánh phản ánh tâm lý thị trường\n- C: Giá trị sổ sách không phản ánh giá trị thương hiệu, mạng lưới phân phối\n- D: DDM quá đơn giản cho giao dịch chiến lược M&A, không tính cộng hưởng",
+  "tags": ["tai_chinh_ngan_hang","m&a","định_giá","ev_ebitda","sabeco","heineken","conceptual","expert","f&b"]
+}
+
+EXAMPLE 4 — TRÁI PHIẾU BĐS (Khung phân tích):
+{
+  "type": "mcq",
+  "content": "Novaland phát hành trái phiếu doanh nghiệp 10.000 tỷ đồng, lãi suất 11-13%/năm, thời hạn 2-3 năm, bảo lãnh bởi SCB. Khi thị trường bất động sản đóng băng (2022), Novaland không thể thanh toán gốc + lãi. Cơ chế tái cấu trúc trái phiếu nào KHÔNG khả thi theo quy định VN?",
+  "options": [
+    "Gia hạn trái phiếu thêm 3-5 năm, giữ nguyên lãi suất — cần đồng ý của ≥50% người mua trái phiếu theo Nghị định 153/2020",
+    "Chuyển đổi trái phiếu thành cổ phiếu — cần đồng ý người mua và phê duyệt Đại hội đồng cổ đông",
+    "Bán tài sản đảm bảo (đất dự án) để thanh toán — Novaland tự bán, không cần NHNN phê duyệt",
+    "NHNN bơm vốn trực tiếp vào Novaland để thanh toán trái phiếu — vi phạm nguyên tắc thị trường, NHNN không cứu doanh nghiệp"
+  ],
+  "correctAnswer": "NHNN bơm vốn trực tiếp vào Novaland để thanh toán trái phiếu — vi phạm nguyên tắc thị trường, NHNN không cứu doanh nghiệp",
+  "explanation": "Phân tích các phương án tái cấu trúc trái phiếu Novaland:\n\n**A — Gia hạn (khả thi):**\n- Nghị định 153/2020 + Thông tư 81/2021 cho phép tổ chức phát hành đề nghị gia hạn với ≥50% trái chủ đồng ý\n- Thực tế: Novaland đã gia hạn nhiều đợt trái phiếu (2022-2024), kéo dài thời hạn 2-5 năm\n- Rủi ro: trái chủ có thể từ chối và yêu cầu thanh toán → kiện ra tòa\n\n**B — Chuyển trái phiếu thành cổ phiếu (khả thi):**\n- Luật Doanh nghiệp 2020 cho phép chuyển trái phiếu thành cổ phiếu nếu điều khoản có sẵn hoặc ĐHĐCĐ phê duyệt\n- Thực tế: Novaland đã đề xuất nhưng gặp khó khăn vì giá cổ phiếu giảm mạnh (từ ~50.000 xuống ~10.000 đồng)\n- Lợi ích: giảm nợ, tăng vốn; nhưng pha loãng lớn cho cổ đông hiện hữu\n\n**C — Bán tài sản (khả thi):**\n- Novaland có quỹ đất lớn (đất dự án tại TP.HCM, Bình Dương, Nha Trang)\n- Tuy nhiên, thị trường BĐS đóng băng → khó bán nhanh với giá hợp lý\n- Vấn đề: một số đất đang thế chấp cho SCB → cần NHNN/ngân hàng đồng ý giải chấp\n\n**D — NHNN bơm vốn (KHÔNG khả thi):**\n- NHNN là cơ quan quản lý, không cứu doanh nghiệp cụ thể\n- Nguyên tắc: NHNN bơm thanh khoản vào hệ thống ngân hàng (OMO, tái cấp vốn), không trực tiếp cứu doanh nghiệp\n- Nếu NHNN bơm vốn Novaland = rủi ro đạo đức, vi phạm nguyên tắc thị trường\n\n**Góc nhìn nội bộ:** Thực tế, NHNN đã hỗ trợ gián tiếp: (1) hướng dẫn ngân hàng cơ cấu lại nợ cho Novaland (Nghị định 08/2023), (2) cho phép gia hạn trái phiếu, (3) làm trung gian giữa Novaland, SCB, và trái chủ. Tuy nhiên, NHNN KHÔNG trực tiếp bơm vốn. Chính phủ cũng lập Tổ công tác đặc biệt xử lý trái phiếu doanh nghiệp (do Phó Thủ tướng dẫn đầu). Novaland cuối 2023 đã thanh toán được một phần trái phiếu bằng bán tài sản và gia hạn.",
+  "tags": ["tai_chinh_ngan_hang","trai_phieu","novaland","tai_cau_truc","framework","expert","realestate"]
+}
+
+RULES:
+1. MỌI câu hỏi dùng tên công ty/thương hiệu Việt Nam thật: Vietcombank (VCB), Techcombank (TCB), VPBank, MB Bank, BIDV, SCB, MoMo, ZaloPay, VNPay, Cake by VPBank, Vingroup, VinFast, Vinhomes, Masan, Novaland, Shopee, TikTok Shop, Grab, Sky Mavis, FPT, Vinamilk, Sabeco, Heineken, Highlands Coffee, v.v.
+2. 50% tình huống có thật (SCB bond scandal, Sky Mavis Ronin hack $625M, VinFast SPAC IPO, Vingroup restructuring, MoMo unicorn, Novaland bond crisis, VPBank-FE Credit, Sabeco-Heineken M&A, Masan WINLife), 50% tình huống giả định với thương hiệu thật — TẤT CẢ với số liệu ngành thật
+3. Mỗi đề có 3-4 LOẠI câu hỏi khác nhau. KHÔNG lặp khuôn mẫu
+4. Độ khó: 40% tình huống (cấp McKinsey), 35% tính toán (số liệu ngành thật), 25% khái niệm (kiến thức quy định sâu)
+5. Tiếng Việt + chỉ giữ thuật ngữ tiếng Anh là tên riêng không dịch (xem danh sách ở trên)
+6. Phần giải thích BẮT BUỘC gồm: (a) lập luận đúng với kiến thức ngành, (b) giải thích vì sao mỗi đáp án sai, (c) phần 'Góc nhìn nội bộ' với bối cảnh thực tế chỉ người trong ngành mới biết
+7. Tất cả 600 câu hỏi PHẢI KHÁC NHAU
+8. correctAnswer PHẢI khớp chính xác với một chuỗi trong options
+9. Tags: subject + chủ đề + loại + độ khó (hard/expert) + ngành
+
+KIẾN THỨC NGÀNH CẦN DÙNG (phân bổ across 30 đề):
+- Chỉ số ngân hàng: NIM (VCB ~3,5%, TCB ~3,8%, VPB ~5-6% nhờ FE Credit), CASA (TCB cao nhất ~40%, VCB ~25%), LDR (hạn mức quy định 85%), NPL (hệ thống ~2-3%, SCB tăng vọt ~80% sau khủng hoảng), bao phủ nợ xấu (VCB ~200%, VPB ~90%), CAR (Basel III tối thiểu 8%, ngân hàng lớn mục tiêu 12%+)
+- Đơn vị kinh tế fintech: MoMo tỷ lệ thu 1-2% P2P, 1-2% merchant MDR, 10-15% cho vay; CAC tăng 30k→80k; LTV/CAC >3x khỏe; float ví điện tử = nợ phải trả; Momo Vay: MoMo làm đại lý (ngân hàng cho vay) vs bên chính
+- Tài chính bất động sản: mô hình bán trước dòng tiền, trái phiếu doanh nghiệp (coupon 10-13%), định giá đất (chi phí QSDĐ vs giá thị trường), Vinhomes bán trước vs Novaland khủng hoảng trái phiếu, đơn vị kinh tế Xanh SM taxi điện
+- M&A: Sabeco-Heineken (EV/EBITDA ~25x, phần bão 83%), Grab-Uber VN (hợp nhất thị trường, hiệu ứng mạng), Vingroup tách công ty con (Vinhomes, Vincom Retail, VinFast SPAC)
+- Thị trường vốn: VN-Index P/E ~12-15x, HOSE vs HNX, IPO vs SPAC (VinFast NASDAQ qua SPAC định giá $23B rồi sập), trái phiếu doanh nghiệp (lợi suất 10-13%, Nghị định 153/2020)
+- Quản trị rủi ro: Basel III VN (CAR 8% + bộ đệm 2,5% đến 2028), IFRS 9 ECL (PD 12 tháng cho Stage 1, PD trọn đời cho Stage 2-3), stress test (kịch bản NHNN), VaR cho ngân hàng
+- Chính sách tiền tệ: công cụ NHNN (OMO, tái cấp vốn, chiết khấu, dự trữ bắt buộc), hành lang lãi suất, quản lý tỷ giá VND/USD (biên độ ±5%), hạn mức tăng trưởng tín dụng (NHNN giao từng ngân hàng)
+- Tiền điện tử/DeFi: Sky Mavis Ronin hack ($625M), Axie Infinity mô hình chơi kiếm tiền, Ronin wallet 10M lượt tải, mô hình doanh thu blockchain gaming, kế toán NFT (IAS 38? IFRS 15?)
+- Bảo hiểm: thị trường bảo hiểm phi nhân thọ vs nhân thọ VN, Manulife/Bảo Việt/Prudential, bancassurance (hợp tác ngân hàng-bảo hiểm), MoMo môi giới bảo hiểm
+- ESG: VinFast tín chỉ carbon, trái phiếu xanh, tài chính bền vững, hướng dẫn tín dụng xanh NHNN
+
+Now generate all 30 đề × 20 questions = 600 questions. Output ONLY the JSON.

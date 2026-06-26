@@ -21,6 +21,18 @@ describe("detectSubjects", () => {
     expect(result[0].slug).toBe("quan_tri_kinh_doanh");
   });
 
+  it("detects Microeconomics from prompt", () => {
+    const result = detectSubjects("Cho mình đề kinh tế vi mô về cầu cung và co dãn");
+    expect(result.length).toBeGreaterThan(0);
+    expect(result[0].slug).toBe("kinh_te_vi_mo");
+  });
+
+  it("detects Law from prompt", () => {
+    const result = detectSubjects("Tìm đề pháp luật đại cương về hợp đồng và dân sự");
+    expect(result.length).toBeGreaterThan(0);
+    expect(result[0].slug).toBe("phap_luat_dai_cuong");
+  });
+
   it("returns empty array for unrelated text", () => {
     const result = detectSubjects("Hello world this is a test");
     expect(result).toEqual([]);
@@ -56,6 +68,8 @@ describe("getSubjectName", () => {
     expect(getSubjectName("ke_toan")).toBe("Kế toán");
     expect(getSubjectName("tai_chinh_ngan_hang")).toBe("Tài chính – Ngân hàng");
     expect(getSubjectName("quan_tri_kinh_doanh")).toBe("Quản trị Kinh doanh");
+    expect(getSubjectName("kinh_te_vi_mo")).toBe("Kinh tế vi mô");
+    expect(getSubjectName("phap_luat_dai_cuong")).toBe("Pháp luật đại cương");
   });
 
   it("returns undefined for unknown slug", () => {

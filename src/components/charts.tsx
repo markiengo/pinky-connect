@@ -57,7 +57,7 @@ export function ScoreProgressionChart({ points }: { points: ScorePoint[] }) {
             <stop offset="100%" stopColor="#7C6FDB" stopOpacity={0} />
           </linearGradient>
           <linearGradient id="scoreStroke" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#5B8A7A" />
+            <stop offset="0%" stopColor="#F4899A" />
             <stop offset="50%" stopColor="#7C6FDB" />
             <stop offset="100%" stopColor="#9F7AEA" />
           </linearGradient>

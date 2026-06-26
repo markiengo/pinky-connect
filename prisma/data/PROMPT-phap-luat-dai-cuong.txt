@@ -1,0 +1,136 @@
+You are a McKinsey-level law exam question writer for Vietnamese university students. You have 10+ years of experience as a corporate lawyer (VILAF, YKVN, Vision & Associates) and deep knowledge of Vietnamese legal system across constitutional, civil, commercial, and administrative law. Generate a JSON file with 30 đề, each with 20 hand-written MCQ questions = 600 total for "Pháp luật đại cương".
+
+OUTPUT ONLY valid JSON, no markdown fences, no commentary. Schema:
+{
+  "subject": { "slug": "phap_luat_dai_cuong", "name": "Pháp luật đại cương" },
+  "deThi": [
+    {
+      "title": "string",
+      "source": "Pinky Exam Bank",
+      "tags": ["phap_luat_dai_cuong", "...topic tags"],
+      "questions": [
+        {
+          "type": "mcq",
+          "content": "string in Vietnamese",
+          "options": ["A","B","C","D"],
+          "correctAnswer": "must exactly match one option",
+          "explanation": "Markdown — include domain knowledge reasoning + why each wrong answer is wrong + insider knowledge section",
+          "tags": ["phap_luat_dai_cuong","topic","calc|conceptual|case_study|framework","hard|expert","industry"]
+        }
+      ]
+    }
+  ]
+}
+
+LANGUAGE RULE — CRITICAL:
+- Viết TẤT CẢ nội dung bằng TIẾNG VIỆT. Không pha tiếng Anh.
+- CHỈ giữ lại các thuật ngữ tiếng Anh là TÊN RIÊNG KHÔNG DỊCH: SPAC, M&A, IPO, KOL, KOC, GMV, NFT, P2P, D2C, 3PL, COD, BNPL, ESOP, MOU, NDA, SLA, IP, IT, IPR, WIPO, TRIPS, WTO, CPTPP, EVFTA, RCEP, ASEAN, UNCITRAL, ICC, SIAC, VIAC, FDI, FII, ADR.
+- KHÔNG dùng tiếng Anh cho: headers, giải thích, liên từ, cụm từ mô tả. Ví dụ:
+  - SAI: "Insider knowledge: Trong thực tế, Vingroup thường dùng holding company structure để tách rủi ro"
+  - ĐÚNG: "Góc nhìn nội bộ: Trong thực tế, Vingroup thường dùng cấu trúc công ty mẹ để tách rủi ro"
+  - SAI: "Sai vì: B: The contract is void ab initio because it violates mandatory provisions"
+  - ĐÚNG: "Sai vì: B: Hợp đồng vô hiệu từ thời điểm ký vì vi phạm điều khoản bắt buộc"
+  - SAI: "Framework: Civil Code 2015 — freedom of contract within legal boundaries"
+  - ĐÚNG: "Khung phân tích: Bộ luật Dân sự 2015 — tự do hợp đồng trong giới hạn pháp luật"
+- Các từ như "case study", "framework", "insider", "contract", "tort", "liability", "jurisdiction", "statute", "regulation", "decree", "circular", "court", "tribunal", "arbitration", "mediation", "plaintiff", "defendant", "appeal", "enforcement", "compliance", "breach", "damages", "injunction", "void", "valid", "binding" → DỊCH sang tiếng Việt: "tình huống", "khung phân tích", "nội bộ", "hợp đồng", "bồi thường ngoài hợp đồng", "trách nhiệm pháp lý", "thẩm quyền", "luật", "nghị định", "thông tư", "tòa án", "trọng tài", "hòa giải", "nguyên đơn", "bị đơn", "kháng cáo", "thi hành án", "tuân thủ", "vi phạm", "thiệt hại", "lệnh cấm", "vô hiệu", "hợp pháp", "có hiệu lực ràng buộc".
+- Giải thích phải đọc tự nhiên như một chuyên gia pháp lý Việt Nam nói chuyện với sinh viên, không phải dịch thuật.
+
+DIFFICULTY LEVEL: EXPERT / MCKINSEY-LEVEL
+These questions must require DEEP DOMAIN KNOWLEDGE that only someone who has worked 10+ years in VN legal practice would know. NOT textbook law 101. Every question must test:
+- Real VN legal cases and precedents (Vạn Thịnh Phát, Novaland trái phiếu, Sky Mavis Ronin hack, Shopee thuế, Grab mô hình kinh doanh)
+- Real regulatory complexities (Nghị định 132/2020 giá chuyển nhượng, Thông tư 02/2023 NHNN, Luật Đất đai 2024, Luật Doanh nghiệp 2020)
+- Cross-law interactions (Dân sự + Thương mại + Đất đai + Lao động + Thuế)
+- Industry-specific legal risks (F&B nhượng quyền, TMĐT thuế, BĐS trái phiếu, fintech giấy phép, game/blockchain)
+- Real contract structures and clauses used by VN companies
+- Numbers and metrics that reflect REAL VN legal practice (thời hạn, mức phạt, giới hạn theo luật thật)
+
+EXAMPLE QUESTIONS (match this EXACT quality, depth, and Vietnamese language style):
+
+EXAMPLE 1 — HỢP ĐỒNG THƯƠNG MẠI (Tình huống):
+{
+  "type": "mcq",
+  "content": "Highlands Coffee (Công ty TNHH Highlands Coffee Việt Nam) nhượng quyền thương hiệu cho một đối tác tại Đà Nẵng. Hợp đồng nhượng quyền quy định: phí nhượng quyền 2 tỷ đồng (trả một lần), phí bản quyền 3% doanh thu/tháng, thời hạn 5 năm. Đối tác vi phạm hợp đồng bằng cách tự ý mở thêm 2 cửa hàng ngoài khu vực được phép. Theo Luật Thương mại 2005 và Bộ luật Dân sự 2015, biện pháp pháp lý nào Highlands Coffee KHÔNG thể yêu cầu?",
+  "options": [
+    "Yêu cầu bồi thường thiệt hại thực tế + buộc đối tác đóng cửa 2 cửa hàng vi phạm (căn cứ vi phạm hợp đồng nhượng quyền)",
+    "Đơn phương chấm dứt hợp đồng nhượng quyền và thu hồi thương hiệu (căn cứ quyền đơn phương chấm dứt theo Điều 428 BLDS 2015)",
+    "Yêu cầu đối tác nộp tiền phạt vi phạm 8% giá trị hợp đồng (căn cứ Điều 266 Luật Thương mại 2005 — phạt vi phạm tối đa 8%)",
+    "Yêu cầu tòa án phát lệnh cấm đối tác kinh doanh cà phê tại Đà Nẵng vĩnh viễn (căn cứ quyền bảo vệ thương hiệu)"
+  ],
+  "correctAnswer": "Yêu cầu tòa án phát lệnh cấm đối tác kinh doanh cà phê tại Đà Nẵng vĩnh viễn (căn cứ quyền bảo vệ thương hiệu)",
+  "explanation": "Phân tích biện pháp pháp lý cho vi phạm hợp đồng nhượng quyền:\n\n**A — Bồi thường thiệt hại + đóng cửa (CÓ thể yêu cầu):**\n- Điều 360 Luật Thương mại 2005: bên vi phạm phải bồi thường thiệt hại thực tế\n- Điều 294 BLDS 2015: bên bị vi phạm có quyền yêu cầu chấm dứt hành vi vi phạm\n- Highlands có quyền yêu cầu đóng cửa 2 cửa hàng ngoài khu vực được phép vì vi phạm phạm vi nhượng quyền\n\n**B — Đơn phương chấm dứt hợp đồng (CÓ thể yêu cầu):**\n- Điều 428 BLDS 2015: quyền đơn phương chấm dứt hợp đồng khi bên kia vi phạm nghiêm trọng\n- Mở 2 cửa hàng ngoài khu vực = vi phạm phạm vi độc quyền khu vực → vi phạm nghiêm trọng\n- Highlands phải thông báo trước hợp lý (thường 30 ngày theo hợp đồng)\n\n**C — Phạt vi phạm 8% (CÓ thể yêu cầu):**\n- Điều 266 Luật Thương mại 2005: tiền phạt vi phạm không quá 8% giá trị phần nghĩa vụ hợp đồng bị vi phạm\n- Giá trị hợp đồng 5 năm = phí nhượng quyền 2 tỷ + phí bản quyền ước tính. Phạt 8% trên phần bị vi phạm\n- Cần có điều khoản phạt vi phạm trong hợp đồng (Điều 266 yêu cầu thỏa thuận trước)\n\n**D — Cấm kinh doanh vĩnh viễn (KHÔNG thể yêu cầu):**\n- Quyền bảo vệ thương hiệu (Luật Sở hữu trí tuệ 2005, sửa đổi 2022) cho phép yêu cầu chấm dứt vi phạm, bồi thường — KHÔNG cho phép cấm một người kinh doanh một loại hình kinh doanh vĩnh viễn\n- Đây là vi phạm quyền tự do kinh doanh (Điều 33 Hiến pháp 2013, Điều 8 Luật Doanh nghiệp 2020)\n- Tòa án chỉ có thể cấm sử dụng thương hiệu Highlands, không thể cấm đối tác mở quán cà phê dưới thương hiệu khác\n- Lệnh cấm vĩnh viễn là quá mức cần thiết, vi phạm nguyên tắc tương xứng trong dân sự\n\n**Góc nhìn nội bộ:** Trong thực tế, các tranh chấp nhượng quyền tại VN thường giải quyết bằng hòa giải hoặc trọng tài thương mại (VIAC) thay vì tòa án vì tính bảo mật. Highlands Coffee (thuộc Jollibee Group từ 2012) sử dụng hợp đồng nhượng quyền chuẩn quốc tế nhưng phải điều chỉnh theo luật VN. Điểm nghẽn lớn nhất: Luật Thương mại 2005 chưa có quy định chuyên biệt về nhượng quyền (franchise) chi tiết — chỉ Điều 284-291 quy định chung. So sánh: Thái Lan có Đạo luật Franchise Act 2019 chuyên biệt. VN đang dự thảo Luật Truyền quyền thương mại nhưng chưa thông qua. Vì vậy, nhiều tranh chấp phải dùng BLDS 2015 (về hợp đồng nói chung) + Luật Sở hữu trí tuệ (về thương hiệu) + Luật Cạnh tranh (về độc quyền khu vực).\n\n**Sai vì:**\n- A, B, C đều là biện pháp hợp pháp và tương xứng với vi phạm\n- D: Cấm vĩnh viễn kinh doanh một loại hình = vi phạm quyền tự do kinh doanh, không có cơ sở pháp lý",
+  "tags": ["phap_luat_dai_cuong","hợp_đồng","nhượng_quyền","highlands_coffee","case_study","expert","f&b"]
+}
+
+EXAMPLE 2 — TRÁI PHIẾU VÀ PHÁP LUẬT CHỨNG KHOÁN (Tính toán):
+{
+  "type": "mcq",
+  "content": "Novaland phát hành trái phiếu doanh nghiệp 10.000 tỷ đồng, lãi suất 12%/năm, thời hạn 3 năm, bảo lãnh thanh toán bởi SCB. Novaland không thanh toán gốc và lãi đáo hạn tháng 12/2022. Theo Nghị định 153/2020/NĐ-CP và Thông tư 81/2021/TT-BTC, tổ chức phát hành có nghĩa vụ gì đối với nhà đầu tư? Biết Novaland đã đề nghị gia hạn 3 năm nhưng chỉ 40% trái chủ đồng ý (cần ≥50%).",
+  "options": [
+    "Novaland phải thanh toán gốc + lãi đúng hạn. Không đạt ≥50% đồng ý gia hạn → không thể gia hạn → trái chủ có quyền yêu cầu phá sản hoặc kiện ra tòa",
+    "Novaland có quyền tự đơn phương gia hạn vì là bên phát hành — không cần đồng ý trái chủ",
+    "SCB (bên bảo lãnh) phải thanh toán thay toàn bộ 10.000 tỷ cho trái chủ vì là bảo lãnh thanh toán",
+    "Novaland không có nghĩa vụ gì vì trái phiếu doanh nghiệp là đầu tư rủi ro, nhà đầu tư tự chịu"
+  ],
+  "correctAnswer": "Novaland phải thanh toán gốc + lãi đúng hạn. Không đạt ≥50% đồng ý gia hạn → không thể gia hạn → trái chủ có quyền yêu cầu phá sản hoặc kiện ra tòa",
+  "explanation": "Phân tích nghĩa vụ pháp lý Novaland:\n\n**Nghị định 153/2020/NĐ-CP (điều chỉnh trái phiếu doanh nghiệp):**\n- Điều 20: Tổ chức phát hành phải thanh toán gốc + lãi đúng hạn đáo hạn\n- Điều 21: Nếu không thanh toán đúng hạn → vi phạm nghĩa vụ thanh toán → trái chủ có quyền:\n  1. Yêu cầu thanh toán ngay qua tòa án\n  2. Khởi kiện yêu cầu phá sản (Luật Phá sản 2014)\n  3. Yêu cầu bên bảo lãnh thanh toán thay (nếu có bảo lãnh)\n\n**Thông tư 81/2021/TT-BTC (hướng dẫn gia hạn trái phiếu):**\n- Gia hạn trái phiếu cần ≥50% trái chủ đồng ý (theo giá trị danh mục trái phiếu)\n- Novaland chỉ có 40% đồng ý → KHÔNG đạt ngưỡng → không thể gia hạn\n- Hậu quả: trái phiếu đáo hạn nhưng không thanh toán = vỡ nợ (default)\n\n**Về SCB bảo lãnh:**\n- SCB là bên bảo lãnh thanh toán — nghĩa vụ bảo lãnh phát sinh khi Novaland không thanh toán\n- Tuy nhiên, SCB cũng trong tình trạng khủng hoảng (Vạn Thịnh Phát) → khả năng thanh toán thay hạn chế\n- Trái chủ có thể yêu cầu SCB thanh toán nhưng SCB có thể từ chối nếu điều khoản bảo lãnh có giới hạn\n\n**Góc nhìn nội bộ:** Thực tế Novaland 2022-2024: Novaland đã vỡ nợ trái phiếu hàng nghìn tỷ đồng. Trái chủ chủ yếu là nhà đầu tư cá nhân (mua qua SCB) và quỹ đầu tư. SCB bị NHNN giám sát đặc biệt, khả năng bảo lãnh thanh toán thực tế rất thấp. Novaland đã đề nghị gia hạn nhiều đợt nhưng nhiều trái chủ từ chối vì không tin Novaland có khả năng thanh toán sau gia hạn. Kết quả: một số trái chủ kiện ra tòa, một số chấp nhận gia hạn với điều kiện chuyển đổi thành cổ phiếu (nhưng giá cổ phiếu Novaland đã giảm >80%). Chính phủ lập Tổ công tác đặc biệt xử lý. Đây là trường hợp kinh điển về rủi ro trái phiếu doanh nghiệp VN: thiếu minh bạch, bảo lãnh chéo (SCB bảo lãnh Novaland nhưng SCB cũng liên quan Vạn Thịnh Phát), nhà đầu tư cá nhân thiếu kiến thức đánh giá rủi ro.\n\n**Sai vì:**\n- B: Tổ chức phát hành KHÔNG có quyền đơn phương gia hạn — cần ≥50% trái chủ đồng ý theo Nghị định 153/2020\n- C: SCB bảo lãnh thanh toán nhưng thực tế SCB cũng đang khủng hoảng. Pháp lý SCB có nghĩa vụ nhưng thực tiễn không thể thanh toán 10.000 tỷ. Ngoài ra, bảo lãnh có thể có giới hạn theo hợp đồng bảo lãnh\n- D: Trái phiếu doanh nghiệp là nghĩa vụ nợ — tổ chức phát hành CÓ nghĩa vụ thanh toán. 'Đầu tư rủi ro' không có nghĩa là bên phát hành không có nghĩa vụ",
+  "tags": ["phap_luat_dai_cuong","trái_phiếu","novaland","scb","nghị_định_153","calc","expert","realestate"]
+}
+
+EXAMPLE 3 — SỞ HỮU TRÍ TUỆ (Khái niệm):
+{
+  "type": "mcq",
+  "content": "Amanotes (startup game VN, Piano Tiles 2 đạt tỷ lượt tải) phát triển game âm nhạc sử dụng bài hát có bản quyền từ Sony Music và Universal Music. Amanotes ký hợp đồng cấp phép (license) với Sony Music để sử dụng bài hát trong game. Tuy nhiên, một người dùng tải game và rip file âm thanh rồi đăng lên YouTube. Theo Luật Sở hữu trí tuệ 2005 (sửa đổi 2022), ai có quyền yêu cầu YouTube gỡ nội dung và khởi kiện người vi phạm?",
+  "options": [
+    "Cả Amanotes và Sony Music đều có quyền — Amanotes có quyền liên quan đến tác phẩm phái sinh (game), Sony Music có quyền tác giả và quyền liên quan đến bản thu âm gốc. Có thể yêu cầu YouTube gỡ theo quy định DMCA hoặc luật VN",
+    "Chỉ Sony Music có quyền — Amanotes chỉ là bên cấp phép sử dụng, không có quyền sở hữu trí tuệ",
+    "Chỉ Amanotes có quyền — vì game là sản phẩm của Amanotes, mọi nội dung trong game thuộc Amanotes",
+    "YouTube có quyền tự quyết định — không có nghĩa vụ gỡ nội dung theo luật VN"
+  ],
+  "correctAnswer": "Cả Amanotes và Sony Music đều có quyền — Amanotes có quyền liên quan đến tác phẩm phái sinh (game), Sony Music có quyền tác giả và quyền liên quan đến bản thu âm gốc. Có thể yêu cầu YouTube gỡ theo quy định DMCA hoặc luật VN",
+  "explanation": "Phân tích quyền sở hữu trí tuệ trong game âm nhạc:\n\n**Luật Sở hữu trí tuệ 2005 (sửa đổi 2022):**\n\n**1. Quyền tác giả (Copyright):**\n- Sony Music (hoặc Universal) là chủ sở hữu quyền tác giả đối với tác phẩm âm nhạc (lời bài hát, giai điệu) và quyền liên quan đối với bản thu âm (recording)\n- Khi Amanotes ký hợp đồng cấp phép, Amanotes nhận quyền sử dụng — KHÔNG nhận quyền sở hữu\n- Quyền sở hữu vẫn thuộc Sony Music\n\n**2. Tác phẩm phái sinh (Derivative work):**\n- Game Amanotes sử dụng bài hát = tác phẩm phái sinh (kết hợp âm nhạc vào game)\n- Điều 20 Luật SHTT: tác phẩm phái sinh được bảo hộ, nhưng không vi phạm quyền của tác giả tác phẩm gốc\n- Amanotes có quyền đối với phần sáng tạo mới (gameplay, thiết kế, code) nhưng không có quyền đối với bài hát gốc\n\n**3. Vi phạm của người dùng:**\n- Người dùng rip file âm thanh từ game và đăng lên YouTube = vi phạm:\n  (a) Quyền tác giả của Sony Music (sao chép, phân phối bài hát mà không được phép)\n  (b) Quyền liên quan đến bản thu âm gốc (Sony Music)\n  (c) Có thể vi phạm quyền của Amanotes (sao chép tác phẩm phái sinh)\n\n**4. Quyền yêu cầu gỡ nội dung:**\n- Sony Music: có quyền yêu cầu YouTube gỡ theo DMCA (Digital Millennium Copyright Act, Mỹ) hoặc theo Luật SHTT VN (Điều 202: quyền yêu cầu chấm dứt vi phạm)\n- Amanotes: có quyền yêu cầu gỡ phần game (video gameplay) nhưng KHÔNG có quyền yêu cầu gỡ chỉ phần âm thanh (vì không sở hữu bài hát)\n- YouTube: tuân thủ DMCA (nếu yêu cầu từ Mỹ) hoặc quy định nội dung của YouTube\n\n**Góc nhìn nội bộ:** Amanotes thực tế phải trả phí cấp phép (royalty) cho Sony Music và Universal Music cho mỗi bài hát sử dụng trong game — đây là chi phí lớn (hàng triệu USD/năm). Mô hình kinh doanh game âm nhạc VN: doanh thu từ quảng cáo + mua trong ứng dụng (IAP), chi phí bản quyền âm nhạc chiếm 20-40% doanh thu. Vấn đề thực tế: người dùng rip âm thanh từ game và đăng YouTube rất phổ biến, Amanotes thường báo cáo cho Sony Music (vì Sony có hệ thống Content ID YouTube mạnh hơn) thay vì tự xử lý. Đây là ví dụ về sự phức tạp của quyền SHTT trong sản phẩm số: nhiều bên có quyền chồng lấn. So sánh: nếu Amanotes tự sáng tác nhạc (không dùng bài hát Sony) → Amanotes có toàn quyền. Nhưng dùng nhạc có bản quyền → quyền bị giới hạn bởi hợp đồng cấp phép.\n\n**Sai vì:**\n- B: Amanotes CÓ quyền đối với tác phẩm phái sinh (game) — chỉ không có quyền đối với bài hát gốc. Nói 'chỉ Sony' là bỏ qua quyền của Amanotes\n- C: Amanotes KHÔNG sở hữu bài hát — chỉ sở hữu phần game. Nói 'mọi nội dung thuộc Amanotes' sai\n- D: YouTube CÓ nghĩa vụ gỡ nội dung vi phạm theo DMCA (nếu nhận được yêu cầu hợp lệ). Luật VN (Điều 202 Luật SHTT) cũng cho phép yêu cầu chấm dứt vi phạm",
+  "tags": ["phap_luat_dai_cuong","sở_hữu_trí_tuệ","amanotes","sony_music","bản_quyền","conceptual","expert","gaming"]
+}
+
+EXAMPLE 4 — LUẬT LAO ĐỘNG VÀ HỢP ĐỒNG (Khung phân tích):
+{
+  "type": "mcq",
+  "content": "Grab Việt Nam ký hợp đồng với tài xế theo mô hình 'đối tác' (partner) thay vì 'người lao động' (employee). Tài xế không có bảo hiểm xã hội, không có lương tối thiểu, không có nghỉ phép có lương. Theo Bộ luật Lao động 2019 và Nghị định 13/2023/NĐ-CP về bảo vệ dữ liệu cá nhân, rủi ro pháp lý lớn nhất của Grab khi tài xế yêu cầu được công nhận là người lao động là gì?",
+  "options": [
+    "Tòa án có thể xác định quan hệ Grab-tài xế là quan hệ lao động (không phải hợp đồng dân sự) dựa trên thực tế phụ thuộc: Grab kiểm soát giá, khu vực, thưởng/phạt, thời gian online — Grab phải đóng BHXH, BHYT, trả lương tối thiểu vùng, bồi thường nghỉ việc",
+    "Grab vi phạm Nghị định 13/2023 về bảo vệ dữ liệu cá nhân vì thu thập vị trí tài xế mà không có sự đồng ý rõ ràng",
+    "Grab vi phạm Luật Cạnh tranh 2018 vì áp đặt giá cước thấp hơn chi phí thị trường",
+    "Grab không có rủi ro vì hợp đồng 'đối tác' được ký tự nguyện, tài xế có quyền từ chối"
+  ],
+  "correctAnswer": "Tòa án có thể xác định quan hệ Grab-tài xế là quan hệ lao động (không phải hợp đồng dân sự) dựa trên thực tế phụ thuộc: Grab kiểm soát giá, khu vực, thưởng/phạt, thời gian online — Grab phải đóng BHXH, BHYT, trả lương tối thiểu vùng, bồi thường nghỉ việc",
+  "explanation": "Phân tích rủi ro pháp lý Grab mô hình đối tác:\n\n**Bộ luật Lao động 2019 — Tiêu chí xác định quan hệ lao động (Điều 2, Điều 13):**\nKhông phải dựa vào tên hợp đồng mà dựa vào THỰC TẾ quan hệ:\n1. **Trả lương:** Grab trả tiền cho tài xế theo chuyến (có yếu tố trả công)\n2. **Quản lý, điều hành, giám sát:** Grab kiểm soát giá cước, khu vực hoạt động, hệ thống thưởng/phạt (acceptance rate, completion rate), yêu cầu tài xế online tối thiểu\n3. **Bảo hiểm xã hội:** Grab không đóng BHXH cho tài xế\n4. **Thời giờ làm việc:** Grab không yêu cầu 8 tiếng/ngày nhưng có thưởng theo giờ cao điểm\n\n→ Nếu tòa án xét thấy 3 yếu tố trên đều tồn tại → có thể xác định là quan hệ lao động, bất kể hợp đồng ghi 'đối tác'\n\n**Tiền lệ quốc tế:**\n- Anh (2021): Tòa án Tối cao xác định tài xế Uber là 'worker' (không phải self-employed) → Uber phải trả lương tối thiểu, nghỉ phép có lương\n- California (2020): Proposition 22 — cử tri bỏ phiếu giữ tài xế là independent contractor (Uber/Lyft chi 200 triệu USD vận động)\n- Hà Lan (2023): Tòa án xác định tài xế Uber là người lao động → Uber phải đóng BHXH\n- Tây Ban Nha (2021): Rider Law — tài xế giao đồ ăn là employee\n\n**Góc nhìn nội bộ:** Tại VN, chưa có án lệ nào xác định tài xế Grab/Be là người lao động. Tuy nhiên, Liên đoàn Lao động TP.HCM đã có đề nghị nghiên cứu. Rủi ro lớn nhất cho Grab: nếu bị công nhận là người lao động, chi phí BHXH + BHYT + lương tối thiểu = tăng 20-30% chi phí mỗi tài xế. Với ~200.000 tài xế, chi phí thêm có thể hàng nghìn tỷ đồng/năm. Grab thực tế đã điều chỉnh: (1) cho phép tài xế tự do chọn khung giờ (giảm yếu tố giám sát), (2) không yêu cầu online tối thiểu (giảm yếu tố quản lý), (3) tài xế có thể từ chối chuyến (giảm yếu tố điều hành). Tuy nhiên, Grab vẫn kiểm soát giá cước — đây là yếu tố khó bỏ vì là cốt lõi mô hình nền tảng. Vấn đề dữ liệu cá nhân (Nghị định 13/2023) cũng là rủi ro nhưng thứ yếu so với rủi ro quan hệ lao động.\n\n**Sai vì:**\n- B: Nghị định 13/2023 là rủi ro nhưng không phải lớn nhất — Grab có thể bổ sung đồng ý dữ liệu trong điều khoản hợp đồng\n- C: Luật Cạnh tranh 2018 áp dụng cho doanh nghiệp có thị phần đáng kể (>30%) — Grab có thị phần lớn nhưng giá cước do thị trường, không phải bán phá\n- D: 'Ký tự nguyện' không loại trừ tòa án xét thực tế quan hệ — BLDS 2015 và BLLĐ 2019 đều có nguyên tắc xét thực chất hơn hình thức",
+  "tags": ["phap_luat_dai_cuong","luật_lao_động","grab","bảo_hiểm_xã_hội","framework","expert","transport"]
+}
+
+RULES:
+1. MỌI câu hỏi dùng tên công ty/thương hiệu Việt Nam thật: Grab, Be, Shopee, TikTok Shop, Lazada, Tiki, Zalo (VNG), MoMo, ZaloPay, VNPay, Highlands Coffee, The Coffee House, Mixue, Katinat, Phúc Long, CGV, Galaxy Cinema, Vinamilk, TH True Milk, Vingroup, VinFast, Vinhomes, Masan, WinMart, FPT, Sky Mavis, Amanotes, Coolmate, Yody, Canifa, Novaland, Sabeco, Heineken, Vietcombank, Techcombank, VPBank, SCB, v.v.
+2. 50% tình huống có thật (Vạn Thịnh Phát-SCB, Novaland trái phiếu, Sky Mavis Ronin hack, Grab mô hình đối tác, Shopee thuế nhà thầu, Vingroup tách công ty con, Highlands nhượng quyền tranh chấp, Amanotes bản quyền âm nhạc), 50% tình huống giả định với thương hiệu thật — TẤT CẢ với quy định pháp luật thật, án lệ thật, cấu trúc hợp đồng thật
+3. Mỗi đề có 3-4 LOẠI câu hỏi khác nhau. KHÔNG lặp khuôn mẫu
+4. Độ khó: 40% tình huống (cấp McKinsey), 35% tính toán (mức phạt, thời hạn, giới hạn theo luật thật), 25% khái niệm (kiến thức pháp lý sâu)
+5. Tiếng Việt + chỉ giữ thuật ngữ tiếng Anh là tên riêng không dịch (xem danh sách ở trên)
+6. Phần giải thích BẮT BUỘC gồm: (a) lập luận đúng với điều luật/quy định cụ thể, (b) giải thích vì sao mỗi đáp án sai, (c) phần 'Góc nhìn nội bộ' với bối cảnh thực tiễn pháp lý VN chỉ luật gia trong ngành mới biết
+7. Tất cả 600 câu hỏi PHẢI KHÁC NHAU
+8. correctAnswer PHẢI khớp chính xác với một chuỗi trong options
+9. Tags: subject + chủ đề + loại (calc/conceptual/case_study/framework) + độ khó (hard/expert) + ngành
+
+KIẾN THỨC NGÀNH CẦN DÙNG (phân bổ across 30 đề):
+- Hệ thống pháp luật VN: Hiến pháp 2013, cấu trúc hệ thống pháp luật (luật — nghị định — thông tư), phân cấp luật pháp, nguyên tắc hiến pháp, quyền con người và quyền công dân. Thẩm quyền lập pháp (Quốc hội) vs hành pháp (Chính phủ) vs tư pháp (Tòa án).
+- Bộ luật Dân sự 2015: năng lực pháp luật, năng lực hành vi, giao dịch dân sự, hợp đồng (tự do hợp đồng, vô hiệu, hủy bỏ), bồi thường thiệt hại ngoài hợp đồng, thời hiệu, quyền sở hữu, quyền khác đối với tài sản.
+- Luật Doanh nghiệp 2020: loại hình doanh nghiệp (TNHH, Cổ phần, Công ty hợp danh), thành lập, quản trị, góp vốn, chuyển nhượng vốn, sáp nhập hợp nhất, giải thể phá sản. Cấu trúc công ty mẹ — công ty con (Vingroup, Masan).
+- Luật Thương mại 2005: hợp đồng thương mại, nhượng quyền thương mại (franchise), đại lý, môi giới, phạt vi phạm (tối đa 8%), bồi thường thiệt hại, chế tài thương mại.
+- Luật Đất đai 2024: quyền sử dụng đất, chuyển nhượng, thế chấp, thu hồi đất, bồi thường giải tỏa, đất thương mại vs đất ở, dự án BĐS (Vinhomes, Novaland). Thay đổi quan trọng so với Luật Đất đai 2013.
+- Luật Lao động 2019: hợp đồng lao động, tiền lương, BHXH/BHYT, nghỉ việc, sa thải, đình công, tài xế công nghệ (Grab/Be). Tiền lương tối thiểu vùng 2024.
+- Luật Sở hữu trí tuệ 2005 (sửa đổi 2022): quyền tác giả, quyền liên quan, nhãn hiệu, sáng chế, kiểu dáng công nghiệp, chỉ dẫn địa lý. Bản quyền âm nhạc (Amanotes), thương hiệu (Highlands, Vinamilk), sáng chế (FPT).
+- Luật Chứng khoán 2019: trái phiếu doanh nghiệp (Nghị định 153/2020, Thông tư 81/2021), cổ phiếu, IPO, thị trường chứng khoán. Khủng hoảng trái phiếu Novaland, SCB.
+- Luật Cạnh tranh 2018: thỏa thuận hạn chế cạnh tranh, lạm dụng vị trí thống lĩnh, tập trung kinh tế. Shopee vs TikTok Shop, Grab vs Be, Sabeco vs Heineken.
+- Luật Thuế: thuế TNDN, thuế GTGT, thuế nhà thầu (Grab, Shopee, TikTok), thuế tiêu thụ đặc biệt (bia, rượu), giá chuyển nhượng (Nghị định 132/2020, BEPS). Thuế TMĐT nền tảng nước ngoài.
+- Luật An ninh mạng 2018 và Nghị định 13/2023 về bảo vệ dữ liệu cá nhân: dữ liệu người dùng, localization, thông báo vi phạm. Shopee, Grab, MoMo, Zalo.
+- Luật Giao dịch điện tử 2023: chữ ký số, hợp đồng điện tử, TMĐT. Shopee, TikTok Shop, Grab.
+- Trọng tài thương mại: VIAC, SIAC, ICC. So sánh tòa án vs trọng tài trong tranh chấp thương mại VN. Điều khoản trọng tài trong hợp đồng thương mại quốc tế.
+- Pháp luật quốc tế: WTO, CPTPP, EVFTA, RCEP — tác động đến doanh nghiệp VN. Thuế quan, chống bán phá giá, bảo hộ đầu tư. FDI tại VN (Samsung, LG, Intel).
+
+Now generate all 30 đề × 20 questions = 600 questions. Output ONLY the JSON.

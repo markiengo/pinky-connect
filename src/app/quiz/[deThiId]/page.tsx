@@ -1,15 +1,19 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { getQuizData } from "@/lib/quiz";
+import { getPreviousAttempt, type PreviousAttempt } from "@/lib/history";
 import { AppShell } from "@/components/app-shell";
 import { QuizClient } from "@/components/quiz-client";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { getSession } from "@/lib/session";
 
 export default async function QuizPage({
   params,
 }: {
   params: Promise<{ deThiId: string }>;
 }) {
+  const session = await getSession();
+  if (!session) redirect("/login");
   const { deThiId } = await params;
   const quiz = await getQuizData(deThiId);
 
@@ -17,8 +21,10 @@ export default async function QuizPage({
     notFound();
   }
 
+  const previousAttempt = await getPreviousAttempt(deThiId);
+
   return (
-    <AppShell>
+    <AppShell username={session.username}>
       <Link
         href="/library"
         className="inline-flex items-center gap-1.5 font-sans font-medium text-[13px] mb-4 transition-colors"
@@ -33,7 +39,7 @@ export default async function QuizPage({
           className="inline-flex items-center px-2.5 py-1 rounded-full font-sans font-medium text-[11px] uppercase tracking-wider mb-2"
           style={{
             background: "rgba(244,137,154,0.12)",
-            color: "#5B8A7A",
+            color: "#F4899A",
           }}
         >
           {quiz.subjectName}
@@ -59,6 +65,7 @@ export default async function QuizPage({
         title={quiz.title}
         subjectName={quiz.subjectName}
         questions={quiz.questions}
+        previousAttempt={previousAttempt as PreviousAttempt | null}
       />
     </AppShell>
   );

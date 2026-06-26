@@ -3,7 +3,7 @@
  * Based on PRD §13.2 — adapted for college-level subjects.
  */
 
-import { normalizeAndTokenize, slugifyVietnamese } from "./vietnamese";
+import { normalizeAndTokenize } from "./vietnamese";
 
 export interface SubjectKeywordTable {
   slug: string;
@@ -86,6 +86,76 @@ export const SUBJECT_KEYWORDS: SubjectKeywordTable[] = [
       "quan tri marketing",
     ],
   },
+  {
+    slug: "kinh_te_vi_mo",
+    name: "Kinh tế vi mô",
+    keywords: [
+      "kinh te vi mo",
+      "kinh te",
+      "cau",
+      "cung",
+      "can bang",
+      "co dan",
+      "thang du",
+      "thay the",
+      "bo sung",
+      "quy mo",
+      "chi phi",
+      "doanh thu",
+      "doc quyen",
+      "nhom",
+      "cournot",
+      "bertrand",
+      "nash",
+      "ngoai ung",
+      "hang hoa cong cong",
+      "thue",
+      "huu dung",
+      "bang can doi",
+      "duong bang quan",
+      "hicks",
+      "slutsky",
+      "cobb douglas",
+      "giffen",
+      "engel",
+      "pareto",
+      "san xuat",
+      "loi the",
+      "rào cản",
+    ],
+  },
+  {
+    slug: "phap_luat_dai_cuong",
+    name: "Pháp luật đại cương",
+    keywords: [
+      "phap luat",
+      "hien phap",
+      "bo luat",
+      "dan su",
+      "thuong mai",
+      "doanh nghiep",
+      "dat dai",
+      "lao dong",
+      "so huu tri tue",
+      "chung khoan",
+      "canh tranh",
+      "thue",
+      "an ninh mang",
+      "giao dich dien tu",
+      "trong tai",
+      "viac",
+      "hop dong",
+      "vo hieu",
+      "boi thuong",
+      "nghia vu",
+      "quyen",
+      "toa an",
+      "nghiem can",
+      "luat su",
+      "phap quy",
+      "van ban",
+    ],
+  },
 ];
 
 export interface SubjectScore {
@@ -151,4 +221,4 @@ export function getSubjectName(slug: string): string | undefined {
 /**
  * Slugify a Vietnamese string for use as tags.
  */
-export { slugifyVietnamese };
+// Removed: re-export of slugifyVietnamese (consumers import directly from vietnamese.ts)

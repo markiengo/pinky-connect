@@ -15,8 +15,10 @@ export interface DeThiCardData {
 
 const subjectColors: Record<string, string> = {
   ke_toan: "#9F7AEA",
-  tai_chinh_ngan_hang: "#7C6FDB",
+  tai_chinh_ngan_hang: "#A8E6CF",
   quan_tri_kinh_doanh: "#F4899A",
+  kinh_te_vi_mo: "#4ECDC4",
+  phap_luat_dai_cuong: "#5B5FA8",
 };
 
 function getQuestionTypeLabel(types: ("mcq" | "essay")[]): string {

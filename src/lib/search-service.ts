@@ -1,39 +1,87 @@
 import { prisma } from "./db";
 import { matchDeThi, type DeThiForMatching, type MatchResult } from "./matching";
 
+const MATCHING_CACHE_TTL_MS = 5 * 60 * 1000;
+
+let matchingCache:
+  | {
+      expiresAt: number;
+      data: DeThiForMatching[];
+    }
+  | undefined;
+
+function parseTags(tags: string): string[] {
+  try {
+    const parsed = JSON.parse(tags) as unknown;
+    return Array.isArray(parsed)
+      ? parsed.filter((tag): tag is string => typeof tag === "string")
+      : [];
+  } catch {
+    return [];
+  }
+}
+
 /**
  * Fetch all de-thi from the database and convert to matching format.
  */
 export async function getAllDeThiForMatching(): Promise<DeThiForMatching[]> {
+  const now = Date.now();
+  if (matchingCache && matchingCache.expiresAt > now) {
+    return matchingCache.data;
+  }
+
   const deThiList = await prisma.deThi.findMany({
-    include: {
-      subject: true,
-      questions: {
-        select: { id: true, type: true },
+    select: {
+      id: true,
+      title: true,
+      tags: true,
+      normalizedTitle: true,
+      subject: {
+        select: {
+          name: true,
+          slug: true,
+        },
+      },
+      _count: {
+        select: {
+          deThiQuestions: true,
+        },
+      },
+      deThiQuestions: {
+        select: {
+          question: {
+            select: {
+              type: true,
+            },
+          },
+        },
       },
     },
   });
 
-  return deThiList.map((dt) => {
+  const data = deThiList.map((dt) => {
     const questionTypes = Array.from(
-      new Set(dt.questions.map((q) => q.type as "mcq" | "essay")),
+      new Set(dt.deThiQuestions.map((dq) => dq.question.type as "mcq" | "essay")),
     );
-    let tags: string[] = [];
-    try {
-      tags = JSON.parse(dt.tags) as string[];
-    } catch {
-      tags = [];
-    }
+
     return {
       id: dt.id,
       title: dt.title,
+      normalizedTitle: dt.normalizedTitle,
       subjectSlug: dt.subject.slug,
       subjectName: dt.subject.name,
-      tags,
-      questionCount: dt.questions.length,
+      tags: parseTags(dt.tags),
+      questionCount: dt._count.deThiQuestions,
       questionTypes,
     };
   });
+
+  matchingCache = {
+    expiresAt: now + MATCHING_CACHE_TTL_MS,
+    data,
+  };
+
+  return data;
 }
 
 /**

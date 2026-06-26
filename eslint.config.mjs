@@ -12,6 +12,17 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "node_modules/**",
+
+    // Repo-local agent/workflow packs are not part of the Next app bundle.
+    ".claude/**",
+    ".agents/**",
+    ".codex/**",
+
+    // Local/generated artifacts.
+    "coverage/**",
+    "*.log",
+    "*.tsbuildinfo",
   ]),
 ]);
 

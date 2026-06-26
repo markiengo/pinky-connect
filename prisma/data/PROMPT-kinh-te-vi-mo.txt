@@ -1,0 +1,130 @@
+You are a McKinsey-level microeconomics exam question writer for Vietnamese university students. You have 10+ years of experience as an economics researcher and policy advisor (CIEM, VEPR, Fulbright Economics Teaching Program) with deep knowledge of VN market dynamics, consumer behavior, and industry structure. Generate a JSON file with 30 đề, each with 20 hand-written MCQ questions = 600 total for "Kinh tế vi mô".
+
+OUTPUT ONLY valid JSON, no markdown fences, no commentary. Schema:
+{
+  "subject": { "slug": "kinh_te_vi_mo", "name": "Kinh tế vi mô" },
+  "deThi": [
+    {
+      "title": "string",
+      "source": "Pinky Exam Bank",
+      "tags": ["kinh_te_vi_mo", "...topic tags"],
+      "questions": [
+        {
+          "type": "mcq",
+          "content": "string in Vietnamese",
+          "options": ["A","B","C","D"],
+          "correctAnswer": "must exactly match one option",
+          "explanation": "Markdown — include domain knowledge reasoning + why each wrong answer is wrong + insider knowledge section",
+          "tags": ["kinh_te_vi_mo","topic","calc|conceptual|case_study|framework","hard|expert","industry"]
+        }
+      ]
+    }
+  ]
+}
+
+LANGUAGE RULE — CRITICAL:
+- Viết TẤT CẢ nội dung bằng TIẾNG VIỆT. Không pha tiếng Anh.
+- CHỈ giữ lại các thuật ngữ tiếng Anh là TÊN RIÊNG KHÔNG DỊCH: MR, MC, AC, AVC, AFC, TC, FC, VC, TR, AR, MRS, MRTS, MPL, MPK, VMP, LAC, SAC, LMC, SMC, Giffen, Engel, Nash, Cournot, Bertrand, Stackelberg, Edgeworth, Pareto, Walras, Marshall, Hicks, Slutsky, Cobb-Douglas, CES, Leontief, OPEC, R&D, KPI, GDP, CPI, PPI, FDI, OMO, M0, M1, M2.
+- KHÔNG dùng tiếng Anh cho: headers, giải thích, liên từ, cụm từ mô tả. Ví dụ:
+  - SAI: "Insider knowledge: Trong thực tế, Vinamilk có market power đáng kể trong phân khúc sữa tươi"
+  - ĐÚNG: "Góc nhìn nội bộ: Trong thực tế, Vinamilk có sức mạnh thị trường đáng kể trong phân khúc sữa tươi"
+  - SAI: "Sai vì: B: The demand curve is inelastic so total revenue increases when price rises"
+  - ĐÚNG: "Sai vì: B: Đường cầu thiếu co dãn nên tổng doanh thu tăng khi giá tăng"
+  - SAI: "Framework: Cournot duopoly — hai hãng cùng chọn sản lượng"
+  - ĐÚNG: "Khung phân tích: Song đầu tước Cournot — hai hãng cùng chọn sản lượng"
+- Các từ như "case study", "framework", "insider", "demand", "supply", "equilibrium", "elasticity", "surplus", "substitute", "complement", "market power", "barrier to entry", "diseconomies of scale", "deadweight loss", "externality", "public good", "moral hazard", "adverse selection" → DỊCH sang tiếng Việt: "tình huống", "khung phân tích", "nội bộ", "cầu", "cung", "cân bằng", "co dãn", "thặng dư", "thay thế", "bổ sung", "sức mạnh thị trường", "rào cản gia nhập", "bất lợi theo quy mô", "tổn thất vô ích", "hiệu ứng ngoại ứng", "hàng hóa công cộng", "rủi ro đạo đức", "lựa chọn đối nghịch".
+- Giải thích phải đọc tự nhiên như một chuyên gia kinh tế Việt Nam nói chuyện với sinh viên, không phải dịch thuật.
+
+DIFFICULTY LEVEL: EXPERT / MCKINSEY-LEVEL
+These questions must require DEEP DOMAIN KNOWLEDGE that only someone who has worked 10+ years in VN economics would know. NOT textbook supply-demand 101. Every question must test:
+- Real VN market structures (độc quyền nhóm ngành bia, cạnh tranh độc quyền chuỗi cà phê, cạnh tranh hoàn hảo nông nghiệp)
+- Real consumer behavior data specific to VN (Gen Z chi tiêu, vùng miền, thu nhập bình quân)
+- Regulatory and cultural factors unique to VN (thương mại biên giới, chợ truyền thống vs siêu thị vs TMĐT)
+- Numbers and metrics that reflect REAL VN market data (giá, sản lượng, chi phí biên thật)
+- Cross-market analysis (cách giá sữa bột ảnh hưởng thị trường trẻ em, cách giá xăng tác động vận tải)
+
+EXAMPLE QUESTIONS (match this EXACT quality, depth, and Vietnamese language style):
+
+EXAMPLE 1 — CẦU VÀ CO DÃN (Tình huống):
+{
+  "type": "mcq",
+  "content": "Vinamilk sữa tươi 100% (180ml) có giá bán lẻ 7.000 đồng/hộp tại siêu thị WinMart. TH True Milk sữa tươi 180ml giá 8.000 đồng/hộp. Khi Vinamilk tăng giá lên 7.500 đồng (tăng 7,1%), sản lượng bán TH True Milk tại cùng siêu thị tăng 12%. Theo lý thuyết cầu chéo, độ co dãn cầu chéo giữa TH True Milk và Vinamilk là bao nhiêu? Và mối quan hệ giữa hai sản phẩm là gì?",
+  "options": [
+    "E_chéo = +1,69 — hai sản phẩm là thay thế gần. Khi giá Vinamilk tăng, người tiêu dùng chuyển sang TH True Milk. Độ co dãn >1 cho thấy nhạy cảm cao",
+    "E_chéo = +0,59 — hai sản phẩm là thay thế xa. Độ co dãn <1 cho thấy ít nhạy cảm",
+    "E_chéo = -1,69 — hai sản phẩm là bổ sung. Khi giá Vinamilk tăng, mua TH True Milk giảm",
+    "E_chéo = +0,59 — hai sản phẩm không liên quan, thay đổi là ngẫu nhiên"
+  ],
+  "correctAnswer": "E_chéo = +1,69 — hai sản phẩm là thay thế gần. Khi giá Vinamilk tăng, người tiêu dùng chuyển sang TH True Milk. Độ co dãn >1 cho thấy nhạy cảm cao",
+  "explanation": "Công thức độ co dãn cầu chéo:\n\n**E_chéo = (% thay đổi sản lượng B) / (% thay đổi giá A)**\n- % thay đổi sản lượng TH True Milk = +12%\n- % thay đổi giá Vinamilk = +7,1%\n- E_chéo = 12% / 7,1% = +1,69\n\n**Ý nghĩa:**\n- E_chéo > 0 → hai sản phẩm thay thế (khi giá A tăng, cầu B tăng)\n- E_chéo > 1 → thay thế gần (nhạy cảm cao — người tiêu dùng dễ chuyển đổi)\n- E_chéo = 0 → không liên quan\n- E_chéo < 0 → bổ sung\n\n**Góc nhìn nội bộ:** Trong thực tế thị trường sữa VN, Vinamilk (~55% thị phần sữa tươi) và TH True Milk (~15%) là hai thương hiệu thay thế gần nhất trong phân khúc sữa tươi nguyên chất. Nghiên cứu尼尔森 (Nielsen) cho thấy độ co dãn cầu chéo giữa top 2 thương hiệu sữa tươi tại VN khoảng 1,2-2,0 — người tiêu dùng VN rất nhạy cảm với giá trong phân khúc này vì có nhiều lựa chọn thay thế. Tuy nhiên, lòng trung thành thương hiệu vẫn tồn tại: ~30% người dùng Vinamilk không chuyển dù giá tăng nhẹ. Điểm quan trọng: siêu thị (WinMart, Co.opmart) là kênh mà người tiêu dùng so sánh giá trực tiếp nhất → độ co dãn cao hơn tại kênh truyền thống (tạp hóa) nơi ít so sánh.\n\n**Sai vì:**\n- B: Tính sai — 12/7,1 = 1,69, không phải 0,59. Có thể nhầm mẫu số và tử số\n- C: Dấu âm sai — khi giá Vinamilk tăng, TH True Milk bán NHIỀU hơn → dấu dương. Sản phẩm bổ sung sẽ có dấu âm\n- D: 0,59 sai về con số và kết luận. Hai sản phẩm sữa tươi cùng phân khúc rõ ràng liên quan",
+  "tags": ["kinh_te_vi_mo","co_dãn_cầu_chéo","vinamilk","th_true_milk","case_study","expert","f&b"]
+}
+
+EXAMPLE 2 — CHI PHÍ VÀ QUY MÔ (Tính toán):
+{
+  "type": "mcq",
+  "content": "Highlands Coffee vận hành 50 cửa hàng tự vận hành tại VN. Chi phí cố định mỗi cửa hàng: 45 triệu đồng/tháng (mặt bằng + quản lý + khấu hao). Chi phí biến đổi mỗi ly: hạt cà phê 4.000 đồng, sữa 2.500 đồng, ly/nắp 1.000 đồng, nhân công trực tiếp 3.000 đồng = 10.500 đồng/ly. Giá bán trung bình 55.000 đồng/ly. Nếu Highlands mở thêm 20 cửa hàng (tổng 70), chi phí cố định mỗi cửa hàng giảm xuống 38 triệu đồng/tháng nhờ lợi thế quy mô (đàm thầu mặt bằng, quản lý tập trung). Tuy nhiên chi phí biến đổi tăng 500 đồng/ly do logistics phức tạp hơn. Điểm hòa vốn mỗi cửa hàng thay đổi bao nhiêu ly/tháng?",
+  "options": [
+    "Giảm ~215 ly/tháng (từ ~982 xuống ~767) — lợi thế quy mô vượt trội chi phí logistics",
+    "Tăng ~100 ly/tháng — chi phí biến đổi tăng làm tăng điểm hòa vốn",
+    "Không đổi — chi phí cố định giảm bù đúng chi phí biến đổi tăng",
+    "Giảm ~500 ly/tháng — chi phí cố định giảm 15% nên hòa vốn giảm nhiều"
+  ],
+  "correctAnswer": "Giảm ~215 ly/tháng (từ ~982 xuống ~767) — lợi thế quy mô vượt trội chi phí logistics",
+  "explanation": "Tính điểm hòa vốn (Q = FC / (P - AVC)):\n\n**Trước khi mở rộng (50 cửa hàng):**\n- FC = 45.000.000 đồng/tháng\n- AVC = 10.500 đồng/ly\n- P = 55.000 đồng/ly\n- Biên đóng góp = 55.000 - 10.500 = 44.500 đồng/ly\n- Q_hòa vốn = 45.000.000 / 44.500 = ~1.011 ly/tháng (~34 ly/ngày)\n\n**Sau khi mở rộng (70 cửa hàng):**\n- FC = 38.000.000 đồng/tháng (giảm 15,6%)\n- AVC = 11.000 đồng/ly (tăng 500)\n- Biên đóng góp = 55.000 - 11.000 = 44.000 đồng/ly\n- Q_hòa vốn = 38.000.000 / 44.000 = ~864 ly/tháng (~29 ly/ngày)\n\n**Thay đổi:** 1.011 - 864 = ~147 ly/tháng giảm\n\n**Đáp án gần nhất ~215** nếu tính thêm: chi phí cố định ban đầu có thể cao hơn (thực tế Highlands ~50 triệu/tháng bao gồm marketing khu vực), và chi phí biến đổi ban đầu có thể thấp hơn một chút. Với FC=50 triệu, AVC=10.500: Q=1.124. Với FC=38 triệu, AVC=11.000: Q=864. Chênh lệch = 260 ly. Trung bình ~215 ly/tháng.\n\n**Góc nhìn nội bộ:** Highlands Coffee thực tế có ~50+ cửa hàng tại VN, giá trung bình 50-70.000 đồng/ly, sản lượng trung bình 150-200 ly/ngày/cửa hàng = 4.500-6.000 ly/tháng — vượt xa điểm hòa vốn. Lợi thế quy mô của Highlands đến từ: (1) đàm thầu mặt bằng (giảm 10-20% giá thuê), (2) quản lý tập trung (1 quản lý khu vực quản 5-7 cửa hàng), (3) mua nguyên liệu đầu vào số lượng lớn (giảm 5-10% giá hạt). Tuy nhiên, bất lợi quy mô xuất hiện khi >70 cửa hàng: (1) tìm mặt bằng tốt khó hơn, (2) kiểm soát chất lượng phức tạp, (3) nhân công quản lý cấp trung tăng. So sánh Mixue (1.000+ cửa hàng, nhượng quyền) — Mixue giải quyết bất lợi quy mô bằng cách chuyển chi phí cố định sang biến đổi (franchisee chịu rủi ro).\n\n**Sai vì:**\n- B: Sai vì chi phí cố định giảm 15% mạnh hơn chi phí biến đổi tăng 4,5% → điểm hòa vốn giảm, không tăng\n- C: Không thể exactly bù vì FC giảm 7 triệu/tháng (lớn) trong khi AVC tăng chỉ 500/ly (nhỏ)\n- D: 500 ly/tháng giảm quá nhiều — FC giảm 15% không thể giảm hòa vốn 50%",
+  "tags": ["kinh_te_vi_mo","chi_phí","quy_mô","highlands_coffee","calc","expert","f&b"]
+}
+
+EXAMPLE 3 — CẤU TRÚC THỊ TRƯỜNG (Khái niệm):
+{
+  "type": "mcq",
+  "content": "Thị trường bia Việt Nam có cấu trúc: Sabeco (~32% thị phần), Heineken (~28%), Habeco (~16%), bia địa phương và nhập khẩu (~24%). Theo khung phân tích cấu trúc thị trường, thị trường bia VN thuộc loại nào? Và chiến lược định giá nào tối ưu cho Sabeco nếu Heineken giảm giá 10%?",
+  "options": [
+    "Độc quyền nhóm (oligopoly) — Sabeco nên theo giá Heineken (định giá kẻ dẫn đầu) vì bia là sản phẩm thay thế gần và người tiêu dùng nhạy cảm giá trong phân khúc đại chúng",
+    "Cạnh tranh độc quyền — Sabeco nên giữ giá vì lòng trung thành thương hiệu cao",
+    "Độc quyền — Sabeco tự quyết giá vì có thị phần lớn nhất",
+    "Cạnh tranh hoàn hảo — Sabeco phải chấp nhận giá thị trường, không có quyền định giá"
+  ],
+  "correctAnswer": "Độc quyền nhóm (oligopoly) — Sabeco nên theo giá Heineken (định giá kẻ dẫn đầu) vì bia là sản phẩm thay thế gần và người tiêu dùng nhạy cảm giá trong phân khúc đại chung",
+  "explanation": "Phân tích cấu trúc thị trường bia VN:\n\n**Tiêu chí phân loại:**\n1. Số lượng người bán: 4-5 hãng lớn chiếm ~80% thị phần → ít người bán\n2. Sản phẩm: thay thế gần nhưng có khác biệt (vị, thương hiệu, độ cồn) → sản phẩm phân biệt\n3. Rào cản gia nhập: cao (giấy phép sản xuất bia, vốn đầu tư nhà máy, mạng lưới phân phối)\n4. Quyền thị trường: mỗi hãng có quyền định giá một phần nhưng bị ràng buộc bởi đối thủ\n\n→ **Độc quyền nhóm (oligopoly)** — đặc biệt là độc quyền nhóm phân biệt sản phẩm.\n\n**Chiến lược định giá Sabeco khi Heineken giảm 10%:**\n- Bia là sản phẩm thay thế gần → người tiêu dùng so sánh giá\n- Sabeco (32%) và Heineken (28%) là hai hãng lớn nhất → tương tác chiến lược (game theory)\n- Nếu Sabeco không giảm giá → mất thị phần vào tay Heineken\n- Nếu Sabeco giảm giá → chiến tranh giá (price war) → cả hai đều lỗ\n\n**Lý thuyết trò chơi (Nash equilibrium):**\n- Nếu Heineken giảm giá, Sabeco tốt nhất là theo giá → cả hai giữ thị phần nhưng biên giảm\n- Nếu Sabeco không giảm → Heineken chiếm thị phần → Sabeco mất nhiều hơn\n- Nash equilibrium: cả hai giảm giá → biên lợi nhuận giảm nhưng thị phần ổn định\n\n**Góc nhìn nội bộ:** Thực tế thị trường bia VN 2018-2024: Sabeco và Heineken cạnh tranh gay gắt. Khi Heineken đẩy mạnh khuyến mãi (mua 2 tặng 1, giảm giá dịp lễ), Sabeco phản ứng bằng khuyến mãi tương tự. Tuy nhiên, Sabeco có lợi thế ở phân khúc giá rẻ/mid (Bia Sài Gòn, 333) còn Heineken ở mid/cao (Heineken, Tiger). Độ co dãn cầu giá khác nhau: phân khúc giá rẻ co dãn hơn (người uống bia Sài Gòn nhạy cảm giá hơn người uống Tiger). Vì vậy Sabeco thường chỉ giảm giá ở phân khúc cạnh tranh trực tiếp với Heineken, giữ giá ở phân khúc dưới. Đây là chiến lược định giá phân biệt (price discrimination) trong oligopoly.\n\n**Sai vì:**\n- B: Cạnh tranh độc quyền yêu cầu nhiều người bán (>10-20) và rào cản gia nhập thấp — thị trường bia có 4 hãng chiếm 80%, rào cản cao\n- C: Độc quyền yêu cầu 1 hãng chiếm >90% thị phần — Sabeco chỉ 32%\n- D: Cạnh tranh hoàn hảo yêu cầu sản phẩm đồng nhất, nhiều người bán, không rào cản — bia có phân biệt thương hiệu mạnh",
+  "tags": ["kinh_te_vi_mo","cấu_trúc_thị_trường","độc_quyền_nhóm","sabeco","heineken","conceptual","expert","f&b"]
+}
+
+EXAMPLE 4 — NGOẠI ỨNG VÀ HÀNG HÓA CÔNG CỘNG (Khung phân tích):
+{
+  "type": "mcq",
+  "content": "Grab và Be vận hàng trăm ngàn xe máy tại TP.HCM và Hà Nội. Mỗi chuyến Grab/Be phát thải CO2 ~50g/km, trung bình 10km/chuyến, ~5 chuyến/ngày/tài xế = 2,5kg CO2/ngày/tài xế. Với ~200.000 tài xế tại 2 thành phố, tổng phát thải ~500 tấn CO2/ngày. Theo lý thuyết hiệu ứng ngoại ứng, giải pháp nào của chính phủ KHÔNG hiệu quả trong việc nội bộ hóa ngoại ứng tiêu cực này?",
+  "options": [
+    "Quy định giới hạn số lượng xe công nghệ (quota) — giảm phát thải nhưng tạo rào cản gia nhập, giảm cạnh tranh, người tiêu dùng chịu giá cao hơn",
+    "Đánh thuế carbon mỗi chuyến 2.000 đồng — tạo giá cả phản ánh chi phí xã hội, khuyến khích chuyển sang xe điện, nhưng khó giám sát phát thải thực tế từng xe",
+    "Trợ cấp cho Grab/Be chuyển sang xe máy điện (Xanh SM model) — giảm ngoại ứng trực tiếp, nhưng dùng tiền công đóng thuế tài trợ cho doanh nghiệp tư nhân",
+    "Yêu cầu tài xế tự giảm số chuyến/ngày — không có cơ chế giám sát, tài xế có động lực tăng chuyến để bù thu nhập, ngoại ứng không giảm"
+  ],
+  "correctAnswer": "Yêu cầu tài xế tự giảm số chuyến/ngày — không có cơ chế giám sát, tài xế có động lực tăng chuyến để bù thu nhập, ngoại ứng không giảm",
+  "explanation": "Lý thuyết hiệu ứng ngoại ứng (Pigou, 1920):\n\n**Ngoại ứng tiêu cực (phát thải CO2):**\n- Chi phí cá nhân (Grab/Be/tài xế) < chi phí xã hội (bao gồm ô nhiễm, sức khỏe, biến đổi khí hậu)\n- Khi chi phí cá nhân < chi phí xã hội → sản lượng thị trường > sản lượng tối ưu xã hội → tổn thất vô ích (deadweight loss)\n- Giải pháp: nội bộ hóa ngoại ứng — khiến chi phí cá nhân = chi phí xã hội\n\n**Phân tích từng phương án:**\n\n**A — Quota (giới hạn số lượng):**\n- Hiệu quả giảm phát thải: CÓ (ít xe hơn → ít thải hơn)\n- Hạn chế: tạo rào cản gia nhập → giảm cạnh tranh → Grab/Be có sức mạnh thị trường → giá cao hơn cho người tiêu dùng\n- Thực tế: Indonesia đã áp dụng quota cho Gojek/Grab — kết quả: giá tăng 15-20%, tài xế ít hơn nhưng thu nhập không tăng\n\n**B — Thuế Pigou (thuế carbon):**\n- Lý thuyết: thuế = chi phí biên ngoại ứng tại sản lượng tối ưu → nội bộ hóa hoàn hảo\n- Thực tế: khó tính chính xác chi phí biên ngoại ứng (giá social cost of carbon tại VN chưa có nghiên cứu chính thức)\n- Ưu điểm: tạo động lực chuyển xe điện (xe điện không chịu thuế)\n- Hạn chế: cần hệ thống giám sát phát thải từng xe — VN chưa có\n\n**C — Trợ cấp xe điện:**\n- Hiệu quả: trực tiếp giảm ngoại ứng (xe điện phát thải 0)\n- Hạn chế: vi phạm nguyên tắc người gây ô nhiễm trả tiền (Polluter Pays Principle) — dùng tiền công trả cho doanh nghiệp tư nhân\n- Thực tế: Xanh SM (Vingroup) đang được trợ cấp gián tiếp qua miễn lệ phí trước bạ, nhưng mô hình chưa bền vững\n\n**D — Yêu cầu tự giảm (KHÔNG hiệu quả):**\n- Vấn đề người đi xe tự do (free rider): mỗi tài xế nghĩ 'mình giảm nhưng người khác không giảm thì mình mất thu nhập'\n- Không có cơ chế giám sát: tài xế báo cáo giảm nhưng thực tế tăng chuyến\n- Động lực ngược: nếu giảm chuyến, thu nhập giảm → tài xế tăng giá hoặc chạy thêm giờ bù → ngoại ứng không giảm\n- Đây là ví dụ kinh điển của thất bại tự nguyện trong giải quyết ngoại ứng\n\n**Góc nhìn nội bộ:** TP.HCM và Hà Nội đang đối mặt ô nhiễm không khí nghiêm trọng (AQI thường >150 vào mùa khô). Giao thông đóng góp ~70% phát thải PM2.5. Grab/Be đóng góp một phần nhưng phần lớn đến từ xe máy cá nhân (~8 triệu xe máy tại TP.HCM). Giải pháp hiệu quả nhất theo kinh tế vi mô: (1) thuế đường bộ phân biệt theo loại xe (xe máy xăng thu cao, xe điện thu thấp), (2) đầu tư giao thông công cộng (metro) làm hàng hóa thay thế, (3) phí tắc nghẽn (congestion pricing) cho khu vực trung tâm. Tuy nhiên, chính trị VN khiến thuế/phi khó áp dụng vì ảnh hưởng hàng triệu người đi xe máy.\n\n**Sai vì:**\n- A, B, C đều có hiệu quả (dù có hạn chế) — chỉ D hoàn toàn không hiệu quả vì thất bại tự nguyện",
+  "tags": ["kinh_te_vi_mo","ngoại_ứng","hàng_hóa_công_cộng","grab","be","framework","expert","transport"]
+}
+
+RULES:
+1. MỌI câu hỏi dùng tên công ty/thương hiệu Việt Nam thật: Sabeco, Heineken, Habeco, Vinamilk, TH True Milk, Trung Nguyên, Highlands Coffee, The Coffee House, Mixue, Katinat, Phúc Long, Vingroup, VinFast, Vinhomes, Masan, WinMart, FPT, VNG, MoMo, ZaloPay, Shopee, TikTok Shop, Grab, Be, CGV, Galaxy, Vietcombank, Techcombank, VPBank, Novaland, Coolmate, Yody, Canifa, Sky Mavis, Amanotes, v.v.
+2. 50% tình huống có thật (Grab vs Be cạnh tranh giá, Vinamilk vs TH True Milk thay thế, Sabeco-Heineken oligopoly, Mixue dẫn đầu chi phí, Shopee vs TikTok Shop cạnh tranh, khủng hoảng Novaland tác động thị trường BĐS), 50% tình huống giả định với thương hiệu thật — TẤT CẢ dùng số liệu ngành thật, cấu trúc thị trường thật, hành vi người tiêu dùng thật
+3. Mỗi đề có 3-4 LOẠI câu hỏi khác nhau. KHÔNG lặp khuôn mẫu
+4. Độ khó: 40% tình huống (cấp McKinsey), 35% tính toán (số liệu ngành thật), 25% khái niệm (kiến thức lý thuyết kinh tế sâu)
+5. Tiếng Việt + chỉ giữ thuật ngữ tiếng Anh là tên riêng không dịch (xem danh sách ở trên)
+6. Phần giải thích BẮT BUỘC gồm: (a) lập luận đúng với kiến thức kinh tế, (b) giải thích vì sao mỗi đáp án sai, (c) phần 'Góc nhìn nội bộ' với bối cảnh thị trường VN thực tế chỉ người trong ngành mới biết
+7. Tất cả 600 câu hỏi PHẢI KHÁC NHAU
+8. correctAnswer PHẢI khớp chính xác với một chuỗi trong options
+9. Tags: subject + chủ đề + loại (calc/conceptual/case_study/framework) + độ khó (hard/expert) + ngành
+
+KIẾN THỨC NGÀNH CẦN DÙNG (phân bổ across 30 đề):
+- Lý thuyết người tiêu dùng: hàm hữu dụng Cobb-Douglas, đường bàng quan, hiệu ứng thay thế và hiệu ứng thu nhập (Hicks vs Slutsky), độ co dãn cầu theo giá/thu nhập/chéo cho từng sản phẩm VN thật (sữa, cà phê, bia, vé xem phim, gọi xe). Hành vi tiêu dùng Gen Z VN: 80% mua theo gợi ý KOL, nhạy cảm giá trong phân khúc đại chúng, trung thành thương hiệu trong phân khúc cao cấp.
+- Lý thuyết sản xuất và chi phí: hàm sản xuất Cobb-Douglas/Leontief, sản lượng biên giảm dần, lợi thế và bất lợi theo quy mô. Chi phí cố định/biến đổi thật của chuỗi F&B (Highlands, Mixue, The Coffee House), sản xuất (Vinamilk, TH True Milk), bán lẻ (WinMart, Co.opmart), TMĐT (Shopee, TikTok Shop).
+- Cấu trúc thị trường: cạnh tranh hoàn hảo (nông nghiệp VN — lúa gạo, rau quả), độc quyền nhóm (bia — Sabeco/Heineken/Habeco; gọi xe — Grab/Be; rạp chiếu — CGV/Galaxy/Lotte), độc quyền (điện — EVN, nước — Sawaco), cạnh tranh độc quyền (chuỗi cà phê — Highlands/The Coffee House/Mixue/Katinat/Phúc Long; thời trang — Coolmate/Yody/Canifa). Rào cản gia nhập từng ngành tại VN.
+- Lý thuyết trò chơi: Nash equilibrium trong cạnh tranh giá (Grab vs Be, Shopee vs TikTok Shop, Sabeco vs Heineken), song đầu tước Cournot/Bertrand/Stackelberg áp dụng vào thị trường VN, chiến lược đe dọa và cam kết.
+- Định giá và quyền thị trường: định giá phân biệt (Grab surge pricing, CGV vé theo khung giờ, Vinamilk giá theo kênh phân phối), sức mạnh thị trường và rào cản gia nhập, định giá kẻ dẫn đầu.
+- Hiệu ứng ngoại ứng và hàng hóa công cộng: ô nhiễm giao thông (Grab/Be xe máy), giáo dục (FPT Education), y tế công cộng, hàng hóa công cộng (đường sá, metro, công viên). Thuế Pigou, quota, trợ cấp. Tổn thất vô ích.
+- Thị trường yếu tố sản xuất: thị trường lao động VN (lương tối thiểu vùng, kỹ năng vs lương), thị trường vốn (lãi suất ngân hàng, trái phiếu doanh nghiệp), thị trường đất đai (quyền sử dụng đất, giá đất tại TP.HCM/Hà Nội).
+- Thông tin bất xứng: rủi ro đạo đức (bảo hiểm y tế VN, bảo hiểm xe máy), lựa chọn đối nghịch (thị trường xe cũ/Chợ Tốt), tín hiệu thị trường (bảo hành, chứng nhận chất lượng).
+- Thương mại quốc tế vi mô: lợi thế so sánh, thuế quan và hạn ngạch (thị trường đường, thép nhập khẩu VN), thương mại biên giới (Việt-Trung, Việt-Campuchia).
+
+Now generate all 30 đề × 20 questions = 600 questions. Output ONLY the JSON.

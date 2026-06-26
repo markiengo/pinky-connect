@@ -3,17 +3,15 @@ import { AppShell } from "@/components/app-shell";
 import { DePaneCard } from "@/components/de-pane-card";
 import { getSession } from "@/lib/session";
 import { getAvailableDeThi } from "@/lib/quiz";
+import { redirect } from "next/navigation";
+import Link from "next/link";
 
 const subjectColors: Record<string, string> = {
-  "ke-toan": "#9F7AEA",
-  "tai-chinh-ngan-hang": "#7C6FDB",
-  "quan-tri-kinh-doanh": "#F4899A",
-};
-
-const subjectLabels: Record<string, string> = {
-  "ke-toan": "Kế toán",
-  "tai-chinh-ngan-hang": "Tài chính – Ngân hàng",
-  "quan-tri-kinh-doanh": "Quản trị Kinh doanh",
+  ke_toan: "#9F7AEA",
+  tai_chinh_ngan_hang: "#A8E6CF",
+  quan_tri_kinh_doanh: "#F4899A",
+  kinh_te_vi_mo: "#4ECDC4",
+  phap_luat_dai_cuong: "#5B5FA8",
 };
 
 export default async function LibraryPage({
@@ -22,19 +20,14 @@ export default async function LibraryPage({
   searchParams: Promise<{ subject?: string }>;
 }) {
   const session = await getSession();
+  if (!session) redirect("/login");
   const params = await searchParams;
   const selectedSubject = params.subject;
 
-  const allDeThi = await getAvailableDeThi();
+  const { deThi: allDeThi, subjects } = await getAvailableDeThi();
   const filtered = selectedSubject
     ? allDeThi.filter((d) => d.subjectSlug === selectedSubject)
     : allDeThi;
-
-  const subjects = Object.entries(subjectLabels).map(([slug, label]) => ({
-    slug,
-    label,
-    count: allDeThi.filter((d) => d.subjectSlug === slug).length,
-  }));
 
   return (
     <AppShell username={session?.username}>
@@ -80,15 +73,15 @@ export default async function LibraryPage({
             <Filter className="w-4 h-4" />
             Môn:
           </div>
-          <a
+          <Link
             href="/library"
             className="font-sans font-medium text-[13px] rounded-full px-4 py-2 transition-all duration-150 btn-press"
             style={
               !selectedSubject
                 ? {
-                    background: "linear-gradient(135deg, #5B8A7A 0%, #7C6FDB 100%)",
+                    background: "linear-gradient(135deg, #F4899A 0%, #7C6FDB 100%)",
                     color: "#FFFFFF",
-                    boxShadow: "0 4px 16px rgba(91,138,122,0.25)",
+                    boxShadow: "0 4px 16px rgba(244,137,154,0.25)",
                   }
                 : {
                     background: "rgba(255,255,255,0.7)",
@@ -99,16 +92,22 @@ export default async function LibraryPage({
             }
           >
             Tất cả ({allDeThi.length})
-          </a>
+          </Link>
           {subjects.map((s) => {
             const accentColor =
-              s.slug === "ke-toan"
+              s.slug === "ke_toan"
                 ? "#9F7AEA"
-                : s.slug === "tai-chinh-ngan-hang"
-                ? "#7C6FDB"
-                : "#F4899A";
+                : s.slug === "tai_chinh_ngan_hang"
+                ? "#A8E6CF"
+                : s.slug === "quan_tri_kinh_doanh"
+                ? "#F4899A"
+                : s.slug === "kinh_te_vi_mo"
+                ? "#4ECDC4"
+                : s.slug === "phap_luat_dai_cuong"
+                ? "#5B5FA8"
+                : "#9F7AEA";
             return (
-              <a
+              <Link
                 key={s.slug}
                 href={`/library?subject=${s.slug}`}
                 className="font-sans font-medium text-[13px] rounded-full px-4 py-2 transition-all duration-150 btn-press"
@@ -128,7 +127,7 @@ export default async function LibraryPage({
                 }
               >
                 {s.label} ({s.count})
-              </a>
+              </Link>
             );
           })}
         </div>

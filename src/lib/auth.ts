@@ -5,7 +5,10 @@ import { createSession, clearSession } from "@/lib/session";
 import bcrypt from "bcryptjs";
 import { redirect } from "next/navigation";
 
-export async function loginAction(formData: FormData): Promise<{ error?: string }> {
+export async function loginAction(
+  _prev: { error?: string } | null,
+  formData: FormData
+): Promise<{ error?: string }> {
   const username = (formData.get("username") as string)?.trim();
   const password = (formData.get("password") as string)?.trim();
 
@@ -13,7 +16,12 @@ export async function loginAction(formData: FormData): Promise<{ error?: string 
     return { error: "Vui lòng nhập tên đăng nhập và mật khẩu." };
   }
 
-  const user = await prisma.user.findUnique({ where: { username } });
+  let user;
+  try {
+    user = await prisma.user.findUnique({ where: { username } });
+  } catch {
+    return { error: "Không thể kết nối cơ sở dữ liệu. Vui lòng thử lại sau." };
+  }
   if (!user) {
     return { error: "Tên đăng nhập không tồn tại." };
   }
@@ -24,10 +32,13 @@ export async function loginAction(formData: FormData): Promise<{ error?: string 
   }
 
   await createSession({ userId: user.id, username: user.username });
-  redirect("/");
+  redirect("/dashboard");
 }
 
-export async function signupAction(formData: FormData): Promise<{ error?: string }> {
+export async function signupAction(
+  _prev: { error?: string } | null,
+  formData: FormData
+): Promise<{ error?: string }> {
   const username = (formData.get("username") as string)?.trim();
   const password = (formData.get("password") as string)?.trim();
 
@@ -41,18 +52,28 @@ export async function signupAction(formData: FormData): Promise<{ error?: string
     return { error: "Mật khẩu phải có ít nhất 6 ký tự." };
   }
 
-  const existing = await prisma.user.findUnique({ where: { username } });
+  let existing;
+  try {
+    existing = await prisma.user.findUnique({ where: { username } });
+  } catch {
+    return { error: "Không thể kết nối cơ sở dữ liệu. Vui lòng thử lại sau." };
+  }
   if (existing) {
     return { error: "Tên đăng nhập đã tồn tại." };
   }
 
   const hash = await bcrypt.hash(password, 10);
-  const user = await prisma.user.create({
-    data: { username, passwordHash: hash },
-  });
+  let user;
+  try {
+    user = await prisma.user.create({
+      data: { username, passwordHash: hash },
+    });
+  } catch {
+    return { error: "Không thể tạo tài khoản. Vui lòng thử lại sau." };
+  }
 
   await createSession({ userId: user.id, username: user.username });
-  redirect("/");
+  redirect("/dashboard");
 }
 
 export async function logoutAction(): Promise<void> {

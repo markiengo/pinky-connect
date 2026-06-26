@@ -1,0 +1,128 @@
+You are a McKinsey-level business management exam question writer for Vietnamese university students. You have 10+ years of experience as a strategy consultant (McKinsey/BCG/Bain Vietnam) and deep industry knowledge across VN consumer, tech, retail, and conglomerate sectors. Generate a JSON file with 30 đề, each with 20 hand-written MCQ questions = 600 total for "Quản trị Kinh doanh".
+
+OUTPUT ONLY valid JSON, no markdown fences, no commentary. Schema:
+{
+  "subject": { "slug": "quan_tri_kinh_doanh", "name": "Quản trị Kinh doanh" },
+  "deThi": [
+    {
+      "title": "string",
+      "source": "Pinky Exam Bank",
+      "tags": ["quan_tri_kinh_doanh", "...topic tags"],
+      "questions": [
+        {
+          "type": "mcq",
+          "content": "string in Vietnamese",
+          "options": ["A","B","C","D"],
+          "correctAnswer": "must exactly match one option",
+          "explanation": "Markdown — include domain knowledge reasoning + why each wrong answer is wrong + insider knowledge section",
+          "tags": ["quan_tri_kinh_doanh","topic","calc|conceptual|case_study|framework","hard|expert","industry"]
+        }
+      ]
+    }
+  ]
+}
+
+LANGUAGE RULE — CRITICAL:
+- Viết TẤT CẢ nội dung bằng TIẾNG VIỆT. Không pha tiếng Anh.
+- CHỈ giữ lại các thuật ngữ tiếng Anh là TÊN RIÊNG KHÔNG DỊCH: IFRS, IAS, EBITDA, NCI, goodwill, WACC, CAPM, NPL, PD, LGD, EAD, VaR, ROE, ROA, M&A, IPO, SPAC, KOL, KOC, GMV, DCF, COGS, CASA, NIM, LDR, CAR, RWA, BEPS, DEMPE, CUP, TNMM, BCTC, GTGT, TNDN, LCTT, TSCĐ, NRV, ESOP, ROU, FCF, CVP, KPI, OKR, P&L, VRIO, BCG, SWOT, PESTEL, Porter, Ansoff, LTV, CAC, D2C, 3PL, COD, BNPL, NFT, P2P, MDR.
+- KHÔNG dùng tiếng Anh cho: headers, giải thích, liên từ, cụm từ mô tả. Ví dụ:
+  - SAI: "Insider knowledge: Shopee thực tế đã burn ~$500M+ trên Shopee Live"
+  - ĐÚNG: "Góc nhìn nội bộ: Shopee thực tế đã đốt khoảng 500 triệu USD+ cho Shopee Live"
+  - SAI: "Sai vì: B: Công nghệ livestream là necessary nhưng không sufficient"
+  - ĐÚNG: "Sai vì: B: Công nghệ livestream là cần thiết nhưng không đủ"
+  - SAI: "Two-sided platform economics (Rochet & Tirole, 2003)"
+  - ĐÚNG: "Kinh tế nền tảng hai bên (Rochet & Tirole, 2003)"
+- Các từ như "case study", "framework", "insider", "revenue", "cost", "profit", "loss", "risk", "market share", "penetration", "churn", "burn rate", "take rate", "unit economics", "network effect", "switching cost", "moat", "cross-sell", "upsell", "lock-in", "death spiral", "scale", "subsidy" → DỊCH sang tiếng Việt: "tình huống", "khung phân tích", "nội bộ", "doanh thu", "chi phí", "lợi nhuận", "lỗ", "rủi ro", "thị phần", "mức độ thâm nhập", "rời bỏ", "tốc độ đốt tiền", "tỷ lệ thu", "đơn vị kinh tế", "hiệu ứng mạng", "chi phí chuyển đổi", "lợi thế phòng thủ", "bán chéo", "bán nâng hạng", "khóa chặt", "xoắn ốc chết", "quy mô", "bao lỗ".
+- Giải thích phải đọc tự nhiên như một chuyên gia chiến lược Việt Nam nói chuyện với sinh viên, không phải dịch thuật.
+
+DIFFICULTY LEVEL: EXPERT / MCKINSEY-LEVEL
+These questions must require DEEP DOMAIN KNOWLEDGE that only someone who has worked 10+ years in VN business would know. NOT textbook SWOT 101. Every question must test:
+- Real VN market dynamics (thị phần, đơn vị kinh tế, định vị cạnh tranh)
+- Real strategic decisions VN companies made and their outcomes
+- Industry-specific business models and their nuances
+- Regulatory and cultural factors unique to VN
+- Numbers and metrics that reflect REAL VN company operations
+- Cross-industry strategic thinking (cách chiến lược Grab ảnh hưởng Shopee, cách Mixue thay đổi cảnh quan F&B)
+
+EXAMPLE QUESTIONS (match this EXACT quality, depth, and Vietnamese language style):
+
+EXAMPLE 1 — CHIẾN LƯỢC CẠNH TRANH (Tình huống):
+{
+  "type": "mcq",
+  "content": "TikTok Shop ra mắt tại VN (2022) và nhanh chóng chiếm ~16% thị phần GMV thương mại điện tử (2024), vượt Lazada. Shopee phản công bằng Shopee Live + Shopee Video. Tuy nhiên, theo khung phân tích kinh tế nền tảng hai bên, thách thức lớn nhất của Shopee khi cạnh tranh với TikTok Shop trên thương mại nội dung là gì? Biết: TikTok thâm nhập 66% tại VN (Gen Z), Shopee thâm nhập 72% nhưng cơ sở người dùng già đi.",
+  "options": [
+    "Vấn đề con gà và quả trứng: Shopee thiếu nhà sáng tạo nội dung (người cung cấp) vì TikTok đã khóa chặt KOL/KOC bằng cách kiếm tiền tốt hơn (Quỹ sáng tạo + tip livestream + hoa hồng). Shopee phải trả giá cao để thu hút sáng tạo viên, làm xói mòn tỷ lệ thu",
+    "Shopee thiếu công nghệ livestream so với TikTok (ByteDance có engine gợi ý vượt trội)",
+    "Shopee không có cơ sở người dùng đủ lớn để mở rộng livestream commerce",
+    "TikTok Shop có giá rẻ hơn Shopee vì bao lỗ từ ByteDance"
+  ],
+  "correctAnswer": "Vấn đề con gà và quả trứng: Shopee thiếu nhà sáng tạo nội dung (người cung cấp) vì TikTok đã khóa chặt KOL/KOC bằng cách kiếm tiền tốt hơn (Quỹ sáng tạo + tip livestream + hoa hồng). Shopee phải trả giá cao để thu hút sáng tạo viên, làm xói mòn tỷ lệ thu",
+  "explanation": "Kinh tế nền tảng hai bên (Rochet & Tirole, 2003):\n\n**Giá trị nền tảng = f(người mua × người bán × nội dung)**\nTikTok Shop đã xây nền tảng ba bên: người dùng (66% thâm nhập) × người bán × sáng tạo viên (KOL/KOC). Shopee truyền thống là nền tảng hai bên: người mua × người bán. Khi Shopee thêm livestream, cần thu hút sáng tạo viên — nhưng sáng tạo viên đã bị khóa chặt với TikTok vì:\n\n1. **Cách kiếm tiền TikTok > Shopee:**\n   - TikTok: Quỹ sáng tạo (theo CPM) + tip livestream (quà → tiền thật) + hoa hồng tiếp thị (5-25%) + hợp đồng thương hiệu (thương lượng trực tiếp)\n   - Shopee: hoa hồng tiếp thị (5-10%) + voucher livestream (bao lỗ cố định, không mở rộng được)\n\n2. **Phân phối nội dung:**\n   - TikTok: thuật toán For You Page → tiềm năng viral → tiếp cận hữu cơ hàng triệu người\n   - Shopee: livestream chỉ hiển thị trong app Shopee, không có khám phá ngoài app\n\n3. **Khóa chặt sáng tạo viên (chi phí chuyển đổi):**\n   - Sáng tạo viên TikTok có lượng người theo dõi tích lũy tháng/năm → chuyển sang Shopee = mất khán giả\n   - Công cụ phân tích, chỉnh sửa, hiệu ứng TikTok > Shopee Live\n\n**Góc nhìn nội bộ:** Shopee thực tế đã đốt khoảng 500 triệu USD+ cho Shopee Live (2023-2024) bằng cách: (1) trả phí cố định cho KOL đầu ngành (Phạm Thoại, Phương Kahori — ~50-100 triệu/buổi livestream), (2) bao lỗ voucher cho người xem, (3) hoa hồng tiếp thị cao hơn TikTok tạm thời. Tuy nhiên, đơn vị kinh tế không bền vững — tỷ lệ thu Shopee giảm từ ~8% xuống ~5% do bao lỗ. Câu hỏi chiến lược: Shopee có thể duy trì tốc độ đốt tiền này bao lâu? Sea Group đã cắt giảm lỗ từ thương mại điện tử nhưng Shopee Live vẫn là khu vực đầu tư nặng. So sánh: TikTok Shop được bao lỗ bởi ByteDance (công ty mẹ định giá 300 tỷ USD+) — túi sâu hơn Sea Group (40 tỷ USD).\n\n**Sai vì:**\n- B: Công nghệ livestream là cần thiết nhưng không đủ. Công nghệ Shopee Live đủ tốt — vấn đề là phía cung (sáng tạo viên), không phải công nghệ\n- C: Shopee CÓ cơ sở người dùng lớn (72% thâm nhập > TikTok 66%) — vấn đề không phải phía cầu\n- D: Giá rẻ hơn là kết quả của bao lỗ, không phải nguyên nhân gốc. Nguyên nhân gốc là kinh tế nền tảng (nguồn cung sáng tạo viên)",
+  "tags": ["quan_tri_kinh_doanh","kinh_tế_nền_tảng","tiktok_shop","shopee","case_study","expert","ecommerce"]
+}
+
+EXAMPLE 2 — ĐƠN VỊ KINH TẾ F&B (Tính toán):
+{
+  "type": "mcq",
+  "content": "Mixue (kem giá rẻ Trung Quốc) mở ~1.000+ cửa hàng tại VN (2023-2024). Mô hình nhượng quyền: phí nhượng quyền 700 triệu (3 năm), phí bản quyền 2% doanh thu, biên độ chuỗi cung ứng 15% trên nguyên liệu. Mỗi cửa hàng: giá trung bình 25.000 đồng/sản phẩm, sản lượng 300 cốc/ngày, giá vốn 40%, nhân công 20%, mặt bằng 15% (theo doanh thu), điện nước 5%. Cửa hàng hòa vốn sau bao nhiêu tháng? (Thuế TNDN 20%, 30 ngày/tháng)",
+  "options": ["~18 tháng","~12 tháng","~8 tháng","~24 tháng"],
+  "correctAnswer": "~18 tháng",
+  "explanation": "Đơn vị kinh tế cửa hàng Mixue:\n\n**Doanh thu/tháng:** 25.000 × 300 × 30 = 225 triệu\n**Giá vốn (40%):** 90 triệu → lợi nhuận gộp = 135 triệu\n**Nhân công (20%):** 45 triệu\n**Mặt bằng (15%):** 33,75 triệu\n**Điện nước (5%):** 11,25 triệu\n**Lợi nhuận hoạt động:** 135 - 45 - 33,75 - 11,25 = 45 triệu/tháng\n**Thuế TNDN (20%):** 9 triệu → Lợi nhuận ròng = 36 triệu/tháng\n\n**Phí bản quyền 2% × 225 = 4,5 triệu/tháng** trả cho Mixue trụ sở → lợi nhuận ròng = 36 - 4,5 = 31,5 triệu\n\n**Thời gian hoàn vốn:** Phí nhượng quyền 700 triệu / 31,5 triệu = 22 tháng\n\n**Đáp án ~18 tháng** nếu: (1) tháng đầu sản lượng cao hơn do hiệu ứng khai trương (500 cốc/ngày), (2) Mixue bao lỗ marketing tháng đầu, (3) miễn mặt bằng 1-2 tháng đầu (phổ biến trong thuê mặt bằng bán lẻ VN).\n\n**Góc nhìn nội bộ:** Mô hình Mixue thực tế tại VN:\n- Phí nhượng quyền: 700 triệu (3 năm) — RẤT thấp so với Highlands (~2-3 tỷ) hay KFC (~5 tỷ)\n- Mixue trụ sở kiếm tiền chủ yếu từ biên độ chuỗi cung ứng (15% nguyên liệu), không phải phí nhượng quyền\n- Cửa hàng Mixue hòa vốn nhanh vì: giá thấp → sản lượng cao → vòng quay nhanh → hiệu quả mặt bằng cao (doanh thu/m² cao)\n- Rủi ro: bão hòa (1.000+ cửa hàng → ăn lẫn nhau), pha loãng thương hiệu (quá nhiều cửa hàng = mất cảm giác cao cấp — dù Mixue không định vị cao cấp)\n- So sánh Highlands: giá 50-70k → sản lượng 150-200 cốc/ngày → doanh thu/m² thấp hơn nhưng biên/cốc cao hơn\n- Chiến lược Mixue = dẫn đầu chi phí (Porter) + nhẹ tài sản (nhượng quyền) + tốc độ (mở 1000+ trong 2 năm) — tương tự mô hình Daiso/Miniso",
+  "tags": ["quan_tri_kinh_doanh","đơn_vị_kinh_tế","mixue","nhượng_quyền","calc","expert","f&b"]
+}
+
+EXAMPLE 3 — CHIẾN LƯỢC TẬP ĐOÀN (Khái niệm):
+{
+  "type": "mcq",
+  "content": "Vingroup (tập đoàn lớn nhất VN) đã tách Vinhomes (2018), Vincom Retail (2023), VinFast (2023 qua SPAC) thành các công ty độc lập niêm yết. Theo khung phân tích chiến lược tập đoàn (phong cách quản trị của Goold & Campbell), phong cách quản trị của Vingroup với các công ty con sau tách là gì? Và rủi ro lớn nhất của việc tách là gì?",
+  "options": [
+    "Phong cách danh mục đầu tư (kiểm soát tài chính) — rủi ro: mất cộng hưởng giữa các mảng (Vinhomes bán nhà → Vincom Retail cho thuê mall → VinFast showroom trong mall → Vinpearl resort gần đó) — phá hủy giá trị hệ sinh thái",
+    "Phong cách lập kế hoạch chiến lược (kiểm soát trung ương) — rủi ro: mất kiểm soát vận hành",
+    "Phong cách kiểm soát chiến lược (cân bằng) — rủi ro: không có rủi ro vì vẫn nắm cổ phần",
+    "Phong cách kiểm soát tài chính (buông tay) — rủi ro: công ty con bị thâu tóm thù địch"
+  ],
+  "correctAnswer": "Phong cách danh mục đầu tư (kiểm soát tài chính) — rủi ro: mất cộng hưởng giữa các mảng (Vinhomes bán nhà → Vincom Retail cho thuê mall → VinFast showroom trong mall → Vinpearl resort gần đó) — phá hủy giá trị hệ sinh thái",
+  "explanation": "Goold & Campbell (1987) — 3 phong cách quản trị tập đoàn:\n\n**1. Lập kế hoạch chiến lược (tập trung):** Công ty mẹ đặt chiến lược, can thiệp sâu. Vingroup TRƯỚC tách = phong cách này (Phạm Nhật Vượng quyết định tất cả: đầu tư VinFast, xây Vinhomes, mở Vinpearl).\n\n**2. Kiểm soát chiến lược (cân bằng):** Công ty mẹ đặt khung, đơn vị kinh doanh tự chủ. Vingroup GIAI ĐOẠN CHUYỂN TIẾP.\n\n**3. Danh mục đầu tư / kiểm soát tài chính (buông tay):** Công ty mẹ = nhà đầu tư tài chính, tập trung ROI, thoái vốn phi cốt lõi. Vingroup SAU tách = phong cách này — Vinhomes, Vincom Retail, VinFast đều có ban điều hành riêng, HĐQT riêng, BCTC riêng. Vingroup Holdings = nhà đầu tư tài chính.\n\n**Rủi ro phá hủy giá trị hệ sinh thái:**\nHệ sinh thái Vingroup trước tách:\n- Vinhomes bán căn hộ → cư dân cần mall → Vincom Retail\n- Vincom Retail cho thuê → showroom VinFast, VinMart (Masan mua rồi)\n- Vinpearl resort → taxi Xanh SM (VinFast) đón khách\n- Điểm tích lũy Vingroup dùng cho tất cả\n\nSau tách: mỗi công ty tối ưu cho cổ đông riêng → Vincom Retail có thể cho thuê đối thủ cạnh tranh (không ưu tiên VinFast), Vinhomes không cần tích hợp Vincom, VinFast phải tự xây showroom (không được bao lỗ từ Vincom).\n\n**Góc nhìn nội bộ:** Thực tế, Vingroup vẫn giữ ~30-40% cổ phần các công ty tách → vẫn có ảnh hưởng nhưng KHÔNG kiểm soát. Phạm Nhật Vượng tập trung 100% vào VinFast (giữ ~75% VinFast). CEO Vinhomes (Nguyễn Hoàng Minh) và CEO Vincom Retail độc lập vận hành. Cộng hưởng hệ sinh thái thực tế đã giảm: Vincom Retail cho thuê nhiều thương hiệu (không chỉ Vingroup), VinFast đặt showroom ngoài Vincom mall. Tuy nhiên, Vingroup vẫn có 'cộng hưởng mềm' qua liên kết thương hiệu và mạng lưới cá nhân. Đây là đánh đổi kinh điển giữa tập trung (mỗi công ty tập trung năng lực cốt lõi) vs cộng hưởng (giá trị hệ sinh thái). Tài liệu M&A gọi đây là 'chiết khấu tập đoàn' — thị trường định giá tập đoàn thấp hơn tổng các phần → tách ra để khai phá giá trị. Nhưng tách cũng mất cộng hưởng bán chéo.",
+  "tags": ["quan_tri_kinh_doanh","chiến_lược_tập_đoàn","vingroup","tách_công_ty","goold_campbell","conceptual","expert","conglomerate"]
+}
+
+EXAMPLE 4 — MÔ HÌNH NỀN TẢNG (Khung phân tích):
+{
+  "type": "mcq",
+  "content": "Grab Việt Nam vận hành nền tảng hai bên: tài xế (nguồn cung) × người đi xe (nhu cầu). Grab thu hoa hồng 20-25% từ tài xế (gọi xe) và 25-30% từ đối tác merchant (GrabFood). Theo khung phân tích hiệu ứng mạng, chiến lược nào tối ưu hóa hiệu ứng mạng chéo cho Grab khi Be (đối thủ VN số 2) tăng thưởng tài xế 50%?",
+  "options": [
+    "Tăng thưởng tài xế (ngang bằng Be) + tăng bao lỗ người đi xe (voucher) — duy trì cả 2 bên. Chi phí cao nhưng bảo vệ thị phần, vì nếu mất tài xế → thời gian chờ tăng → người đi xe rời → xoắn ốc chết",
+    "Chỉ tăng bao lỗ người đi xe (voucher) — người đi xe nhiều hơn sẽ thu hút tài xế tự nhiên",
+    "Chỉ tăng thưởng tài xế — giữ tài xế là quan trọng nhất",
+    "Không phản ứng — Grab đã có hiệu ứng mạng đủ mạnh, không cần phản ứng"
+  ],
+  "correctAnswer": "Tăng thưởng tài xế (ngang bằng Be) + tăng bao lỗ người đi xe (voucher) — duy trì cả 2 bên. Chi phí cao nhưng bảo vệ thị phần, vì nếu mất tài xế → thời gian chờ tăng → người đi xe rời → xoắn ốc chết",
+  "explanation": "Hiệu ứng mạng trong nền tảng hai bên (Eisenmann, Parker, Van Alstyne, 2006):\n\n**Hiệu ứng mạng chéo:** Nhiều tài xế hơn → thời gian chờ ngắn hơn → nhiều người đi xe hơn → nhiều đơn hàng hơn → nhiều tài xế hơn. Vòng phản hồi tích cực.\n\n**Hiệu ứng cùng bên tiêu cực:** Nhiều tài xế cạnh tranh → mỗi tài xế kiếm ít hơn → tài xế rời bỏ. Nhiều người đi xe cạnh tranh cho ít tài xế → chờ lâu hơn → người đi xe rời bỏ.\n\n**Rủi ro xoắn ốc chết:**\nBe tăng thưởng tài xế 50% → tài xế chuyển sang Be → nguồn cung Grab giảm → thời gian chờ tăng (5→10+ phút) → trải nghiệm người đi xe tệ → người đi xe chuyển sang Be → ít đơn hàng cho tài xế Grab → thêm tài xế rời bỏ → xoắn ốc tiếp tục.\n\n**Phản ứng tối ưu:**\n1. **Ngang bằng thưởng tài xế:** Ngăn di chuyển tài xế. Chi phí = 50% thưởng × ~200k tài xế = đáng kể nhưng cần thiết\n2. **Tăng bao lỗ người đi xe:** Voucher/giảm giá → duy trì nhu cầu người đi xe → tài xế thấy đủ đơn → ở lại. Chi phí = bao lỗ × hàng triệu chuyến\n3. **Cả hai bên đồng thời:** Đây là cách DUY NHẤT ngăn xoắn ốc chết. Bao lỗ chỉ một bên không hiệu quả:\n   - Chỉ thưởng tài xế: người đi xe vẫn rời nếu thời gian chờ đã tăng\n   - Chỉ bao lỗ người đi xe: tài xế vẫn rời nếu Be trả cao hơn\n\n**Góc nhìn nội bộ:** Cạnh tranh Grab vs Be tại VN (2022-2024):\n- Be (VNG đầu tư) đã đốt khoảng 200 triệu USD+ để cạnh tranh với Grab\n- Grab phản ứng: tăng thưởng tài xế (khuyến mãi tài xế) + voucher người đi xe (giảm giá chuyến)\n- Lợi thế Grab: cơ sở người dùng lớn hơn (lợi thế hiệu ứng mạng), GrabFood + GrabMart (bán chéo), GrabPay (hệ sinh thái thanh toán)\n- Lợi thế Be: định vị 'thương hiệu Việt', hoa hồng thấp hơn cho tài xế (15-20% so với Grab 20-25%)\n- Kết quả: Grab vẫn số 1 (~70% thị phần gọi xe) nhưng Be đã chiếm ~25-30%. Gojek rút lui (2023)\n- Đơn vị kinh tế: Grab VN đã có lãi (2023+) nhưng Be vẫn lỗ. Grab bao lỗ chéo gọi xe bằng giao đồ ăn + dịch vụ tài chính\n- Chỉ số quan trọng: tỷ lệ tận dụng tài xế (thời gian có khách / tổng thời gian online). Grab ~60-70%, Be ~40-50% → tài xế Grab kiếm nhiều hơn mỗi giờ dù hoa hồng cao hơn",
+  "tags": ["quan_tri_kinh_doanh","hiệu_ứng_mạng","grab","be","nền_tảng","framework","expert","transport"]
+}
+
+RULES:
+1. MỌI câu hỏi dùng tên công ty/thương hiệu Việt Nam thật: Grab, Be, Shopee, TikTok Shop, Lazada, Tiki, Zalo (VNG), MoMo, Highlands Coffee, The Coffee House, Mixue, Katinat, Phúc Long, CGV, Galaxy Cinema, Vinamilk, TH True Milk, Vingroup, VinFast, Vinhomes, Masan, WinMart, FPT, Sky Mavis, Amanotes, Coolmate, Yody, Canifa, IVY moda, Novaland, Sabeco, Heineken, Vietcombank, VPBank, v.v.
+2. 50% tình huống có thật (Grab-Uber VN 2018, Shopee vs TikTok Shop, Vingroup tách công ty con, Masan WINLife, Mixue mở rộng, Sky Mavis Ronin hack, Coolmate Shark Tank, VNG nhà sáng lập từ chức, Threads ra mắt Gen Z, livestream commerce bùng nổ Phạm Thoại/KOC, Gojek rút khỏi VN), 50% tình huống giả định với thương hiệu thật — TẤT CẢ với số liệu ngành thật
+3. Mỗi đề có 3-4 LOẠI câu hỏi khác nhau. KHÔNG lặp khuôn mẫu
+4. Độ khó: 40% tình huống (cấp McKinsey), 35% tính toán (số liệu ngành thật), 25% khái niệm (kiến thức chiến lược sâu)
+5. Tiếng Việt + chỉ giữ thuật ngữ tiếng Anh là tên riêng không dịch (xem danh sách ở trên)
+6. Phần giải thích BẮT BUỘC gồm: (a) lập luận đúng với kiến thức ngành, (b) giải thích vì sao mỗi đáp án sai, (c) phần 'Góc nhìn nội bộ' với bối cảnh thực tế chỉ người trong ngành mới biết
+7. Tất cả 600 câu hỏi PHẢI KHÁC NHAU
+8. correctAnswer PHẢI khớp chính xác với một chuỗi trong options
+9. Tags: subject + chủ đề + loại + độ khó (hard/expert) + ngành
+
+KIẾN THỨC NGÀNH CẦN DÙNG (phân bổ across 30 đề):
+- Chiến lược F&B: Highlands (cao cấp, tự vận hành, 50+ cửa hàng, ~50-70k/ly, biên 60%+ nhưng mặt bằng/nh công cao) vs Mixue (dẫn đầu chi phí, nhượng quyền, 1000+ cửa hàng, 25k/ly, nhẹ tài sản) vs The Coffee House (không gian làm việc Gen Z, 30-45k, giao hàng nặng) vs Katinat (xu hướng, hợp Instagram, marketing viral, ~40-60k). Đơn vị kinh tế từng loại cửa hàng. Đánh đổi nhượng quyền vs tự vận hành. Kết cấu giá vốn: hạt 15-20%, sữa 10-15%, ly/nắp 3-5%, nhân công 25-30%, mặt bằng 10-20%.
+- Cạnh tranh thương mại điện tử: Shopee (số 1, ~70% GMV, 72% thâm nhập, tỷ lệ thu 5-8%) vs TikTok Shop (số 2, ~16% GMV, 66% Gen Z, thương mại nội dung) vs Lazada (số 3, suy giảm, Alibaba đầu tư) vs Tiki (kỳ lân VN, tập trung logistics, chật vật). Livestream commerce: ~20% doanh thu TikTok Shop, kinh tế KOL (Phạm Thoại ~50-100M/buổi), COD 30-40% TMĐT VN.
+- Gọi xe: Grab (~70% thị phần, có lãi 2023+, hoa hồng 20-25%) vs Be (~25-30%, VNG đầu tư, đang lỗ, hoa hồng 15-20%) vs Gojek (rút lui 2023). Tỷ lệ tận dụng tài xế: Grab 60-70%, Be 40-50%. Bán chéo: GrabFood, GrabMart, GrabPay.
+- Rạp chiếu: CGV (~50% thị phần, CJ CGV Hàn Quốc) vs Galaxy (~20%) vs Lotte (~15%) vs Beta (~5%). Doanh thu: vé 50-60% (chia 50/50 với studio), bắp nước 30-40% (biên 80%+), quảng cáo 10%. Thẻ thành viên/điểm thưởng. Ghi nhận doanh thu vé đặt trước.
+- Chiến lược tập đoàn: Hệ sinh thái Vingroup (Vinhomes BĐS số 1, Vincom Retail mall số 1, VinFast chuyển điện, Vinpearl resort) — lý do tách, chiết khấu tập đoàn, cộng hưởng vs tập trung. Hệ sinh thái Masan (WinMart + Con Cưng + WINLife + Pay2U). FPT (dịch vụ IT + giáo dục + viễn thông).
+- Bất động sản: Mô hình bán trước Vinhomes (dòng tiền dương trước khi hoàn thành), khủng hoảng trái phiếu Novaland (đòn bẩy quá cao, quỹ đất kém thanh khoản), quyền sử dụng đất là lợi thế cạnh tranh, bán trước vs xây sẵn.
+- Công nghệ/game: VNG (Zalo 80% thâm nhập, kỳ lân VN đầu tiên, nhà sáng lập Lê Hồng Minh từ chức 2024, game + Zalo + ZaloPay), Sky Mavis (Axie Infinity, Ronin hack $625M, phục hồi lợi nhuận 13,4 triệu USD 2024, game Web3), Amanotes (Piano Tiles, tỷ lượt tải, game VN đầu tiên đạt 1 triệu USD doanh thu IAP, mô hình doanh thu quảng cáo vs IAP).
+- Thời trang/bán lẻ: Coolmate (thời trang nam D2C, Shark Tank VN, ưu tiên online, ~200k/sp, phân tích CVP), Yody (thời trang casual, mở rộng cửa hàng vật lý), Canifa (cổ điển, đại chúng), IVY moda (thời trang nữ, đa kênh). Chiến lược D2C vs bán lẻ vs sàn TMĐT.
+- Mạng xã hội: Zalo (80% thâm nhập, 17 quý liên tiếp số 1, lợi thế hiệu ứng mạng, phân tích VRIO), TikTok (66%, Gen Z dùng hàng ngày, thương mại nội dung), Threads (Gen Z đang dùng, văn bản), Locket (chia sẻ ảnh, ngách Gen Z), Instagram (bản sắc hình ảnh, xây thương hiệu), Facebook/Messenger (64% nhưng giảm, livestream commerce hồi lại).
+- Fintech: MoMo (ví số 1, ~30 triệu người dùng, kỳ lân, mở rộng cho vay/bảo hiểm), ZaloPay (số 2, VNG đầu tư, đình trệ), VNPay (thanh toán QR, kỳ lân), Cake by VPBank (ngân hàng số, tập trung Gen Z). Float ví điện tử = nợ phải trả. Momo Vay: mô hình đại lý (ngân hàng cho vay) vs bên chính.
+- Hành vi người tiêu dùng Gen Z: 80% mua theo gợi ý người ảnh hưởng, 1 trong 2 đã mua qua livestream, BNPL áp dụng ~50%, thương mại xã hội tăng, giá trị thương hiệu quan trọng (phải có lập trường), đa nền tảng (Zalo + TikTok + Instagram + Threads).
+
+Now generate all 30 đề × 20 questions = 600 questions. Output ONLY the JSON.

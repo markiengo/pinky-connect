@@ -6,22 +6,72 @@ import {
   getSubjectAverages,
   type HistoryEntry,
 } from "@/lib/history";
-import { TrendingUp, Award, Target, Calendar, ArrowRight } from "lucide-react";
+import { TrendingUp, Award, Target, Calendar, ArrowRight, Filter, ArrowDownUp } from "lucide-react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { formatViDate } from "@/lib/format-date";
 import { ScoreProgressionChart, SubjectAveragesChart } from "@/components/charts";
 
 const subjectColors: Record<string, string> = {
   ke_toan: "#9F7AEA",
-  tai_chinh_ngan_hang: "#7C6FDB",
+  tai_chinh_ngan_hang: "#A8E6CF",
   quan_tri_kinh_doanh: "#F4899A",
+  kinh_te_vi_mo: "#4ECDC4",
+  phap_luat_dai_cuong: "#5B5FA8",
 };
 
-export default async function HistoryPage() {
+const subjectLabels: Record<string, string> = {
+  ke_toan: "Kế toán",
+  tai_chinh_ngan_hang: "Tài chính",
+  quan_tri_kinh_doanh: "QTKD",
+  kinh_te_vi_mo: "Kinh tế vi mô",
+  phap_luat_dai_cuong: "Pháp luật",
+};
+
+const sortOptions = [
+  { value: "newest", label: "Mới nhất" },
+  { value: "oldest", label: "Cũ nhất" },
+  { value: "highest", label: "Điểm cao" },
+  { value: "lowest", label: "Điểm thấp" },
+] as const;
+
+export default async function HistoryPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ subject?: string; sort?: string }>;
+}) {
   const session = await getSession();
+  if (!session) redirect("/login");
   const history = await getQuizHistory();
   const progression = await getScoreProgression();
   const subjectAverages = await getSubjectAverages();
+
+  const params = await searchParams;
+  const selectedSubject = params.subject;
+  const selectedSort = params.sort || "newest";
+
+  // Unique subjects from history
+  const historySubjectSlugs = Array.from(
+    new Set(history.map((h) => h.subjectSlug))
+  );
+
+  // Filter and sort
+  const filtered = selectedSubject
+    ? history.filter((h) => h.subjectSlug === selectedSubject)
+    : history;
+
+  const sorted = [...filtered].sort((a, b) => {
+    switch (selectedSort) {
+      case "oldest":
+        return a.completedAt.getTime() - b.completedAt.getTime();
+      case "highest":
+        return b.percentage - a.percentage;
+      case "lowest":
+        return a.percentage - b.percentage;
+      default:
+        return b.completedAt.getTime() - a.completedAt.getTime();
+    }
+  });
 
   const totalAttempts = history.length;
   const avgScore =
@@ -73,7 +123,7 @@ export default async function HistoryPage() {
               className="w-16 h-16 rounded-full mx-auto mb-6 flex items-center justify-center"
               style={{ background: "rgba(244,137,154,0.12)", boxShadow: "0 4px 20px rgba(244,137,154,0.12)" }}
             >
-              <TrendingUp className="w-8 h-8 text-[#5B8A7A]" />
+              <TrendingUp className="w-8 h-8 text-[#F4899A]" />
             </div>
             <h2
               className="font-sans font-semibold mb-2"
@@ -90,7 +140,7 @@ export default async function HistoryPage() {
             <Link
               href="/library"
               className="font-sans font-semibold text-[14px] rounded-[12px] px-5 py-2.5 transition-all duration-200 btn-press inline-flex items-center gap-2"
-              style={{ background: "linear-gradient(135deg, #5B8A7A 0%, #7C6FDB 100%)", color: "#FFFFFF" }}
+              style={{ background: "linear-gradient(135deg, #F4899A 0%, #7C6FDB 100%)", color: "#FFFFFF" }}
             >
               Xem thư viện đề thi
               <ArrowRight className="w-4 h-4" />
@@ -101,7 +151,7 @@ export default async function HistoryPage() {
             {/* ── Stats row ── */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8">
               <StatCard
-                icon={<Target className="w-6 h-6" style={{ color: "#5B8A7A" }} />}
+                icon={<Target className="w-6 h-6" style={{ color: "#F4899A" }} />}
                 value={`${avgScore}%`}
                 label="Điểm trung bình"
                 delay="50ms"
@@ -182,14 +232,117 @@ export default async function HistoryPage() {
               >
                 Tất cả bài đã làm
               </h2>
-              <div
-                className="divide-y"
-                style={{ borderColor: "rgba(217, 211, 230, 0.6)" }}
-              >
-                {history.map((entry) => (
-                  <HistoryRow key={entry.id} entry={entry} />
-                ))}
+
+              {/* ── Filter & sort controls ── */}
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-5 flex-wrap">
+                {/* Subject filters */}
+                <div className="flex items-center gap-2 flex-wrap">
+                  <div className="flex items-center gap-1.5 font-sans text-[13px] font-medium" style={{ color: "#5C5875" }}>
+                    <Filter className="w-4 h-4" />
+                    Môn:
+                  </div>
+                  <Link
+                    href="/history"
+                    className="font-sans font-medium text-[13px] rounded-full px-3.5 py-1.5 transition-all duration-150 btn-press"
+                    style={
+                      !selectedSubject
+                        ? {
+                            background: "linear-gradient(135deg, #F4899A 0%, #7C6FDB 100%)",
+                            color: "#FFFFFF",
+                            boxShadow: "0 4px 16px rgba(244,137,154,0.25)",
+                          }
+                        : {
+                            background: "rgba(255,255,255,0.7)",
+                            color: "#1E1B3A",
+                            border: "1px solid rgba(244,137,154,0.25)",
+                          }
+                    }
+                  >
+                    Tất cả ({history.length})
+                  </Link>
+                  {historySubjectSlugs.map((slug) => {
+                    const color = subjectColors[slug] ?? "#9F7AEA";
+                    const label = subjectLabels[slug] ?? slug;
+                    const count = history.filter((h) => h.subjectSlug === slug).length;
+                    return (
+                      <Link
+                        key={slug}
+                        href={`/history?subject=${slug}`}
+                        className="font-sans font-medium text-[13px] rounded-full px-3.5 py-1.5 transition-all duration-150 btn-press"
+                        style={
+                          selectedSubject === slug
+                            ? {
+                                background: color,
+                                color: "#FFFFFF",
+                                boxShadow: `0 4px 16px ${color}40`,
+                              }
+                            : {
+                                background: "rgba(255,255,255,0.7)",
+                                color: "#1E1B3A",
+                                border: "1px solid rgba(244,137,154,0.25)",
+                              }
+                        }
+                      >
+                        {label} ({count})
+                      </Link>
+                    );
+                  })}
+                </div>
+
+                {/* Sort buttons */}
+                <div className="flex items-center gap-2 sm:ml-auto flex-wrap">
+                  <div className="flex items-center gap-1.5 font-sans text-[13px] font-medium" style={{ color: "#5C5875" }}>
+                    <ArrowDownUp className="w-4 h-4" />
+                    Sắp xếp:
+                  </div>
+                  {sortOptions.map((opt) => {
+                    const isActive = selectedSort === opt.value;
+                    const sortHref = selectedSubject
+                      ? `/history?subject=${selectedSubject}&sort=${opt.value}`
+                      : `/history?sort=${opt.value}`;
+                    return (
+                      <Link
+                        key={opt.value}
+                        href={sortHref}
+                        className="font-sans font-medium text-[13px] rounded-full px-3.5 py-1.5 transition-all duration-150 btn-press"
+                        style={
+                          isActive
+                            ? {
+                                background: "rgba(30,27,58,0.08)",
+                                color: "#1E1B3A",
+                                border: "1px solid rgba(30,27,58,0.15)",
+                              }
+                            : {
+                                background: "transparent",
+                                color: "#8F8AA3",
+                                border: "1px solid transparent",
+                              }
+                        }
+                      >
+                        {opt.label}
+                      </Link>
+                    );
+                  })}
+                </div>
               </div>
+
+              {/* ── Attempt list ── */}
+              {sorted.length === 0 ? (
+                <div className="py-8 text-center">
+                  <p className="font-sans" style={{ fontSize: "14px", color: "#8F8AA3" }}>
+                    Không có bài làm trong mục này.
+                  </p>
+                </div>
+              ) : (
+                <div
+                  className="divide-y"
+                  style={{ borderColor: "rgba(217, 211, 230, 0.6)" }}
+                >
+                  {sorted.map((entry) => (
+                    <HistoryRow key={entry.id} entry={entry} />
+                  ))}
+                </div>
+              )}
             </div>
           </>
         )}
@@ -213,7 +366,7 @@ function StatCard({
   accent: "teal" | "indigo" | "coral";
 }) {
   const accentBg = {
-    teal: "rgba(91, 138, 122, 0.12)",
+    teal: "rgba(244, 137, 154, 0.12)",
     indigo: "rgba(124, 111, 219, 0.12)",
     coral: "rgba(244, 137, 154, 0.12)",
   }[accent];
@@ -247,12 +400,7 @@ function StatCard({
 
 // ── History row ──
 function HistoryRow({ entry }: { entry: HistoryEntry }) {
-  const scoreColor =
-    entry.percentage >= 75
-      ? "#5B8A7A"
-      : entry.percentage >= 50
-      ? "#5B8A7A"
-      : "#F4899A";
+  const scoreColor = subjectColors[entry.subjectSlug] ?? "#F4899A";
 
   return (
     <Link

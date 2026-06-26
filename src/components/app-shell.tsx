@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
@@ -8,8 +9,11 @@ import {
   MessageSquare,
   History,
   User,
-  GraduationCap,
   LogOut,
+  CalendarClock,
+  FileSearch,
+  HeartPulse,
+  Layers,
 } from "lucide-react";
 import { logoutAction as logout } from "@/lib/auth";
 
@@ -19,6 +23,13 @@ const navItems = [
   { href: "/practice", icon: MessageSquare, label: "Chatbox" },
   { href: "/history", icon: History, label: "Lịch sử" },
   { href: "/profile", icon: User, label: "Hồ sơ" },
+] as const;
+
+const comingSoonItems = [
+  { icon: Layers, label: "Flashcards" },
+  { icon: CalendarClock, label: "Lịch ôn thi" },
+  { icon: FileSearch, label: "Phân tích đề cương" },
+  { icon: HeartPulse, label: "Chăm sóc tinh thần" },
 ] as const;
 
 export function AppShell({
@@ -34,7 +45,7 @@ export function AppShell({
     <div className="flex h-dvh overflow-hidden">
       {/* ── Desktop icon rail ── */}
       <aside
-        className="hidden md:flex flex-col items-center gap-2.5 w-20 py-4 m-4 mr-0 rounded-[20px]"
+        className="hidden md:flex flex-col gap-2.5 w-52 py-4 m-4 mr-0 rounded-[20px]"
         style={{
           background: "linear-gradient(180deg, #FFFFFF 0%, rgba(244,137,154,0.06) 100%)",
           boxShadow: "0 4px 20px rgba(244,137,154,0.08), 0 1px 4px rgba(30,27,58,0.06)",
@@ -44,18 +55,26 @@ export function AppShell({
         {/* brand */}
         <Link
           href="/dashboard"
-          className="grid place-items-center w-10 h-10 mb-1 rounded-[14px]"
-          title="AI Exam Prep"
-          style={{ background: "#1E1B3A", color: "#FFFFFF" }}
+          className="flex items-center gap-2.5 mx-3 mb-1 rounded-[14px]"
+          title="Crambox"
         >
-          <GraduationCap className="w-[18px] h-[18px]" />
+          <Image
+            src="/logo.png"
+            alt="Crambox logo"
+            width={40}
+            height={40}
+            className="rounded-[14px] flex-shrink-0"
+          />
+          <span
+            className="font-sans font-bold text-[15px]"
+            style={{ color: "#1E1B3A" }}
+          >
+            Crambox
+          </span>
         </Link>
 
-        {/* nav pills */}
-        <nav
-          className="flex flex-col gap-1.5 mt-2.5 p-2 rounded-[999px]"
-          style={{ background: "rgba(244,137,154,0.08)" }}
-        >
+        {/* nav items */}
+        <nav className="flex flex-col gap-1 mx-2">
           {navItems.map(({ href, icon: Icon, label }) => {
             const active = pathname === href;
             return (
@@ -63,9 +82,9 @@ export function AppShell({
                 key={href}
                 href={href}
                 title={label}
-                className="grid place-items-center w-10 h-10 rounded-full transition-all duration-150"
+                className="flex items-center gap-3 h-10 px-3 rounded-[10px] transition-all duration-150"
                 style={{
-                  background: active ? "#5B8A7A" : "transparent",
+                  background: active ? "#F4899A" : "transparent",
                   color: active ? "#FFFFFF" : "#5C5875",
                 }}
                 onMouseEnter={(e) => {
@@ -73,7 +92,6 @@ export function AppShell({
                     e.currentTarget.style.background = "#FFFFFF";
                     e.currentTarget.style.color = "#1E1B3A";
                     e.currentTarget.style.boxShadow = "0 0 12px rgba(244,137,154,0.20)";
-                    e.currentTarget.style.transform = "translateY(-1px)";
                   }
                 }}
                 onMouseLeave={(e) => {
@@ -81,60 +99,93 @@ export function AppShell({
                     e.currentTarget.style.background = "transparent";
                     e.currentTarget.style.color = "#5C5875";
                     e.currentTarget.style.boxShadow = "none";
-                    e.currentTarget.style.transform = "translateY(0)";
                   }
                 }}
               >
-                <Icon className="w-[17px] h-[17px]" />
+                <Icon className="w-[17px] h-[17px] flex-shrink-0" />
+                <span className="font-sans font-semibold text-[13px]">{label}</span>
               </Link>
             );
           })}
         </nav>
 
+        {/* coming soon items */}
+        <div className="flex flex-col gap-1 mx-2 mt-1">
+          <div
+            className="px-3 py-1 font-sans font-bold text-[10px] uppercase tracking-wider"
+            style={{ color: "#8F8AA3" }}
+          >
+            Sắp ra mắt
+          </div>
+          {comingSoonItems.map(({ icon: Icon, label }) => (
+            <div
+              key={label}
+              title={`${label} — Sắp ra mắt`}
+              className="flex items-center gap-3 h-10 px-3 rounded-[10px] relative"
+              style={{ color: "#8F8AA3", background: "transparent" }}
+            >
+              <Icon className="w-[17px] h-[17px] flex-shrink-0" />
+              <span className="font-sans font-semibold text-[13px] flex-1">{label}</span>
+              <span
+                className="px-1.5 py-px rounded-full font-sans font-bold text-[8px] uppercase tracking-wider leading-none"
+                style={{ background: "rgba(159,122,234,0.15)", color: "#9F7AEA" }}
+              >
+                Soon
+              </span>
+            </div>
+          ))}
+        </div>
+
         <div className="flex-1" />
 
-        {/* user avatar */}
-        {username && (
-          <div
-            className="grid place-items-center w-10 h-10 mb-1 rounded-full font-sans font-bold"
-            title={username}
-            style={{
-              background: "rgba(244,137,154,0.12)",
-              color: "#1E1B3A",
-              fontSize: "14px",
-            }}
-          >
-            {username.charAt(0).toUpperCase()}
-          </div>
-        )}
-
-        {/* logout */}
-        <form action={logout}>
-          <button
-            type="submit"
-            title="Đăng xuất"
-            className="grid place-items-center w-10 h-10 rounded-full transition-all duration-150"
-            style={{ color: "#5C5875", background: "transparent" }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "#FFFFFF";
-              e.currentTarget.style.color = "#1E1B3A";
-              e.currentTarget.style.boxShadow = "0 0 12px rgba(91,138,122,0.15)";
-              e.currentTarget.style.transform = "translateY(-1px)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "transparent";
-              e.currentTarget.style.color = "#5C5875";
-              e.currentTarget.style.boxShadow = "none";
-              e.currentTarget.style.transform = "translateY(0)";
-            }}
-          >
-            <LogOut className="w-[17px] h-[17px]" />
-          </button>
-        </form>
+        {/* user avatar + logout */}
+        <div className="flex items-center gap-2.5 mx-3 mb-1">
+          {username && (
+            <div
+              className="grid place-items-center w-9 h-9 rounded-full font-sans font-bold flex-shrink-0"
+              title={username}
+              style={{
+                background: "rgba(244,137,154,0.12)",
+                color: "#1E1B3A",
+                fontSize: "13px",
+              }}
+            >
+              {username.charAt(0).toUpperCase()}
+            </div>
+          )}
+          {username && (
+            <span
+              className="font-sans font-semibold text-[13px] flex-1 truncate"
+              style={{ color: "#1E1B3A" }}
+            >
+              {username}
+            </span>
+          )}
+          <form action={logout}>
+            <button
+              type="submit"
+              title="Đăng xuất"
+              className="grid place-items-center w-9 h-9 rounded-full transition-all duration-150 flex-shrink-0"
+              style={{ color: "#5C5875", background: "transparent" }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "#FFFFFF";
+                e.currentTarget.style.color = "#1E1B3A";
+                e.currentTarget.style.boxShadow = "0 0 12px rgba(244,137,154,0.15)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.color = "#5C5875";
+                e.currentTarget.style.boxShadow = "none";
+              }}
+            >
+              <LogOut className="w-[17px] h-[17px]" />
+            </button>
+          </form>
+        </div>
       </aside>
 
       {/* ── Main content ── */}
-      <main className="flex-1 min-w-0 overflow-y-auto overflow-x-hidden px-4 md:px-6 pt-5 pb-24 md:pb-7 scroll-smooth [scrollbar-width:thin] [scrollbar-color:rgba(30,27,58,0.4)_transparent] aurora-bg">
+      <main className="flex-1 min-w-0 overflow-y-auto overflow-x-hidden px-4 md:px-6 pt-5 pb-24 md:pb-7 scroll-smooth [scrollbar-width:thin] [scrollbar-color:rgba(30,27,58,0.4)_transparent] aurora-bg [content-visibility:auto]">
         {children}
       </main>
 
@@ -142,8 +193,8 @@ export function AppShell({
       <nav
         className="md:hidden fixed inset-x-0 bottom-0 z-50 flex items-center justify-around h-16 safe-area-pb"
         style={{
-          background: "rgba(255,255,255,0.88)",
-          backdropFilter: "blur(12px)",
+          background: "rgba(255,255,255,0.95)",
+          backdropFilter: "blur(6px)",
           borderTop: "1px solid rgba(244,137,154,0.15)",
         }}
       >
@@ -155,7 +206,7 @@ export function AppShell({
               href={href}
               className="flex flex-col items-center gap-0.5 px-4 py-2 rounded-xl text-[11px] font-bold transition-colors"
               style={{
-                color: active ? "#5B8A7A" : "#5C5875",
+                color: active ? "#F4899A" : "#5C5875",
               }}
             >
               <Icon className="w-5 h-5" />

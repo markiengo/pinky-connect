@@ -1,9 +1,11 @@
 import { AppShell } from "@/components/app-shell";
 import { Chatbox } from "@/components/chatbox";
 import { getSession } from "@/lib/session";
+import { redirect } from "next/navigation";
 
 export default async function PracticePage() {
   const session = await getSession();
+  if (!session) redirect("/login");
 
   return (
     <AppShell username={session?.username}>
@@ -13,11 +15,11 @@ export default async function PracticePage() {
           <div className="flex items-center gap-2 mb-1">
             <div
               className="w-2 h-2 rounded-full"
-              style={{ background: "#5B8A7A" }}
+              style={{ background: "#F4899A" }}
             />
             <span
               className="font-sans font-semibold text-[11px] uppercase tracking-[0.08em]"
-              style={{ color: "#5B8A7A" }}
+              style={{ color: "#F4899A" }}
             >
               AI Assistant
             </span>

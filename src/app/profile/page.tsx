@@ -3,38 +3,21 @@ import { getSession } from "@/lib/session";
 import { getQuizHistory, getSubjectAverages } from "@/lib/history";
 import { User, Calendar, Award, Target, TrendingUp, LogOut } from "lucide-react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { logoutAction } from "@/lib/auth";
 import { SubjectAveragesChart } from "@/components/charts";
 
 const subjectColors: Record<string, string> = {
   ke_toan: "#9F7AEA",
-  tai_chinh_ngan_hang: "#7C6FDB",
+  tai_chinh_ngan_hang: "#A8E6CF",
   quan_tri_kinh_doanh: "#F4899A",
+  kinh_te_vi_mo: "#4ECDC4",
+  phap_luat_dai_cuong: "#5B5FA8",
 };
 
 export default async function ProfilePage() {
   const session = await getSession();
-
-  if (!session) {
-    return (
-      <AppShell>
-        <div className="max-w-[600px] mx-auto w-full pt-20 text-center">
-          <div className="rounded-[16px] p-12 glass-card-pink float-reveal">
-            <p className="font-sans mb-5" style={{ fontSize: "15px", color: "#5C5875" }}>
-              Vui lòng đăng nhập để xem hồ sơ.
-            </p>
-            <Link
-              href="/login"
-              className="font-sans font-semibold text-[14px] rounded-[12px] px-6 py-3 mt-4 inline-flex items-center gap-2 btn-press"
-              style={{ background: "linear-gradient(135deg, #5B8A7A 0%, #7C6FDB 100%)", color: "#FFFFFF" }}
-            >
-              Đăng nhập
-            </Link>
-          </div>
-        </div>
-      </AppShell>
-    );
-  }
+  if (!session) redirect("/login");
 
   const history = await getQuizHistory();
   const subjectAverages = await getSubjectAverages();
@@ -63,12 +46,12 @@ export default async function ProfilePage() {
             style={{
               width: "84px",
               height: "84px",
-              background: "linear-gradient(135deg, #5B8A7A 0%, #7C6FDB 100%)",
+              background: "linear-gradient(135deg, #F4899A 0%, #7C6FDB 100%)",
               color: "#FFFFFF",
               fontSize: "32px",
               fontWeight: 700,
               fontFamily: "Schibsted Grotesk, Plus Jakarta Sans, sans-serif",
-              boxShadow: "0 8px 24px rgba(91,138,122,0.25)",
+              boxShadow: "0 8px 24px rgba(244,137,154,0.25)",
             }}
           >
             {initials}
@@ -90,7 +73,7 @@ export default async function ProfilePage() {
               className="font-sans"
               style={{ fontSize: "13px", color: "#8F8AA3" }}
             >
-              Học viên · AI Exam Prep
+              Học viên · Crambox
             </p>
           </div>
           <form action={logoutAction}>
@@ -112,7 +95,7 @@ export default async function ProfilePage() {
         {/* ── Stats grid ── */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8">
           <ProfileStat
-            icon={<Target className="w-6 h-6" style={{ color: "#5B8A7A" }} />}
+            icon={<Target className="w-6 h-6" style={{ color: "#F4899A" }} />}
             value={`${avgScore}%`}
             label="Điểm trung bình"
             delay="50ms"
@@ -140,9 +123,9 @@ export default async function ProfilePage() {
             <div className="flex items-center gap-2 mb-6">
               <div
                 className="w-8 h-8 rounded-[10px] flex items-center justify-center"
-                style={{ background: "rgba(91,138,122,0.10)" }}
+                style={{ background: "rgba(244,137,154,0.10)" }}
               >
-                <TrendingUp className="w-4 h-4" style={{ color: "#5B8A7A" }} />
+                <TrendingUp className="w-4 h-4" style={{ color: "#F4899A" }} />
               </div>
               <h2
                 className="font-sans font-semibold"
@@ -194,13 +177,13 @@ export default async function ProfilePage() {
           <Link
             href="/library"
             className="rounded-[16px] p-6 transition-all duration-300 hover:-translate-y-[3px] btn-press flex items-center gap-4 float-reveal glass-card"
-            style={{ borderColor: "rgba(91,138,122,0.18)", animationDelay: "80ms" }}
+            style={{ borderColor: "rgba(244,137,154,0.18)", animationDelay: "80ms" }}
           >
             <div
               className="w-14 h-14 rounded-[14px] flex items-center justify-center flex-shrink-0"
-              style={{ background: "rgba(91,138,122,0.08)" }}
+              style={{ background: "rgba(244,137,154,0.08)" }}
             >
-              <User className="w-6 h-6" style={{ color: "#5B8A7A" }} />
+              <User className="w-6 h-6" style={{ color: "#F4899A" }} />
             </div>
             <div>
               <h3
@@ -237,7 +220,7 @@ function ProfileStat({
   accent: "teal" | "indigo" | "coral";
 }) {
   const accentBg = {
-    teal: "rgba(91, 138, 122, 0.12)",
+    teal: "rgba(244, 137, 154, 0.12)",
     indigo: "rgba(124, 111, 219, 0.12)",
     coral: "rgba(244, 137, 154, 0.12)",
   }[accent];

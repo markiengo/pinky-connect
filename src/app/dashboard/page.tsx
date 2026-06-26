@@ -1,5 +1,6 @@
 import { ArrowRight, Search, Library, TrendingUp, Award, Target } from "lucide-react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { AppShell } from "@/components/app-shell";
 import { getSession } from "@/lib/session";
 import { getDashboardStats } from "@/lib/history";
@@ -11,26 +12,41 @@ const subjects = [
     desc: "Nguyên lý kế toán, BCTC",
     color: "#9F7AEA",
     gradClass: "dream-grad-accounting",
-    slug: "ke-toan",
+    slug: "ke_toan",
   },
   {
     label: "Tài chính – Ngân hàng",
     desc: "Tài chính tiền tệ, NHTM",
-    color: "#7C6FDB",
+    color: "#A8E6CF",
     gradClass: "dream-grad-finance",
-    slug: "tai-chinh-ngan-hang",
+    slug: "tai_chinh_ngan_hang",
   },
   {
     label: "Quản trị Kinh doanh",
     desc: "Marketing, chiến lược",
     color: "#F4899A",
     gradClass: "dream-grad-business",
-    slug: "quan-tri-kinh-doanh",
+    slug: "quan_tri_kinh_doanh",
+  },
+  {
+    label: "Kinh tế vi mô",
+    desc: "Cầu, cung, cấu trúc thị trường",
+    color: "#4ECDC4",
+    gradClass: "dream-grad-microeconomics",
+    slug: "kinh_te_vi_mo",
+  },
+  {
+    label: "Pháp luật đại cương",
+    desc: "Dân sự, thương mại, luật lao động",
+    color: "#5B5FA8",
+    gradClass: "dream-grad-law",
+    slug: "phap_luat_dai_cuong",
   },
 ] as const;
 
 export default async function DashboardPage() {
   const session = await getSession();
+  if (!session) redirect("/login");
   const stats = await getDashboardStats();
 
   return (
@@ -43,7 +59,7 @@ export default async function DashboardPage() {
         />
         <div
           className="aurora-orb w-[300px] h-[300px] top-[40%] -left-32"
-          style={{ background: "rgba(91, 138, 122, 0.18)" }}
+          style={{ background: "rgba(244, 137, 154, 0.18)" }}
         />
         <div
           className="aurora-orb w-[260px] h-[260px] bottom-20 right-[10%]"
@@ -81,7 +97,7 @@ export default async function DashboardPage() {
         {/* ── 3 stat tiles ── */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8">
           <StatCard
-            icon={<Target className="w-6 h-6" style={{ color: "#5B8A7A" }} />}
+            icon={<Target className="w-6 h-6" style={{ color: "#F4899A" }} />}
             value={`${stats.avgScore}%`}
             label="Điểm trung bình"
             delay="50ms"
@@ -96,11 +112,7 @@ export default async function DashboardPage() {
           />
           <StatCard
             icon={<TrendingUp className="w-6 h-6" style={{ color: "#F4899A" }} />}
-            value={`${
-              stats.totalAttempts > 0
-                ? Math.max(...stats.recentAttempts.map((a) => a.percentage))
-                : 0
-            }%`}
+            value={`${stats.bestScore}%`}
             label="Điểm cao nhất"
             delay="150ms"
             accent="coral"
@@ -134,7 +146,7 @@ export default async function DashboardPage() {
             <Link
               href="/history"
               className="font-sans font-semibold text-[13px] transition-colors inline-flex items-center gap-1"
-              style={{ color: "#5B8A7A" }}
+              style={{ color: "#F4899A" }}
             >
               Xem tất cả
               <ArrowRight className="w-3.5 h-3.5" />
@@ -153,7 +165,7 @@ export default async function DashboardPage() {
                 href="/library"
                 className="font-sans font-semibold text-[14px] rounded-[12px] px-6 py-3 transition-all duration-200 btn-press inline-flex items-center gap-2"
                 style={{
-                  background: "linear-gradient(135deg, #5B8A7A 0%, #7C6FDB 100%)",
+                  background: "linear-gradient(135deg, #F4899A 0%, #7C6FDB 100%)",
                   color: "#FFFFFF",
                 }}
               >
@@ -191,7 +203,7 @@ export default async function DashboardPage() {
                   <div className="flex items-center gap-3 flex-shrink-0">
                     <span
                       className="font-sans font-bold"
-                      style={{ fontSize: "14px", color: "#5B8A7A" }}
+                      style={{ fontSize: "14px", color: "#F4899A" }}
                     >
                       {a.percentage}%
                     </span>
@@ -215,7 +227,7 @@ export default async function DashboardPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <QuickAction
             href="/practice"
-            icon={<Search className="w-6 h-6" style={{ color: "#5B8A7A" }} />}
+            icon={<Search className="w-6 h-6" style={{ color: "#F4899A" }} />}
             title="Tìm đề mới"
             desc="Tìm bằng AI hoặc tải PDF syllabus"
             accent="teal"
@@ -249,7 +261,7 @@ function StatCard({
   accent: "teal" | "indigo" | "coral";
 }) {
   const accentBg = {
-    teal: "rgba(91, 138, 122, 0.12)",
+    teal: "rgba(244, 137, 154, 0.12)",
     indigo: "rgba(124, 111, 219, 0.12)",
     coral: "rgba(244, 137, 154, 0.12)",
   }[accent];
@@ -308,56 +320,6 @@ function SubjectCard({
         }}
       />
 
-      {/* Subject pattern overlay */}
-      {subject.slug === "ke-toan" && (
-        <svg
-          className="absolute inset-0 w-full h-full opacity-[0.15] pointer-events-none"
-          preserveAspectRatio="xMidYMid slice"
-        >
-          <defs>
-            <pattern
-              id="dash-ledger"
-              x="0"
-              y="0"
-              width="40"
-              height="32"
-              patternUnits="userSpaceOnUse"
-            >
-              <line x1="0" y1="8" x2="40" y2="8" stroke="#FFFFFF" strokeWidth="1" />
-              <line x1="0" y1="16" x2="40" y2="16" stroke="#FFFFFF" strokeWidth="1" />
-              <line x1="0" y1="24" x2="40" y2="24" stroke="#FFFFFF" strokeWidth="1" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#dash-ledger)" />
-        </svg>
-      )}
-      {subject.slug === "tai-chinh-ngan-hang" && (
-        <svg
-          className="absolute inset-0 w-full h-full opacity-[0.18] pointer-events-none"
-          preserveAspectRatio="xMidYMid slice"
-        >
-          <g stroke="#FFFFFF" strokeWidth="1.5" fill="none">
-            <line x1="20%" y1="20%" x2="20%" y2="75%" />
-            <rect x="16%" y="35%" width="8%" height="25%" fill="#FFFFFF" fillOpacity="0.35" />
-            <line x1="45%" y1="15%" x2="45%" y2="65%" />
-            <rect x="41%" y="25%" width="8%" height="30%" fill="#FFFFFF" fillOpacity="0.35" />
-            <line x1="70%" y1="25%" x2="70%" y2="80%" />
-            <rect x="66%" y="40%" width="8%" height="30%" fill="#FFFFFF" fillOpacity="0.35" />
-          </g>
-        </svg>
-      )}
-      {subject.slug === "quan-tri-kinh-doanh" && (
-        <svg
-          className="absolute inset-0 w-full h-full opacity-[0.18] pointer-events-none"
-          viewBox="0 0 200 200"
-          preserveAspectRatio="xMidYMid slice"
-        >
-          <polyline points="20,160 60,120 100,130 140,70 180,50" fill="none" stroke="#FFFFFF" strokeWidth="2" />
-          <polygon points="180,50 170,55 175,62" fill="#FFFFFF" />
-          <line x1="20" y1="160" x2="180" y2="160" stroke="#FFFFFF" strokeWidth="1" strokeDasharray="4 4" />
-        </svg>
-      )}
-
       <div className="relative z-10">
         <div className="flex items-start justify-between mb-3">
           <h3
@@ -405,14 +367,14 @@ function QuickAction({
   accent: "teal" | "coral";
   delay: string;
 }) {
-  const accentColor = accent === "teal" ? "#5B8A7A" : "#F4899A";
+  const accentColor = accent === "teal" ? "#F4899A" : "#F4899A";
   const accentBorder =
     accent === "teal"
-      ? "rgba(91, 138, 122, 0.18)"
+      ? "rgba(244, 137, 154, 0.18)"
       : "rgba(244, 137, 154, 0.18)";
   const accentBg =
     accent === "teal"
-      ? "rgba(91, 138, 122, 0.08)"
+      ? "rgba(244, 137, 154, 0.08)"
       : "rgba(244, 137, 154, 0.08)";
 
   return (

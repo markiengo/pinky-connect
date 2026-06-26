@@ -3,12 +3,13 @@
  * Based on PRD §13.3 — ranks đề by tag overlap with user prompt.
  */
 
-import { normalizeAndTokenize, slugifyVietnamese } from "./vietnamese";
+import { normalizeAndTokenize } from "./vietnamese";
 import { detectSubjects, type SubjectScore } from "./subject-detection";
 
 export interface DeThiForMatching {
   id: string;
   title: string;
+  normalizedTitle?: string;
   subjectSlug: string;
   subjectName: string;
   tags: string[];
@@ -74,6 +75,8 @@ export function matchDeThi(
   minResults = 3,
 ): MatchResult[] {
   const promptTags = extractTagsFromPrompt(prompt);
+  const promptTokens = normalizeAndTokenize(prompt);
+  const promptTokenSet = new Set(promptTokens);
   const subjectScores = detectSubjects(prompt);
   const subjectScoreMap = new Map<string, SubjectScore>(
     subjectScores.map((s) => [s.slug, s]),
@@ -92,9 +95,7 @@ export function matchDeThi(
     }
 
     // Title keyword match boost
-    const normalizedTitle = normalizeAndTokenize(deThi.title);
-    const promptTokens = normalizeAndTokenize(prompt);
-    const promptTokenSet = new Set(promptTokens);
+    const normalizedTitle = normalizeAndTokenize(deThi.normalizedTitle || deThi.title);
     const titleMatches = normalizedTitle.filter((t) => promptTokenSet.has(t) && t.length >= 3);
     score += titleMatches.length * 0.5;
 
@@ -142,15 +143,6 @@ export function matchDeThi(
 }
 
 /**
- * Generate a match reason for a single đề given a prompt.
- * Useful for individual card display.
- */
-export function generateMatchReason(prompt: string, deThi: DeThiForMatching): string {
-  const result = matchDeThi(prompt, [deThi], 1, 1);
-  return result.length > 0 ? result[0].matchReason : "Đề phù hợp với yêu cầu";
-}
-
-/**
  * Convert a Vietnamese phrase to a tag slug.
  */
-export { slugifyVietnamese };
+// Removed: re-export of slugifyVietnamese (consumers import directly from vietnamese.ts)
