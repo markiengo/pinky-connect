@@ -108,10 +108,10 @@ export function ScoreProgressionChart({ points }: { points: ScorePoint[] }) {
           <Tooltip
             contentStyle={tooltipStyle}
             cursor={{ stroke: "#9F7AEA", strokeWidth: 1, strokeDasharray: "4 4" }}
-            formatter={(value: number | string, name: string) => {
+            formatter={(value, name) => {
               if (value === null || value === undefined) return null as unknown as [string, string];
               const modeKey = name === "practicePercentage" ? "practice" : "test";
-              return [`${value}%`, modeLabels[modeKey] ?? name];
+              return [`${value}%`, modeLabels[modeKey] ?? name] as [string, string];
             }}
             labelFormatter={(label) => `Ngày ${label}`}
           />
