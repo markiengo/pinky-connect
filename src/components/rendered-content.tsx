@@ -55,7 +55,7 @@ export function RenderedContent({ content, className }: RenderedContentProps) {
   return (
     <div
       className={`prose prose-sm max-w-none [&_p]:my-1 [&_ul]:my-1 [&_ol]:my-1 [&_li]:my-0.5 [&_table]:my-2 [&_th]:px-2 [&_th]:py-1 [&_td]:px-2 [&_td]:py-1 [&_table]:border-collapse [&_th]:border [&_td]:border ${className ?? ""}`}
-      style={{ borderColor: "#D9D3E6" }}
+      style={{ borderColor: "var(--border)" }}
     >
       <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>
         {normalized}

@@ -9,6 +9,7 @@ export interface HistoryEntry {
   deThiTitle: string;
   subjectName: string;
   subjectSlug: string;
+  mode: string;
   score: number;
   totalQuestions: number;
   percentage: number;
@@ -33,6 +34,7 @@ export async function getQuizHistory(): Promise<HistoryEntry[]> {
     deThiTitle: a.deThi.title,
     subjectName: a.deThi.subject.name,
     subjectSlug: a.deThi.subject.slug,
+    mode: a.mode,
     score: a.score,
     totalQuestions: a.totalQuestions,
     percentage: a.percentage,
@@ -48,6 +50,7 @@ export interface PreviousAttemptAnswer {
 
 export interface PreviousAttempt {
   id: string;
+  mode: string;
   score: number;
   totalQuestions: number;
   percentage: number;
@@ -71,6 +74,7 @@ export async function getPreviousAttempt(deThiId: string): Promise<PreviousAttem
 
     return {
       id: attempt.id,
+      mode: attempt.mode,
       score: attempt.score,
       totalQuestions: attempt.totalQuestions,
       percentage: attempt.percentage,
@@ -90,6 +94,7 @@ export interface ScoreProgressionPoint {
   date: Date;
   percentage: number;
   title: string;
+  mode: string;
 }
 
 export async function getScoreProgression(): Promise<ScoreProgressionPoint[]> {
@@ -106,6 +111,7 @@ export async function getScoreProgression(): Promise<ScoreProgressionPoint[]> {
     date: a.completedAt,
     percentage: a.percentage,
     title: a.deThi.title,
+    mode: a.mode,
   }));
 }
 
@@ -178,6 +184,7 @@ export async function getDashboardStats(): Promise<DashboardStats> {
       select: {
         id: true,
         deThiId: true,
+        mode: true,
         score: true,
         totalQuestions: true,
         percentage: true,
@@ -226,6 +233,7 @@ export async function getDashboardStats(): Promise<DashboardStats> {
     deThiTitle: a.deThi.title,
     subjectName: a.deThi.subject.name,
     subjectSlug: a.deThi.subject.slug,
+    mode: a.mode,
     score: a.score,
     totalQuestions: a.totalQuestions,
     percentage: a.percentage,

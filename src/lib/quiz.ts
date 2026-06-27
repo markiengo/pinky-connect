@@ -62,7 +62,8 @@ export interface AnswerSubmission {
 
 export async function saveQuizAttempt(
   deThiId: string,
-  answers: AnswerSubmission[]
+  answers: AnswerSubmission[],
+  mode: "practice" | "test" = "practice"
 ): Promise<{ attemptId: string; score: number; total: number; percentage: number } | { error: string }> {
   const session = await getSession();
   if (!session) {
@@ -89,6 +90,7 @@ export async function saveQuizAttempt(
         userId: session.userId,
         deThiId: deThi.id,
         subjectId: deThi.subjectId,
+        mode,
         score: correctCount,
         totalQuestions,
         percentage,

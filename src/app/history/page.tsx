@@ -104,13 +104,13 @@ export default async function HistoryPage({
           </div>
           <h1
             className="font-serif font-normal leading-[1.1] tracking-[-0.02em] mb-2"
-            style={{ fontSize: "clamp(32px, 4vw, 48px)", color: "#1E1B3A" }}
+            style={{ fontSize: "clamp(32px, 4vw, 48px)", color: "var(--foreground)" }}
           >
             Lịch sử làm bài
           </h1>
           <p
             className="font-sans max-w-[480px]"
-            style={{ fontSize: "15px", color: "#5C5875", lineHeight: 1.6 }}
+            style={{ fontSize: "15px", color: "var(--muted-foreground)", lineHeight: 1.6 }}
           >
             Theo dõi tiến độ học tập và kết quả các bài thi.
           </p>
@@ -127,13 +127,13 @@ export default async function HistoryPage({
             </div>
             <h2
               className="font-sans font-semibold mb-2"
-              style={{ fontSize: "18px", color: "#1E1B3A" }}
+              style={{ fontSize: "18px", color: "var(--foreground)" }}
             >
               Chưa có lịch sử làm bài
             </h2>
             <p
               className="font-sans mb-6"
-              style={{ fontSize: "14px", color: "#5C5875" }}
+              style={{ fontSize: "14px", color: "var(--muted-foreground)" }}
             >
               Hoàn thành bài thi đầu tiên để xem tiến độ và biểu đồ điểm số.
             </p>
@@ -178,13 +178,13 @@ export default async function HistoryPage({
               <div className="rounded-[16px] p-6 mb-8 float-reveal glass-card-pink">
                 <h2
                   className="font-sans font-semibold mb-1"
-                  style={{ fontSize: "16px", color: "#1E1B3A" }}
+                  style={{ fontSize: "16px", color: "var(--foreground)" }}
                 >
                   Tiến độ điểm số
                 </h2>
                 <p
                   className="font-sans mb-6"
-                  style={{ fontSize: "13px", color: "#8F8AA3" }}
+                  style={{ fontSize: "13px", color: "var(--muted-foreground)" }}
                 >
                   Biểu đồ điểm phần trăm qua các lần làm bài
                 </p>
@@ -193,6 +193,7 @@ export default async function HistoryPage({
                       label: formatViDate(p.date, "short"),
                       percentage: p.percentage,
                       title: p.title,
+                      mode: p.mode,
                     }))}
                   />
               </div>
@@ -203,13 +204,13 @@ export default async function HistoryPage({
               <div className="rounded-[16px] p-6 mb-8 float-reveal glass-card-pink">
                 <h2
                   className="font-sans font-semibold mb-1"
-                  style={{ fontSize: "16px", color: "#1E1B3A" }}
+                  style={{ fontSize: "16px", color: "var(--foreground)" }}
                 >
                   Trung bình theo môn
                 </h2>
                 <p
                   className="font-sans mb-6"
-                  style={{ fontSize: "13px", color: "#8F8AA3" }}
+                  style={{ fontSize: "13px", color: "var(--muted-foreground)" }}
                 >
                   So sánh kết quả giữa các môn học
                 </p>
@@ -228,7 +229,7 @@ export default async function HistoryPage({
             <div className="rounded-[16px] p-6 mb-8 float-reveal glass-card-pink">
               <h2
                 className="font-sans font-semibold mb-4"
-                style={{ fontSize: "16px", color: "#1E1B3A" }}
+                style={{ fontSize: "16px", color: "var(--foreground)" }}
               >
                 Tất cả bài đã làm
               </h2>
@@ -237,7 +238,7 @@ export default async function HistoryPage({
               <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-5 flex-wrap">
                 {/* Subject filters */}
                 <div className="flex items-center gap-2 flex-wrap">
-                  <div className="flex items-center gap-1.5 font-sans text-[13px] font-medium" style={{ color: "#5C5875" }}>
+                  <div className="flex items-center gap-1.5 font-sans text-[13px] font-medium" style={{ color: "var(--muted-foreground)" }}>
                     <Filter className="w-4 h-4" />
                     Môn:
                   </div>
@@ -252,8 +253,8 @@ export default async function HistoryPage({
                             boxShadow: "0 4px 16px rgba(244,137,154,0.25)",
                           }
                         : {
-                            background: "rgba(255,255,255,0.7)",
-                            color: "#1E1B3A",
+                            background: "var(--card)",
+                            color: "var(--foreground)",
                             border: "1px solid rgba(244,137,154,0.25)",
                           }
                     }
@@ -277,8 +278,8 @@ export default async function HistoryPage({
                                 boxShadow: `0 4px 16px ${color}40`,
                               }
                             : {
-                                background: "rgba(255,255,255,0.7)",
-                                color: "#1E1B3A",
+                                background: "var(--card)",
+                                color: "var(--foreground)",
                                 border: "1px solid rgba(244,137,154,0.25)",
                               }
                         }
@@ -291,7 +292,7 @@ export default async function HistoryPage({
 
                 {/* Sort buttons */}
                 <div className="flex items-center gap-2 sm:ml-auto flex-wrap">
-                  <div className="flex items-center gap-1.5 font-sans text-[13px] font-medium" style={{ color: "#5C5875" }}>
+                  <div className="flex items-center gap-1.5 font-sans text-[13px] font-medium" style={{ color: "var(--muted-foreground)" }}>
                     <ArrowDownUp className="w-4 h-4" />
                     Sắp xếp:
                   </div>
@@ -308,13 +309,13 @@ export default async function HistoryPage({
                         style={
                           isActive
                             ? {
-                                background: "rgba(30,27,58,0.08)",
-                                color: "#1E1B3A",
-                                border: "1px solid rgba(30,27,58,0.15)",
+                                background: "var(--secondary)",
+                                color: "var(--foreground)",
+                                border: "1px solid var(--border)",
                               }
                             : {
                                 background: "transparent",
-                                color: "#8F8AA3",
+                                color: "var(--muted-foreground)",
                                 border: "1px solid transparent",
                               }
                         }
@@ -329,14 +330,14 @@ export default async function HistoryPage({
               {/* ── Attempt list ── */}
               {sorted.length === 0 ? (
                 <div className="py-8 text-center">
-                  <p className="font-sans" style={{ fontSize: "14px", color: "#8F8AA3" }}>
+                  <p className="font-sans" style={{ fontSize: "14px", color: "var(--muted-foreground)" }}>
                     Không có bài làm trong mục này.
                   </p>
                 </div>
               ) : (
                 <div
                   className="divide-y"
-                  style={{ borderColor: "rgba(217, 211, 230, 0.6)" }}
+                  style={{ borderColor: "var(--border)" }}
                 >
                   {sorted.map((entry) => (
                     <HistoryRow key={entry.id} entry={entry} />
@@ -384,13 +385,13 @@ function StatCard({
       </div>
       <span
         className="font-serif font-normal leading-none mb-1"
-        style={{ fontSize: "40px", color: "#1E1B3A" }}
+        style={{ fontSize: "40px", color: "var(--foreground)" }}
       >
         {value}
       </span>
       <span
         className="font-sans text-[13px]"
-        style={{ color: "#5C5875" }}
+        style={{ color: "var(--muted-foreground)" }}
       >
         {label}
       </span>
@@ -405,24 +406,33 @@ function HistoryRow({ entry }: { entry: HistoryEntry }) {
   return (
     <Link
       href={`/quiz/${entry.deThiId}`}
-      className="flex items-center justify-between p-4 rounded-[12px] group transition-all duration-200 hover:bg-white/60"
+      className="flex items-center justify-between p-4 rounded-[12px] group transition-all duration-200 hover:bg-[var(--secondary)]"
     >
       <div className="min-w-0 flex-1">
         <h3
           className="font-sans font-semibold truncate"
-          style={{ fontSize: "14px", color: "#1E1B3A" }}
+          style={{ fontSize: "14px", color: "var(--foreground)" }}
         >
           {entry.deThiTitle}
         </h3>
         <span
           className="font-sans text-[12px]"
-          style={{ color: "#8F8AA3" }}
+          style={{ color: "var(--muted-foreground)" }}
         >
-          {entry.subjectName} ·{" "}
+          {entry.subjectName} · {""}
           {formatViDate(entry.completedAt, "long")}
         </span>
       </div>
       <div className="flex items-center gap-3 flex-shrink-0">
+        <span
+          className="font-sans font-medium text-[10px] uppercase tracking-wider px-2 py-1 rounded-full"
+          style={{
+            background: entry.mode === "test" ? "rgba(124,111,219,0.12)" : "rgba(244,137,154,0.12)",
+            color: entry.mode === "test" ? "#7C6FDB" : "#F4899A",
+          }}
+        >
+          {entry.mode === "test" ? "Test" : "Practice"}
+        </span>
         <span
           className="font-sans font-semibold"
           style={{ fontSize: "14px", color: scoreColor }}
@@ -431,7 +441,7 @@ function HistoryRow({ entry }: { entry: HistoryEntry }) {
         </span>
         <div
           className="w-14 h-2 rounded-full overflow-hidden"
-          style={{ background: "rgba(217, 211, 230, 0.6)" }}
+          style={{ background: "var(--secondary)" }}
         >
           <div
             className="h-full rounded-full"

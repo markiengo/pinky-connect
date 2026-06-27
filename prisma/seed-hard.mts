@@ -43,6 +43,15 @@ function uniqueTags(tags: string[]): string[] {
   return Array.from(new Set(tags));
 }
 
+function shuffleArray<T>(arr: T[]): T[] {
+  const result = [...arr];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
+
 async function seed() {
   console.log("Seeding question bank from JSON data files...");
 
@@ -100,7 +109,7 @@ async function seed() {
                   subjectId: subject.id,
                   type: q.type || "mcq",
                   content: q.content,
-                  options: JSON.stringify(q.options),
+                  options: JSON.stringify(shuffleArray(q.options)),
                   correctAnswer: q.correctAnswer,
                   explanation: q.explanation,
                   tags: JSON.stringify(uniqueTags(q.tags || [])),
@@ -183,10 +192,12 @@ async function seed() {
           attempts++;
         }
 
+        const mode = rand(baseSeed + sIdx * 777 + aIdx * 13) < 0.6 ? "practice" : "test";
+
         const attempt = await prisma.quizAttempt.create({
           data: {
             userId, deThiId: dt.id, subjectId: dt.subjectId,
-            score, totalQuestions: totalQs, percentage,
+            mode, score, totalQuestions: totalQs, percentage,
             completedAt: new Date(Date.now() - dayOffset * 24 * 60 * 60 * 1000),
           },
         });

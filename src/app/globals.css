@@ -271,13 +271,65 @@
   --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
+/* ============================================================
+   Dark mode — Dreamscape Orchid inverted
+   ============================================================ */
+
+.dark {
+  --background: #13122B;
+  --foreground: #F2F0F7;
+  --card: #1E1B3A;
+  --card-foreground: #F2F0F7;
+  --popover: #1E1B3A;
+  --popover-foreground: #F2F0F7;
+  --primary: #9F7AEA;
+  --primary-foreground: #FFFFFF;
+  --secondary: #2A2750;
+  --secondary-foreground: #F2F0F7;
+  --muted: #2A2750;
+  --muted-foreground: #B8B4D0;
+  --accent: #F4899A;
+  --accent-foreground: #FFFFFF;
+  --destructive: #E57373;
+  --border: rgba(159, 122, 234, 0.25);
+  --input: rgba(159, 122, 234, 0.25);
+  --ring: #9F7AEA;
+  --radius: 0.5rem;
+
+  --chart-1: #9F7AEA;
+  --chart-2: #7C6FDB;
+  --chart-3: #F4899A;
+  --chart-4: #F4899A;
+  --chart-5: #B8B4D0;
+
+  --sidebar: #1E1B3A;
+  --sidebar-foreground: #F2F0F7;
+  --sidebar-primary: #9F7AEA;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #2A2750;
+  --sidebar-accent-foreground: #F2F0F7;
+  --sidebar-border: rgba(159, 122, 234, 0.25);
+  --sidebar-ring: #9F7AEA;
+
+  /* shadows — lighter ink so they lift on dark surfaces */
+  --shadow-subtle: 0 1px 4px rgba(0, 0, 0, 0.20);
+  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.30);
+  --shadow-lifted: 0 8px 32px rgba(0, 0, 0, 0.35);
+  --shadow-over-image: 0 8px 40px rgba(0, 0, 0, 0.40);
+  --shadow-diffusion: 0 20px 40px -15px rgba(0, 0, 0, 0.25);
+
+  /* legacy compat */
+  --shadow-panel: 0 4px 16px rgba(0, 0, 0, 0.30);
+  --shadow-pop: 0 8px 32px rgba(0, 0, 0, 0.35);
+  --shadow-soft: 0 1px 4px rgba(0, 0, 0, 0.20);
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;
-    background-color: #E8E4F2;
   }
   html {
     @apply font-sans;
@@ -326,6 +378,15 @@
   );
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite linear;
+}
+
+.dark .skeleton {
+  background: linear-gradient(
+    90deg,
+    #2A2750 25%,
+    #3D2E5C 50%,
+    #2A2750 75%
+  );
 }
 
 /* --- Button press feedback --- */
@@ -464,6 +525,27 @@
 .dream-card-teal {
   border: 1px solid var(--dream-teal-border);
   box-shadow: var(--shadow-dream-teal);
+}
+
+/* Dark mode variants for glass/aurora utilities */
+.dark .aurora-bg {
+  background-color: #13122B;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 85% 0%, rgba(159, 122, 234, 0.22) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 40% at 10% 90%, rgba(244, 137, 154, 0.16) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 30% at 60% 100%, rgba(159, 122, 234, 0.14) 0%, transparent 45%);
+}
+
+.dark .glass-card {
+  background: rgba(30, 27, 58, 0.72);
+  border: 1px solid rgba(159, 122, 234, 0.25);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.dark .glass-card-pink,
+.dark .glass-card-teal {
+  background: rgba(30, 27, 58, 0.70);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 /* Subject gradient overlays — rich, high-contrast */

@@ -26,13 +26,13 @@ export default async function PracticePage() {
           </div>
           <h1
             className="font-serif font-normal leading-[1.1] tracking-[-0.02em]"
-            style={{ fontSize: "clamp(28px, 4vw, 40px)", color: "#1E1B3A" }}
+            style={{ fontSize: "clamp(28px, 4vw, 40px)", color: "var(--foreground)" }}
           >
             Luyện đề
           </h1>
           <p
             className="mt-1 font-sans"
-            style={{ fontSize: "14px", color: "#5C5875" }}
+            style={{ fontSize: "14px", color: "var(--muted-foreground)" }}
           >
             Hỏi AI tìm đề phù hợp hoặc tải lên tài liệu để nhận đề gợi ý
           </p>

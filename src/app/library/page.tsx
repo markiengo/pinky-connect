@@ -50,7 +50,7 @@ export default async function LibraryPage({
               </span>
               <h1
                 className="font-serif font-normal leading-[1.1] tracking-[-0.02em]"
-                style={{ fontSize: "clamp(28px, 4vw, 40px)", color: "#1E1B3A" }}
+                style={{ fontSize: "clamp(28px, 4vw, 40px)", color: "var(--foreground)" }}
               >
                 Đề thi
               </h1>
@@ -58,7 +58,7 @@ export default async function LibraryPage({
           </div>
           <p
             className="font-sans ml-[56px]"
-            style={{ fontSize: "15px", color: "#5C5875" }}
+            style={{ fontSize: "15px", color: "var(--muted-foreground)" }}
           >
             {filtered.length} đề thi sẵn sàng luyện tập
           </p>
@@ -68,7 +68,7 @@ export default async function LibraryPage({
         <div className="flex items-center gap-2 mb-8 flex-wrap reveal" style={{ animationDelay: "50ms" }}>
           <div
             className="flex items-center gap-1.5 font-sans text-[13px] font-medium mr-2"
-            style={{ color: "#5C5875" }}
+            style={{ color: "var(--muted-foreground)" }}
           >
             <Filter className="w-4 h-4" />
             Môn:
@@ -84,8 +84,8 @@ export default async function LibraryPage({
                     boxShadow: "0 4px 16px rgba(244,137,154,0.25)",
                   }
                 : {
-                    background: "rgba(255,255,255,0.7)",
-                    color: "#1E1B3A",
+                    background: "var(--card)",
+                    color: "var(--foreground)",
                     border: "1px solid rgba(244,137,154,0.25)",
                     backdropFilter: "blur(8px)",
                   }
@@ -119,8 +119,8 @@ export default async function LibraryPage({
                         boxShadow: `0 4px 16px ${accentColor}40`,
                       }
                     : {
-                        background: "rgba(255,255,255,0.7)",
-                        color: "#1E1B3A",
+                        background: "var(--card)",
+                        color: "var(--foreground)",
                         border: "1px solid rgba(244,137,154,0.25)",
                         backdropFilter: "blur(8px)",
                       }
@@ -137,7 +137,7 @@ export default async function LibraryPage({
           <div className="rounded-[16px] p-12 text-center glass-card-pink">
             <p
               className="font-sans mb-2"
-              style={{ fontSize: "16px", color: "#5C5875" }}
+              style={{ fontSize: "16px", color: "var(--muted-foreground)" }}
             >
               Chưa có đề thi nào trong mục này.
             </p>

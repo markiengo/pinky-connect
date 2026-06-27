@@ -65,13 +65,13 @@ export default async function ProfilePage() {
             </span>
             <h1
               className="font-serif font-normal leading-tight"
-              style={{ fontSize: "30px", color: "#1E1B3A" }}
+              style={{ fontSize: "30px", color: "var(--foreground)" }}
             >
               {session.username}
             </h1>
             <p
               className="font-sans"
-              style={{ fontSize: "13px", color: "#8F8AA3" }}
+              style={{ fontSize: "13px", color: "var(--muted-foreground)" }}
             >
               Học viên · Crambox
             </p>
@@ -80,11 +80,11 @@ export default async function ProfilePage() {
             <button
               type="submit"
               title="Đăng xuất"
-              className="grid place-items-center rounded-[12px] transition-all duration-150 hover:bg-white/60 glass-card"
+              className="grid place-items-center rounded-[12px] transition-all duration-150 hover:bg-[var(--secondary)] glass-card"
               style={{
                 width: "44px",
                 height: "44px",
-                color: "#5C5875",
+                color: "var(--muted-foreground)",
               }}
             >
               <LogOut className="w-[18px] h-[18px]" />
@@ -129,7 +129,7 @@ export default async function ProfilePage() {
               </div>
               <h2
                 className="font-sans font-semibold"
-                style={{ fontSize: "16px", color: "#1E1B3A" }}
+                style={{ fontSize: "16px", color: "var(--foreground)" }}
               >
                 Hiệu suất theo môn
               </h2>
@@ -161,13 +161,13 @@ export default async function ProfilePage() {
             <div>
               <h3
                 className="font-sans font-semibold mb-1"
-                style={{ fontSize: "16px", color: "#1E1B3A" }}
+                style={{ fontSize: "16px", color: "var(--foreground)" }}
               >
                 Xem lịch sử
               </h3>
               <p
                 className="font-sans"
-                style={{ fontSize: "13px", color: "#5C5875" }}
+                style={{ fontSize: "13px", color: "var(--muted-foreground)" }}
               >
                 Biểu đồ điểm và chi tiết bài làm
               </p>
@@ -188,13 +188,13 @@ export default async function ProfilePage() {
             <div>
               <h3
                 className="font-sans font-semibold mb-1"
-                style={{ fontSize: "16px", color: "#1E1B3A" }}
+                style={{ fontSize: "16px", color: "var(--foreground)" }}
               >
                 Luyện tập thêm
               </h3>
               <p
                 className="font-sans"
-                style={{ fontSize: "13px", color: "#5C5875" }}
+                style={{ fontSize: "13px", color: "var(--muted-foreground)" }}
               >
                 Khám phá thư viện đề thi
               </p>
@@ -238,13 +238,13 @@ function ProfileStat({
       </div>
       <span
         className="font-serif font-normal leading-none mb-1"
-        style={{ fontSize: "40px", color: "#1E1B3A" }}
+        style={{ fontSize: "40px", color: "var(--foreground)" }}
       >
         {value}
       </span>
       <span
         className="font-sans text-[13px]"
-        style={{ color: "#5C5875" }}
+        style={{ color: "var(--muted-foreground)" }}
       >
         {label}
       </span>

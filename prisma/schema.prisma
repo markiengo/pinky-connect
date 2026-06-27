@@ -93,6 +93,7 @@ model QuizAttempt {
   userId         String   @map("user_id")
   deThiId        String   @map("de_thi_id")
   subjectId      String   @map("subject_id")
+  mode           String   @default("practice") // "practice" | "test"
   score          Int      @default(0)
   totalQuestions Int      @default(0) @map("total_questions")
   percentage     Float    @default(0)

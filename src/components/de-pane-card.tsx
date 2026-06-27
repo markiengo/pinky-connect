@@ -61,9 +61,9 @@ export function DePaneCard({
       href={`/quiz/${id}`}
       className="group block overflow-hidden rounded-[16px] transition-all duration-300 hover:-translate-y-[4px] btn-press"
       style={{
-        boxShadow: "0 12px 40px rgba(30,27,58,0.10), 0 4px 12px rgba(30,27,58,0.06)",
-        background: "#FFFFFF",
-        border: "1px solid rgba(244,137,154,0.14)",
+        boxShadow: "var(--shadow-lifted)",
+        background: "var(--card)",
+        border: "1px solid var(--border)",
       }}
     >
       <div className="grid grid-cols-[2fr_3fr]">
@@ -76,7 +76,7 @@ export function DePaneCard({
         <div
           className="flex flex-col gap-3 p-6"
           style={{
-            background: "rgba(255,255,255,0.92)",
+            background: "var(--card)",
             backdropFilter: "blur(12px)",
           }}
         >
@@ -91,7 +91,7 @@ export function DePaneCard({
           {/* Title */}
           <h2
             className="font-serif font-normal leading-snug"
-            style={{ fontSize: "20px", color: "#1E1B3A" }}
+            style={{ fontSize: "20px", color: "var(--foreground)" }}
           >
             {title}
           </h2>
@@ -99,12 +99,12 @@ export function DePaneCard({
           {/* Metadata row */}
           <div
             className="flex items-center gap-3 font-sans text-[13px]"
-            style={{ color: "#5C5875" }}
+            style={{ color: "var(--muted-foreground)" }}
           >
             <span>{questionCount} câu</span>
             <span
               className="w-1 h-1 rounded-full"
-              style={{ background: "#D9D3E6" }}
+              style={{ background: "var(--border)" }}
             />
             <span className="truncate">{source}</span>
           </div>

@@ -82,13 +82,13 @@ export default async function DashboardPage() {
           </div>
           <h1
             className="font-serif font-normal leading-[1.1] tracking-[-0.02em] mb-2"
-            style={{ fontSize: "clamp(32px, 4vw, 48px)", color: "#1E1B3A" }}
+            style={{ fontSize: "clamp(32px, 4vw, 48px)", color: "var(--foreground)" }}
           >
             Xin chào{session ? `, ${session.username}` : ""}
           </h1>
           <p
             className="font-sans max-w-[480px]"
-            style={{ fontSize: "15px", color: "#5C5875", lineHeight: 1.6 }}
+            style={{ fontSize: "15px", color: "var(--muted-foreground)", lineHeight: 1.6 }}
           >
             Tiếp tục luyện tập và theo dõi tiến độ của bạn.
           </p>
@@ -138,7 +138,7 @@ export default async function DashboardPage() {
               </div>
               <h2
                 className="font-sans font-semibold"
-                style={{ fontSize: "16px", color: "#1E1B3A" }}
+                style={{ fontSize: "16px", color: "var(--foreground)" }}
               >
                 Hoạt động gần đây
               </h2>
@@ -157,7 +157,7 @@ export default async function DashboardPage() {
             <div className="py-12 text-center">
               <p
                 className="font-sans mb-5"
-                style={{ fontSize: "15px", color: "#5C5875" }}
+                style={{ fontSize: "15px", color: "var(--muted-foreground)" }}
               >
                 Chưa có hoạt động nào. Bắt đầu làm bài đầu tiên!
               </p>
@@ -181,26 +181,35 @@ export default async function DashboardPage() {
                   href={`/quiz/${a.deThiId}`}
                   className="flex items-center justify-between p-4 rounded-[12px] transition-all duration-200 group"
                   style={{
-                    background: "rgba(255, 255, 255, 0.5)",
-                    border: "1px solid rgba(244, 137, 154, 0.12)",
+                    background: "var(--card)",
+                    border: "1px solid var(--border)",
                     animationDelay: `${i * 60}ms`,
                   }}
                 >
                   <div className="min-w-0 flex-1">
                     <h3
                       className="font-sans font-semibold truncate"
-                      style={{ fontSize: "14px", color: "#1E1B3A" }}
+                      style={{ fontSize: "14px", color: "var(--foreground)" }}
                     >
                       {a.deThiTitle}
                     </h3>
                     <span
                       className="font-sans text-[12px]"
-                      style={{ color: "#8F8AA3" }}
+                      style={{ color: "var(--muted-foreground)" }}
                     >
                       {a.subjectName} · {formatViDate(a.completedAt, "short")}
                     </span>
                   </div>
                   <div className="flex items-center gap-3 flex-shrink-0">
+                    <span
+                      className="font-sans font-medium text-[10px] uppercase tracking-wider px-2 py-1 rounded-full"
+                      style={{
+                        background: a.mode === "test" ? "rgba(124,111,219,0.12)" : "rgba(244,137,154,0.12)",
+                        color: a.mode === "test" ? "#7C6FDB" : "#F4899A",
+                      }}
+                    >
+                      {a.mode === "test" ? "Test" : "Practice"}
+                    </span>
                     <span
                       className="font-sans font-bold"
                       style={{ fontSize: "14px", color: "#F4899A" }}
@@ -209,7 +218,7 @@ export default async function DashboardPage() {
                     </span>
                     <div
                       className="w-14 h-2 rounded-full overflow-hidden"
-                      style={{ background: "rgba(217, 211, 230, 0.6)" }}
+                      style={{ background: "var(--secondary)" }}
                     >
                       <div
                         className="h-full rounded-full dream-progress"
@@ -279,13 +288,13 @@ function StatCard({
       </div>
       <span
         className="font-serif font-normal leading-none mb-1"
-        style={{ fontSize: "40px", color: "#1E1B3A" }}
+        style={{ fontSize: "40px", color: "var(--foreground)" }}
       >
         {value}
       </span>
       <span
         className="font-sans text-[13px]"
-        style={{ color: "#5C5875" }}
+        style={{ color: "var(--muted-foreground)" }}
       >
         {label}
       </span>
@@ -306,7 +315,7 @@ function SubjectCard({
       className="group relative rounded-[16px] p-6 text-white transition-all duration-300 hover:-translate-y-[4px] hover:scale-[1.02] btn-press float-reveal block overflow-hidden"
       style={{
         animationDelay: `${index * 100}ms`,
-        boxShadow: "0 12px 40px rgba(30, 27, 58, 0.12)",
+        boxShadow: "var(--shadow-lifted)",
       }}
     >
       <div className={`absolute inset-0 ${subject.gradClass}`} />
@@ -395,13 +404,13 @@ function QuickAction({
       <div className="flex-1 min-w-0">
         <h3
           className="font-sans font-semibold mb-1"
-          style={{ fontSize: "16px", color: "#1E1B3A" }}
+          style={{ fontSize: "16px", color: "var(--foreground)" }}
         >
           {title}
         </h3>
         <p
           className="font-sans"
-          style={{ fontSize: "13px", color: "#5C5875" }}
+          style={{ fontSize: "13px", color: "var(--muted-foreground)" }}
         >
           {desc}
         </p>

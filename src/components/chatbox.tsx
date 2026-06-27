@@ -228,14 +228,14 @@ export function Chatbox() {
       {/* ── Chat sidebar (desktop) ── */}
       <aside
         className="hidden md:flex flex-col w-52 flex-shrink-0 border-r"
-        style={{ borderColor: "rgba(244,137,154,0.15)" }}
+        style={{ borderColor: "var(--border)", background: "var(--card)" }}
       >
         <button
           onClick={handleNewChat}
           className="flex items-center gap-2 mx-3 mt-3 px-3 py-2.5 rounded-[12px] font-sans font-semibold text-[13px] transition-all btn-press hover:translate-y-[-1px]"
           style={{
             background: "linear-gradient(135deg, #F4899A 0%, #7C6FDB 100%)",
-            color: "#FFFFFF",
+            color: "var(--primary-foreground)",
             boxShadow: "0 4px 16px rgba(244,137,154,0.20)",
           }}
         >
@@ -252,16 +252,16 @@ export function Chatbox() {
                 onClick={() => setActiveSessionId(s.id)}
                 className="group flex items-center gap-2 px-3 py-2.5 rounded-[10px] cursor-pointer transition-all"
                 style={{
-                  background: isActive ? "rgba(244,137,154,0.10)" : "transparent",
+                  background: isActive ? "var(--secondary)" : "transparent",
                 }}
               >
                 <MessageSquare
                   className="w-3.5 h-3.5 flex-shrink-0"
-                  style={{ color: isActive ? "#F4899A" : "#8F8AA3" }}
+                  style={{ color: isActive ? "var(--accent)" : "var(--muted-foreground)" }}
                 />
                 <span
                   className="flex-1 min-w-0 truncate font-sans font-medium text-[12px]"
-                  style={{ color: isActive ? "#1E1B3A" : "#5C5875" }}
+                  style={{ color: isActive ? "var(--foreground)" : "var(--muted-foreground)" }}
                 >
                   {s.title}
                 </span>
@@ -272,7 +272,7 @@ export function Chatbox() {
                       handleDeleteSession(s.id);
                     }}
                     className="opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0"
-                    style={{ color: "#8F8AA3" }}
+                    style={{ color: "var(--muted-foreground)" }}
                   >
                     <Trash2 className="w-3 h-3" />
                   </button>
@@ -289,8 +289,8 @@ export function Chatbox() {
         <div
           className="flex items-center gap-3 px-5 py-4 backdrop-blur-sm rounded-t-[16px]"
           style={{
-            borderBottom: "1px solid rgba(244,137,154,0.15)",
-            background: "rgba(255,255,255,0.5)",
+            borderBottom: "1px solid var(--border)",
+            background: "var(--card)",
           }}
         >
           {/* Mobile: chat list toggle */}
@@ -311,13 +311,13 @@ export function Chatbox() {
           <div className="flex-1 min-w-0">
             <h2
               className="font-sans text-[15px] font-bold leading-tight"
-              style={{ color: "#1E1B3A" }}
+              style={{ color: "var(--foreground)" }}
             >
               Tìm đề thi
             </h2>
             <p
               className="text-[11.5px] leading-tight"
-              style={{ color: "#5C5875" }}
+              style={{ color: "var(--muted-foreground)" }}
             >
               {promptsRemaining > 0
                 ? `${promptsRemaining} lượt hỏi còn lại`
@@ -338,13 +338,13 @@ export function Chatbox() {
         {showSidebarMobile && (
           <div className="md:hidden absolute inset-0 z-40 flex">
             <div
-              className="w-64 bg-white flex flex-col border-r"
-              style={{ borderColor: "rgba(244,137,154,0.15)" }}
+              className="w-64 flex flex-col border-r"
+              style={{ borderColor: "var(--border)", background: "var(--card)" }}
             >
-              <div className="flex items-center justify-between px-4 py-3 border-b" style={{ borderColor: "rgba(244,137,154,0.15)" }}>
-                <span className="font-sans font-bold text-[14px]" style={{ color: "#1E1B3A" }}>Cuộc trò chuyện</span>
+              <div className="flex items-center justify-between px-4 py-3 border-b" style={{ borderColor: "var(--border)" }}>
+                <span className="font-sans font-bold text-[14px]" style={{ color: "var(--foreground)" }}>Cuộc trò chuyện</span>
                 <button onClick={() => setShowSidebarMobile(false)}>
-                  <X className="w-4 h-4" style={{ color: "#8F8AA3" }} />
+                  <X className="w-4 h-4" style={{ color: "var(--muted-foreground)" }} />
                 </button>
               </div>
               <button
@@ -352,7 +352,7 @@ export function Chatbox() {
                 className="flex items-center gap-2 mx-3 mt-3 px-3 py-2.5 rounded-[12px] font-sans font-semibold text-[13px] transition-all btn-press"
                 style={{
                   background: "linear-gradient(135deg, #F4899A 0%, #7C6FDB 100%)",
-                  color: "#FFFFFF",
+                  color: "var(--primary-foreground)",
                 }}
               >
                 <Plus className="w-4 h-4" />
@@ -369,17 +369,17 @@ export function Chatbox() {
                         setShowSidebarMobile(false);
                       }}
                       className="group flex items-center gap-2 px-3 py-2.5 rounded-[10px] cursor-pointer transition-all"
-                      style={{ background: isActive ? "rgba(244,137,154,0.10)" : "transparent" }}
+                      style={{ background: isActive ? "var(--secondary)" : "transparent" }}
                     >
-                      <MessageSquare className="w-3.5 h-3.5 flex-shrink-0" style={{ color: isActive ? "#F4899A" : "#8F8AA3" }} />
-                      <span className="flex-1 min-w-0 truncate font-sans font-medium text-[12px]" style={{ color: isActive ? "#1E1B3A" : "#5C5875" }}>
+                      <MessageSquare className="w-3.5 h-3.5 flex-shrink-0" style={{ color: isActive ? "var(--accent)" : "var(--muted-foreground)" }} />
+                      <span className="flex-1 min-w-0 truncate font-sans font-medium text-[12px]" style={{ color: isActive ? "var(--foreground)" : "var(--muted-foreground)" }}>
                         {s.title}
                       </span>
                       {sessions.length > 1 && (
                         <button
                           onClick={(e) => { e.stopPropagation(); handleDeleteSession(s.id); }}
                           className="opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0"
-                          style={{ color: "#8F8AA3" }}
+                          style={{ color: "var(--muted-foreground)" }}
                         >
                           <Trash2 className="w-3 h-3" />
                         </button>
@@ -413,30 +413,30 @@ export function Chatbox() {
                   style={{
                     background:
                       msg.role === "user"
-                        ? "#F4899A"
+                        ? "var(--accent)"
                         : msg.isError
-                          ? "rgba(244,137,154,0.10)"
-                          : "#FFFFFF",
+                          ? "var(--secondary)"
+                          : "var(--card)",
                     color:
                       msg.role === "user"
-                        ? "#FFFFFF"
+                        ? "var(--accent-foreground)"
                         : msg.isError
-                          ? "#F4899A"
-                          : "#1E1B3A",
+                          ? "var(--accent)"
+                          : "var(--foreground)",
                     boxShadow:
                       msg.role === "assistant" && !msg.isError
-                        ? "0 1px 4px rgba(244,137,154,0.08)"
+                        ? "var(--shadow-soft)"
                         : "none",
                     border:
                       msg.role === "assistant" && !msg.isError
-                        ? "1px solid rgba(244,137,154,0.10)"
+                        ? "1px solid var(--border)"
                         : "none",
                   }}
                 >
                   {msg.role === "assistant" && !msg.isError && (
                     <span
                       className="inline-flex items-center gap-1 text-[11px] font-bold mb-1"
-                      style={{ color: "#F4899A" }}
+                      style={{ color: "var(--accent)" }}
                     >
                       <GraduationCap className="w-3 h-3" />
                       Crambox
@@ -445,7 +445,7 @@ export function Chatbox() {
                   {msg.isError && (
                     <span
                       className="inline-flex items-center gap-1 text-[11px] font-bold mb-1"
-                      style={{ color: "#F4899A" }}
+                      style={{ color: "var(--accent)" }}
                     >
                       <AlertCircle className="w-3 h-3" />
                       Lỗi
@@ -491,23 +491,23 @@ export function Chatbox() {
               <div
                 className="px-5 py-3.5 rounded-[18px] rounded-bl-[6px]"
                 style={{
-                  background: "#FFFFFF",
-                  boxShadow: "0 1px 4px rgba(244,137,154,0.08)",
-                  border: "1px solid rgba(244,137,154,0.10)",
+                  background: "var(--card)",
+                  boxShadow: "var(--shadow-soft)",
+                  border: "1px solid var(--border)",
                 }}
               >
                 <div className="flex items-center gap-1.5">
                   <span
                     className="typing-dot w-2 h-2 rounded-full"
-                    style={{ background: "#F4899A", animationDelay: "0ms" }}
+                    style={{ background: "var(--accent)", animationDelay: "0ms" }}
                   />
                   <span
                     className="typing-dot w-2 h-2 rounded-full"
-                    style={{ background: "#F4899A", animationDelay: "150ms" }}
+                    style={{ background: "var(--accent)", animationDelay: "150ms" }}
                   />
                   <span
                     className="typing-dot w-2 h-2 rounded-full"
-                    style={{ background: "#F4899A", animationDelay: "300ms" }}
+                    style={{ background: "var(--accent)", animationDelay: "300ms" }}
                   />
                 </div>
               </div>
@@ -519,7 +519,7 @@ export function Chatbox() {
             <div className="space-y-2 pt-2">
               <p
                 className="text-[12px] font-bold px-1"
-                style={{ color: "#5C5875" }}
+                style={{ color: "var(--muted-foreground)" }}
               >
                 Gợi ý:
               </p>
@@ -527,12 +527,18 @@ export function Chatbox() {
                 <button
                   key={s}
                   onClick={() => handleSuggestionClick(s)}
-                  className="block w-full text-left px-4 py-2.5 rounded-[14px] text-[13px] font-medium transition-all hover:bg-white/80 btn-press"
+                  className="block w-full text-left px-4 py-2.5 rounded-[14px] text-[13px] font-medium transition-all btn-press"
                   style={{
-                    background: "rgba(255,255,255,0.65)",
-                    border: "1px solid rgba(244,137,154,0.20)",
-                    color: "rgba(30,27,58,0.8)",
+                    background: "var(--card)",
+                    border: "1px solid var(--border)",
+                    color: "var(--foreground)",
                     backdropFilter: "blur(8px)",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "var(--secondary)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "var(--card)";
                   }}
                 >
                   {s}
@@ -550,8 +556,9 @@ export function Chatbox() {
                 key={i}
                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[999px] text-[12px] font-semibold"
                 style={{
-                  background: "#E8E4F2",
-                  border: "1px solid rgba(30,27,58,0.08)",
+                  background: "var(--secondary)",
+                  border: "1px solid var(--border)",
+                  color: "var(--foreground)",
                 }}
               >
                 <Paperclip className="w-3 h-3" />
@@ -559,7 +566,7 @@ export function Chatbox() {
                 <button
                   onClick={() => removeFile(i)}
                   className="ml-1"
-                  style={{ color: "rgba(30,27,58,0.4)" }}
+                  style={{ color: "var(--muted-foreground)" }}
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
@@ -573,8 +580,8 @@ export function Chatbox() {
           onSubmit={handleSubmit}
           className="flex items-center gap-2 px-5 py-4 backdrop-blur-sm rounded-b-[16px]"
           style={{
-            borderTop: "1px solid rgba(244,137,154,0.15)",
-            background: "rgba(255,255,255,0.5)",
+            borderTop: "1px solid var(--border)",
+            background: "var(--card)",
           }}
         >
           <input
@@ -591,7 +598,7 @@ export function Chatbox() {
             disabled={files.length >= 3 || loading}
             title="Tải lên PDF (tối đa 3 file)"
             className="grid place-items-center w-10 h-10 rounded-full transition-all disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0 btn-press"
-            style={{ background: "rgba(244,137,154,0.10)", color: "#F4899A" }}
+            style={{ background: "var(--secondary)", color: "var(--accent)" }}
           >
             <Paperclip className="w-[18px] h-[18px]" />
           </button>
@@ -604,9 +611,9 @@ export function Chatbox() {
             autoComplete="off"
             className="flex-1 min-w-0 h-11 px-4 rounded-[999px] text-[14px] font-medium focus:outline-none transition-colors disabled:opacity-50"
             style={{
-              background: "rgba(244,137,154,0.06)",
-              border: "1px solid rgba(244,137,154,0.18)",
-              color: "#1E1B3A",
+              background: "var(--secondary)",
+              border: "1px solid var(--border)",
+              color: "var(--foreground)",
             }}
           />
           <button
@@ -614,12 +621,12 @@ export function Chatbox() {
             disabled={loading || (!input.trim() && files.length === 0) || promptsRemaining <= 0}
             title="Gửi"
             className="grid place-items-center w-11 h-11 rounded-full transition-all disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0 btn-press"
-            style={{ background: "linear-gradient(135deg, #F4899A 0%, #7C6FDB 100%)", color: "#FFFFFF", boxShadow: "0 4px 16px rgba(244,137,154,0.25)" }}
+            style={{ background: "linear-gradient(135deg, #F4899A 0%, #7C6FDB 100%)", color: "var(--primary-foreground)", boxShadow: "0 4px 16px rgba(244,137,154,0.25)" }}
           >
             {loading ? (
               <span
                 className="typing-dot w-2 h-2 rounded-full"
-                style={{ background: "#FFFFFF", animationDelay: "0ms" }}
+                style={{ background: "var(--primary-foreground)", animationDelay: "0ms" }}
               />
             ) : (
               <Send className="w-[18px] h-[18px]" />

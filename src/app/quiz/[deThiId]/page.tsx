@@ -28,7 +28,7 @@ export default async function QuizPage({
       <Link
         href="/library"
         className="inline-flex items-center gap-1.5 font-sans font-medium text-[13px] mb-4 transition-colors"
-        style={{ color: "#5C5875" }}
+        style={{ color: "var(--muted-foreground)" }}
       >
         <ArrowLeft className="w-4 h-4" />
         Quay lại thư viện
@@ -46,14 +46,14 @@ export default async function QuizPage({
         </span>
         <h1
           className="font-serif font-normal leading-tight tracking-[-0.01em]"
-          style={{ fontSize: "clamp(22px, 3vw, 28px)", color: "#1E1B3A" }}
+          style={{ fontSize: "clamp(22px, 3vw, 28px)", color: "var(--foreground)" }}
         >
           {quiz.title}
         </h1>
         {quiz.source && (
           <p
             className="mt-1 font-sans font-medium text-[13px]"
-            style={{ color: "#5C5875" }}
+            style={{ color: "var(--muted-foreground)" }}
           >
             {quiz.source}
           </p>

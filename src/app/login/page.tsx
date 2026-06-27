@@ -22,8 +22,7 @@ export default function LoginPage() {
 
   return (
     <div
-      className="min-h-dvh flex items-center justify-center p-6 relative overflow-hidden"
-      style={{ background: "linear-gradient(135deg, #F2F0F7 0%, #E8E4F2 100%)" }}
+      className="min-h-dvh flex items-center justify-center p-6 relative overflow-hidden bg-background"
     >
       {/* Soft decorative orbs */}
       <div
@@ -39,10 +38,9 @@ export default function LoginPage() {
       <div
         className="relative z-10 w-full max-w-[920px] md:w-[75%] lg:w-[65%] rounded-[28px] overflow-hidden flex flex-col md:flex-row"
         style={{
-          background: "#FFFFFF",
-          border: "1px solid rgba(159,122,234,0.25)",
-          boxShadow:
-            "0 24px 70px rgba(30,27,58,0.10), 0 0 0 1px rgba(159,122,234,0.08), 0 0 40px rgba(159,122,234,0.12)",
+          background: "var(--card)",
+          border: "1px solid var(--border)",
+          boxShadow: "var(--shadow-lifted)",
         }}
       >
         {/* Left: dreamy illustration */}
@@ -64,20 +62,20 @@ export default function LoginPage() {
           />
         </div>
 
-        {/* Right: white login form */}
-        <div className="w-full md:w-1/2 flex flex-col justify-center px-8 py-10 md:px-12 md:py-14 bg-white">
+        {/* Right: login form */}
+        <div className="w-full md:w-1/2 flex flex-col justify-center px-8 py-10 md:px-12 md:py-14 bg-card">
           <div className="mb-8 flex items-center gap-3">
             <LogoImage width={48} height={48} priority />
             <div>
               <h1
                 className="font-sans text-[28px] font-bold tracking-[-0.01em] mb-2"
-                style={{ color: "#1E1B3A" }}
+                style={{ color: "var(--foreground)" }}
               >
                 Đăng nhập
               </h1>
               <p
                 className="text-sm"
-                style={{ color: "#6B6686" }}
+                style={{ color: "var(--muted-foreground)" }}
               >
                 Chào mừng bạn quay lại Crambox
               </p>
@@ -91,9 +89,9 @@ export default function LoginPage() {
               disabled
               className="h-11 rounded-[12px] text-sm font-semibold transition-all disabled:opacity-50 flex items-center justify-center gap-2"
               style={{
-                background: "#F7F7FA",
-                color: "#1E1B3A",
-                border: "1px solid rgba(30,27,58,0.08)",
+                background: "var(--secondary)",
+                color: "var(--secondary-foreground)",
+                border: "1px solid var(--border)",
               }}
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
@@ -109,9 +107,9 @@ export default function LoginPage() {
               disabled
               className="h-11 rounded-[12px] text-sm font-semibold transition-all disabled:opacity-50 flex items-center justify-center gap-2"
               style={{
-                background: "#F7F7FA",
-                color: "#1E1B3A",
-                border: "1px solid rgba(30,27,58,0.08)",
+                background: "var(--secondary)",
+                color: "var(--secondary-foreground)",
+                border: "1px solid var(--border)",
               }}
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="#1877F2">
@@ -123,11 +121,11 @@ export default function LoginPage() {
 
           {/* Divider */}
           <div className="flex items-center gap-3 mb-6">
-            <div className="flex-1 h-px" style={{ background: "rgba(30,27,58,0.08)" }} />
-            <span className="text-xs font-semibold" style={{ color: "#8F8AA3" }}>
+            <div className="flex-1 h-px" style={{ background: "var(--border)" }} />
+            <span className="text-xs font-semibold" style={{ color: "var(--muted-foreground)" }}>
               hoặc đăng nhập với
             </span>
-            <div className="flex-1 h-px" style={{ background: "rgba(30,27,58,0.08)" }} />
+            <div className="flex-1 h-px" style={{ background: "var(--border)" }} />
           </div>
 
           {/* Form */}
@@ -136,7 +134,7 @@ export default function LoginPage() {
               <label
                 htmlFor="username"
                 className="block text-xs font-semibold"
-                style={{ color: "#1E1B3A" }}
+                style={{ color: "var(--foreground)" }}
               >
                 Tên đăng nhập
               </label>
@@ -148,17 +146,17 @@ export default function LoginPage() {
                 required
                 className="w-full h-12 px-4 rounded-[12px] text-sm font-medium outline-none transition-all"
                 style={{
-                  background: "#F7F7FA",
-                  border: "1px solid rgba(30,27,58,0.08)",
-                  color: "#1E1B3A",
+                  background: "var(--muted)",
+                  border: "1px solid var(--input)",
+                  color: "var(--foreground)",
                 }}
                 placeholder="Nhập tên đăng nhập"
                 onFocus={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(159,122,234,0.5)";
+                  e.currentTarget.style.borderColor = "var(--ring)";
                   e.currentTarget.style.boxShadow = "0 0 0 3px rgba(159,122,234,0.10)";
                 }}
                 onBlur={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(30,27,58,0.08)";
+                  e.currentTarget.style.borderColor = "var(--input)";
                   e.currentTarget.style.boxShadow = "none";
                 }}
               />
@@ -168,7 +166,7 @@ export default function LoginPage() {
               <label
                 htmlFor="password"
                 className="block text-xs font-semibold"
-                style={{ color: "#1E1B3A" }}
+                style={{ color: "var(--foreground)" }}
               >
                 Mật khẩu
               </label>
@@ -180,17 +178,17 @@ export default function LoginPage() {
                 required
                 className="w-full h-12 px-4 rounded-[12px] text-sm font-medium outline-none transition-all"
                 style={{
-                  background: "#F7F7FA",
-                  border: "1px solid rgba(30,27,58,0.08)",
-                  color: "#1E1B3A",
+                  background: "var(--muted)",
+                  border: "1px solid var(--input)",
+                  color: "var(--foreground)",
                 }}
                 placeholder="Nhập mật khẩu"
                 onFocus={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(159,122,234,0.5)";
+                  e.currentTarget.style.borderColor = "var(--ring)";
                   e.currentTarget.style.boxShadow = "0 0 0 3px rgba(159,122,234,0.10)";
                 }}
                 onBlur={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(30,27,58,0.08)";
+                  e.currentTarget.style.borderColor = "var(--input)";
                   e.currentTarget.style.boxShadow = "none";
                 }}
               />
@@ -201,9 +199,9 @@ export default function LoginPage() {
               disabled={pending}
               className="w-full h-12 rounded-[12px] text-sm font-extrabold transition-all hover:-translate-y-px disabled:opacity-60 disabled:translate-y-0 mt-2"
               style={{
-                background: "#1E1B3A",
-                color: "#FFFFFF",
-                boxShadow: "0 4px 16px rgba(30,27,58,0.15)",
+                background: "var(--primary)",
+                color: "var(--primary-foreground)",
+                boxShadow: "var(--shadow-card)",
               }}
             >
               {pending ? "Đang đăng nhập..." : "Đăng nhập"}
@@ -214,22 +212,22 @@ export default function LoginPage() {
           <div
             className="mt-6 rounded-[12px] px-4 py-3"
             style={{
-              background: "rgba(159,122,234,0.06)",
-              border: "1px solid rgba(159,122,234,0.15)",
+              background: "var(--secondary)",
+              border: "1px solid var(--border)",
             }}
           >
             <p
               className="text-xs font-bold"
-              style={{ color: "#8F8AA3" }}
+              style={{ color: "var(--muted-foreground)" }}
             >
               Tài khoản demo:
             </p>
-            <div className="mt-2 space-y-1.5 text-xs font-semibold" style={{ color: "#8F8AA3" }}>
+            <div className="mt-2 space-y-1.5 text-xs font-semibold" style={{ color: "var(--muted-foreground)" }}>
               <p>
-                <span className="font-bold" style={{ color: "#1E1B3A" }}>huyenmy</span> / my1234 (premium)
+                <span className="font-bold" style={{ color: "var(--foreground)" }}>huyenmy</span> / my1234 (premium)
               </p>
               <p>
-                <span className="font-bold" style={{ color: "#1E1B3A" }}>pinky</span> / pinky1234 (basic)
+                <span className="font-bold" style={{ color: "var(--foreground)" }}>pinky</span> / pinky1234 (basic)
               </p>
             </div>
           </div>
@@ -237,13 +235,13 @@ export default function LoginPage() {
           {/* Footer link */}
           <p
             className="text-center text-xs font-semibold mt-6"
-            style={{ color: "#8F8AA3" }}
+            style={{ color: "var(--muted-foreground)" }}
           >
             Chưa có tài khoản?{" "}
             <Link
               href="/signup"
               className="font-bold hover:underline"
-              style={{ color: "#7C6FDB" }}
+              style={{ color: "var(--primary)" }}
             >
               Đăng ký
             </Link>
@@ -256,21 +254,28 @@ export default function LoginPage() {
         <div
           className="fixed top-6 left-1/2 -translate-x-1/2 z-[100] flex items-center gap-3 rounded-[14px] px-5 py-3.5"
           style={{
-            background: "#FFFFFF",
-            border: "1px solid rgba(192,86,86,0.25)",
-            boxShadow: "0 12px 40px rgba(192,86,86,0.15)",
+            background: "var(--card)",
+            border: "1px solid color-mix(in srgb, var(--destructive) 25%, transparent)",
+            boxShadow: "var(--shadow-card)",
             animation: "float-reveal 0.3s ease-out",
           }}
         >
-          <AlertCircle className="w-5 h-5 flex-shrink-0" style={{ color: "#C05656" }} />
-          <span className="font-sans font-semibold text-sm" style={{ color: "#C05656" }}>
+          <AlertCircle className="w-5 h-5 flex-shrink-0" style={{ color: "var(--destructive)" }} />
+          <span className="font-sans font-semibold text-sm" style={{ color: "var(--destructive)" }}>
             {state.error}
           </span>
           <button
             onClick={() => setDismissed(true)}
-            className="ml-2 p-1 rounded-[6px] transition-colors hover:bg-[rgba(192,86,86,0.08)]"
+            className="ml-2 p-1 rounded-[6px] transition-colors"
+            style={{ color: "var(--destructive)" }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "color-mix(in srgb, var(--destructive) 10%, transparent)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "transparent";
+            }}
           >
-            <X className="w-4 h-4" style={{ color: "#C05656" }} />
+            <X className="w-4 h-4" />
           </button>
         </div>
       )}

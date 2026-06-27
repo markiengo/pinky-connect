@@ -47,9 +47,9 @@ export function AppShell({
       <aside
         className="hidden md:flex flex-col gap-2.5 w-52 py-4 m-4 mr-0 rounded-[20px]"
         style={{
-          background: "linear-gradient(180deg, #FFFFFF 0%, rgba(244,137,154,0.06) 100%)",
-          boxShadow: "0 4px 20px rgba(244,137,154,0.08), 0 1px 4px rgba(30,27,58,0.06)",
-          border: "1px solid rgba(244,137,154,0.12)",
+          background: "var(--sidebar)",
+          boxShadow: "var(--shadow-card)",
+          border: "1px solid var(--border)",
         }}
       >
         {/* brand */}
@@ -61,7 +61,7 @@ export function AppShell({
           <LogoImage width={40} height={40} />
           <span
             className="font-sans font-bold text-[15px]"
-            style={{ color: "#1E1B3A" }}
+            style={{ color: "var(--sidebar-foreground)" }}
           >
             Crambox
           </span>
@@ -78,20 +78,20 @@ export function AppShell({
                 title={label}
                 className="flex items-center gap-3 h-10 px-3 rounded-[10px] transition-all duration-150"
                 style={{
-                  background: active ? "#F4899A" : "transparent",
-                  color: active ? "#FFFFFF" : "#5C5875",
+                  background: active ? "var(--accent)" : "transparent",
+                  color: active ? "var(--accent-foreground)" : "var(--muted-foreground)",
                 }}
                 onMouseEnter={(e) => {
                   if (!active) {
-                    e.currentTarget.style.background = "#FFFFFF";
-                    e.currentTarget.style.color = "#1E1B3A";
-                    e.currentTarget.style.boxShadow = "0 0 12px rgba(244,137,154,0.20)";
+                    e.currentTarget.style.background = "var(--sidebar-accent)";
+                    e.currentTarget.style.color = "var(--sidebar-accent-foreground)";
+                    e.currentTarget.style.boxShadow = "var(--shadow-card)";
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (!active) {
                     e.currentTarget.style.background = "transparent";
-                    e.currentTarget.style.color = "#5C5875";
+                    e.currentTarget.style.color = "var(--muted-foreground)";
                     e.currentTarget.style.boxShadow = "none";
                   }
                 }}
@@ -107,7 +107,7 @@ export function AppShell({
         <div className="flex flex-col gap-1 mx-2 mt-1">
           <div
             className="px-3 py-1 font-sans font-bold text-[10px] uppercase tracking-wider"
-            style={{ color: "#8F8AA3" }}
+            style={{ color: "var(--muted-foreground)" }}
           >
             Sắp ra mắt
           </div>
@@ -116,13 +116,13 @@ export function AppShell({
               key={label}
               title={`${label} — Sắp ra mắt`}
               className="flex items-center gap-3 h-10 px-3 rounded-[10px] relative"
-              style={{ color: "#8F8AA3", background: "transparent" }}
+              style={{ color: "var(--muted-foreground)", background: "transparent" }}
             >
               <Icon className="w-[17px] h-[17px] flex-shrink-0" />
               <span className="font-sans font-semibold text-[13px] flex-1">{label}</span>
               <span
                 className="px-1.5 py-px rounded-full font-sans font-bold text-[8px] uppercase tracking-wider leading-none"
-                style={{ background: "rgba(159,122,234,0.15)", color: "#9F7AEA" }}
+                style={{ background: "rgba(159,122,234,0.15)", color: "var(--primary)" }}
               >
                 Soon
               </span>
@@ -139,8 +139,8 @@ export function AppShell({
               className="grid place-items-center w-9 h-9 rounded-full font-sans font-bold flex-shrink-0"
               title={username}
               style={{
-                background: "rgba(244,137,154,0.12)",
-                color: "#1E1B3A",
+                background: "var(--sidebar-accent)",
+                color: "var(--sidebar-foreground)",
                 fontSize: "13px",
               }}
             >
@@ -150,7 +150,7 @@ export function AppShell({
           {username && (
             <span
               className="font-sans font-semibold text-[13px] flex-1 truncate"
-              style={{ color: "#1E1B3A" }}
+              style={{ color: "var(--sidebar-foreground)" }}
             >
               {username}
             </span>
@@ -160,15 +160,15 @@ export function AppShell({
               type="submit"
               title="Đăng xuất"
               className="grid place-items-center w-9 h-9 rounded-full transition-all duration-150 flex-shrink-0"
-              style={{ color: "#5C5875", background: "transparent" }}
+              style={{ color: "var(--muted-foreground)", background: "transparent" }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "#FFFFFF";
-                e.currentTarget.style.color = "#1E1B3A";
-                e.currentTarget.style.boxShadow = "0 0 12px rgba(244,137,154,0.15)";
+                e.currentTarget.style.background = "var(--sidebar-accent)";
+                e.currentTarget.style.color = "var(--sidebar-accent-foreground)";
+                e.currentTarget.style.boxShadow = "var(--shadow-card)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = "transparent";
-                e.currentTarget.style.color = "#5C5875";
+                e.currentTarget.style.color = "var(--muted-foreground)";
                 e.currentTarget.style.boxShadow = "none";
               }}
             >
@@ -185,11 +185,11 @@ export function AppShell({
 
       {/* ── Mobile bottom nav ── */}
       <nav
-        className="md:hidden fixed inset-x-0 bottom-0 z-50 flex items-center justify-around h-16 safe-area-pb"
+        className="md:hidden fixed inset-x-0 bottom-0 z-40 flex items-center justify-around h-16 safe-area-pb"
         style={{
-          background: "rgba(255,255,255,0.95)",
+          background: "var(--sidebar)",
           backdropFilter: "blur(6px)",
-          borderTop: "1px solid rgba(244,137,154,0.15)",
+          borderTop: "1px solid var(--border)",
         }}
       >
         {navItems.map(({ href, icon: Icon, label }) => {
@@ -200,7 +200,7 @@ export function AppShell({
               href={href}
               className="flex flex-col items-center gap-0.5 px-4 py-2 rounded-xl text-[11px] font-bold transition-colors"
               style={{
-                color: active ? "#F4899A" : "#5C5875",
+                color: active ? "var(--accent)" : "var(--muted-foreground)",
               }}
             >
               <Icon className="w-5 h-5" />
@@ -213,7 +213,7 @@ export function AppShell({
           <button
             type="submit"
             className="flex flex-col items-center gap-0.5 px-4 py-2 rounded-xl text-[11px] font-bold transition-colors"
-            style={{ color: "#5C5875" }}
+            style={{ color: "var(--muted-foreground)" }}
           >
             <LogOut className="w-5 h-5" />
             <span>Thoát</span>
