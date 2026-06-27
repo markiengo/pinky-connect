@@ -139,7 +139,7 @@ export default async function HistoryPage({
             </p>
             <Link
               href="/library"
-              className="font-sans font-semibold text-[14px] rounded-[12px] px-5 py-2.5 transition-all duration-200 btn-press inline-flex items-center gap-2"
+              className="font-sans font-semibold text-[14px] rounded-[12px] px-5 py-2.5 transition-transform duration-200 btn-press inline-flex items-center gap-2"
               style={{ background: "linear-gradient(135deg, #F4899A 0%, #7C6FDB 100%)", color: "#FFFFFF" }}
             >
               Xem thư viện đề thi
@@ -244,7 +244,7 @@ export default async function HistoryPage({
                   </div>
                   <Link
                     href="/history"
-                    className="font-sans font-medium text-[13px] rounded-full px-3.5 py-1.5 transition-all duration-150 btn-press"
+                    className="font-sans font-medium text-[13px] rounded-full px-3.5 py-1.5 transition-[background,color,box-shadow] duration-150 btn-press"
                     style={
                       !selectedSubject
                         ? {
@@ -269,7 +269,7 @@ export default async function HistoryPage({
                       <Link
                         key={slug}
                         href={`/history?subject=${slug}`}
-                        className="font-sans font-medium text-[13px] rounded-full px-3.5 py-1.5 transition-all duration-150 btn-press"
+                        className="font-sans font-medium text-[13px] rounded-full px-3.5 py-1.5 transition-[background,color,box-shadow] duration-150 btn-press"
                         style={
                           selectedSubject === slug
                             ? {
@@ -305,7 +305,7 @@ export default async function HistoryPage({
                       <Link
                         key={opt.value}
                         href={sortHref}
-                        className="font-sans font-medium text-[13px] rounded-full px-3.5 py-1.5 transition-all duration-150 btn-press"
+                        className="font-sans font-medium text-[13px] rounded-full px-3.5 py-1.5 transition-[background,color,box-shadow] duration-150 btn-press"
                         style={
                           isActive
                             ? {
@@ -406,7 +406,7 @@ function HistoryRow({ entry }: { entry: HistoryEntry }) {
   return (
     <Link
       href={`/quiz/${entry.deThiId}`}
-      className="flex items-center justify-between p-4 rounded-[12px] group transition-all duration-200 hover:bg-[var(--secondary)]"
+      className="flex items-center justify-between p-4 rounded-[12px] group transition-colors duration-200 hover:bg-[var(--secondary)]"
     >
       <div className="min-w-0 flex-1">
         <h3

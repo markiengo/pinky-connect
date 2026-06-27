@@ -312,7 +312,7 @@ export function QuizClient({ deThiId, questions, previousAttempt }: QuizClientPr
               </div>
               <button
                 onClick={() => setHistoryDismissed(true)}
-                className="font-sans font-semibold text-[12px] rounded-[8px] px-3 py-2 transition-all"
+                className="font-sans font-semibold text-[12px] rounded-[8px] px-3 py-2 transition-colors"
                 style={{ background: "var(--secondary)", color: "var(--muted-foreground)" }}
               >
                 Bỏ qua
@@ -343,7 +343,7 @@ export function QuizClient({ deThiId, questions, previousAttempt }: QuizClientPr
               setMode("practice");
               setPhase("answering");
             }}
-            className="group rounded-[16px] p-6 text-left transition-all duration-300 hover:-translate-y-[4px] btn-press float-reveal glass-card-pink"
+            className="group rounded-[16px] p-6 text-left transition-transform duration-300 hover:-translate-y-[4px] btn-press float-reveal glass-card-pink"
             style={{ animationDelay: "0ms" }}
           >
             <div
@@ -365,7 +365,7 @@ export function QuizClient({ deThiId, questions, previousAttempt }: QuizClientPr
               Làm từng câu, xem đáp án và lời giải ngay sau khi xác nhận. Học qua từng bước.
             </p>
             <span
-              className="font-sans font-semibold text-[13px] inline-flex items-center gap-1.5 transition-all duration-200 group-hover:gap-2"
+              className="font-sans font-semibold text-[13px] inline-flex items-center gap-1.5 transition-[gap] duration-200 group-hover:gap-2"
               style={{ color: "#F4899A" }}
             >
               Bắt đầu luyện tập
@@ -375,7 +375,7 @@ export function QuizClient({ deThiId, questions, previousAttempt }: QuizClientPr
 
           {/* Test mode card */}
           <div
-            className="group rounded-[16px] p-6 text-left transition-all duration-300 hover:-translate-y-[4px] btn-press float-reveal glass-card-pink"
+            className="group rounded-[16px] p-6 text-left transition-transform duration-300 hover:-translate-y-[4px] btn-press float-reveal glass-card-pink"
             style={{ animationDelay: "80ms" }}
           >
             <div
@@ -413,7 +413,7 @@ export function QuizClient({ deThiId, questions, previousAttempt }: QuizClientPr
                       setTimeLimitMinutes(mins);
                       setTimeLeft(mins * 60);
                     }}
-                    className="font-sans font-semibold text-[13px] rounded-full px-3.5 py-1.5 transition-all duration-150 btn-press"
+                    className="font-sans font-semibold text-[13px] rounded-full px-3.5 py-1.5 transition-[background,color,box-shadow] duration-150 btn-press"
                     style={
                       timeLimitMinutes === mins
                         ? {
@@ -440,7 +440,7 @@ export function QuizClient({ deThiId, questions, previousAttempt }: QuizClientPr
                 setTimeLeft(timeLimitMinutes * 60);
                 setPhase("answering");
               }}
-              className="font-sans font-semibold text-[13px] inline-flex items-center gap-1.5 transition-all duration-200 group-hover:gap-2"
+              className="font-sans font-semibold text-[13px] inline-flex items-center gap-1.5 transition-[gap] duration-200 group-hover:gap-2"
               style={{ color: "#7C6FDB" }}
             >
               Bắt đầu thi
@@ -499,7 +499,7 @@ export function QuizClient({ deThiId, questions, previousAttempt }: QuizClientPr
             style={{ background: "var(--secondary)" }}
           >
             <div
-              className="h-full rounded-full transition-all duration-700"
+              className="h-full rounded-full transition-[width] duration-300"
               style={{
                 width: `${result.percentage}%`,
                 background: isGoodScore ? "#F4899A" : "#F4899A",
@@ -515,7 +515,7 @@ export function QuizClient({ deThiId, questions, previousAttempt }: QuizClientPr
                   setCurrentIndex(0);
                   setPhase("review");
                 }}
-                className="font-sans font-semibold text-[14px] rounded-[12px] px-6 py-3 transition-all duration-200 btn-press inline-flex items-center justify-center gap-2"
+                className="font-sans font-semibold text-[14px] rounded-[12px] px-6 py-3 transition-transform duration-200 btn-press inline-flex items-center justify-center gap-2"
                 style={{ background: "linear-gradient(135deg, #F4899A 0%, #7C6FDB 100%)", color: "#FFFFFF", boxShadow: "0 4px 16px rgba(244,137,154,0.25)" }}
               >
                 <BookOpen className="w-4 h-4" />
@@ -524,7 +524,7 @@ export function QuizClient({ deThiId, questions, previousAttempt }: QuizClientPr
             )}
             <button
               onClick={handleRestart}
-              className="font-sans font-semibold text-[14px] rounded-[12px] px-6 py-3 transition-all duration-200 btn-press inline-flex items-center justify-center gap-2 glass-card"
+              className="font-sans font-semibold text-[14px] rounded-[12px] px-6 py-3 transition-transform duration-200 btn-press inline-flex items-center justify-center gap-2 glass-card"
               style={{ color: "var(--foreground)" }}
             >
               <RotateCcw className="w-4 h-4" />
@@ -532,7 +532,7 @@ export function QuizClient({ deThiId, questions, previousAttempt }: QuizClientPr
             </button>
             <Link
               href="/dashboard"
-              className="font-sans font-semibold text-[14px] rounded-[12px] px-6 py-3 transition-all duration-200 btn-press inline-flex items-center justify-center gap-2 glass-card"
+              className="font-sans font-semibold text-[14px] rounded-[12px] px-6 py-3 transition-transform duration-200 btn-press inline-flex items-center justify-center gap-2 glass-card"
               style={{ color: "var(--foreground)" }}
             >
               <BookOpen className="w-4 h-4" />
@@ -601,7 +601,7 @@ export function QuizClient({ deThiId, questions, previousAttempt }: QuizClientPr
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setShowHistory((v) => !v)}
-                  className="font-sans font-semibold text-[12px] rounded-[8px] px-3 py-2 transition-all inline-flex items-center gap-1.5"
+                  className="font-sans font-semibold text-[12px] rounded-[8px] px-3 py-2 transition-colors inline-flex items-center gap-1.5"
                   style={{ background: "rgba(159,122,234,0.08)", color: "#7C6FDB" }}
                 >
                   {showHistory ? (
@@ -618,7 +618,7 @@ export function QuizClient({ deThiId, questions, previousAttempt }: QuizClientPr
                 </button>
                 <button
                   onClick={() => setHistoryDismissed(true)}
-                  className="font-sans font-semibold text-[12px] rounded-[8px] px-3 py-2 transition-all"
+                  className="font-sans font-semibold text-[12px] rounded-[8px] px-3 py-2 transition-colors"
                   style={{ background: "var(--secondary)", color: "var(--muted-foreground)" }}
                 >
                   Bỏ qua
@@ -646,7 +646,7 @@ export function QuizClient({ deThiId, questions, previousAttempt }: QuizClientPr
                       <button
                         key={q.id}
                         onClick={() => handleJumpTo(i)}
-                        className="w-full flex items-center gap-3 rounded-[10px] px-3 py-2.5 transition-all text-left"
+                        className="w-full flex items-center gap-3 rounded-[10px] px-3 py-2.5 transition-colors text-left"
                         style={{ background: "var(--card)" }}
                       >
                         <span
@@ -752,7 +752,7 @@ export function QuizClient({ deThiId, questions, previousAttempt }: QuizClientPr
             style={{ background: "var(--secondary)" }}
           >
             <div
-              className="h-full rounded-full transition-all duration-300 dream-progress"
+              className="h-full rounded-full transition-[width] duration-300 dream-progress"
               style={{
                 width: `${progress}%`,
               }}
@@ -817,7 +817,7 @@ export function QuizClient({ deThiId, questions, previousAttempt }: QuizClientPr
                   key={index}
                   onClick={() => handleMCQSelect(index)}
                   disabled={phase !== "answering" && phase !== "review"}
-                  className="w-full text-left p-4 rounded-[8px] border-2 transition-all duration-200 btn-press"
+                  className="w-full text-left p-4 rounded-[8px] border-2 transition-[background,border-color,color,opacity] duration-200 btn-press"
                   style={{
                     background: bg,
                     borderColor: border,
@@ -866,7 +866,7 @@ export function QuizClient({ deThiId, questions, previousAttempt }: QuizClientPr
             <button
               onClick={handleConfirmMCQ}
               disabled={selectedOption === null}
-              className="font-sans font-semibold text-[14px] rounded-[12px] px-6 py-3 transition-all duration-200 btn-press inline-flex items-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
+              className="font-sans font-semibold text-[14px] rounded-[12px] px-6 py-3 transition-[background,box-shadow] duration-200 btn-press inline-flex items-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
               style={{ background: selectedOption !== null ? "linear-gradient(135deg, #F4899A 0%, #7C6FDB 100%)" : "var(--secondary)", color: selectedOption !== null ? "#FFFFFF" : "var(--muted-foreground)", boxShadow: selectedOption !== null ? "0 4px 16px rgba(244,137,154,0.25)" : "none" }}
             >
               <CheckCircle2 className="w-4 h-4" />
@@ -949,7 +949,7 @@ export function QuizClient({ deThiId, questions, previousAttempt }: QuizClientPr
                   onChange={(e) => setEssayAnswer(e.target.value)}
                   placeholder="Nhập câu trả lời của bạn..."
                   rows={6}
-                  className="w-full p-4 rounded-[8px] font-sans text-[14px] leading-[1.6] outline-none transition-all resize-y"
+                  className="w-full p-4 rounded-[8px] font-sans text-[14px] leading-[1.6] outline-none transition-[border-color,box-shadow] resize-y"
                   style={{
                     background: "var(--card)",
                     border: "2px solid var(--border)",
@@ -959,7 +959,7 @@ export function QuizClient({ deThiId, questions, previousAttempt }: QuizClientPr
                 <button
                   onClick={handleEssaySubmit}
                   disabled={!essayAnswer.trim()}
-                  className="font-sans font-semibold text-[14px] rounded-[8px] px-6 py-3 transition-all duration-200 btn-press inline-flex items-center gap-2 disabled:opacity-50"
+                  className="font-sans font-semibold text-[14px] rounded-[8px] px-6 py-3 transition-transform duration-200 btn-press inline-flex items-center gap-2 disabled:opacity-50"
                   style={{ background: "#F4899A", color: "#FFFFFF" }}
                 >
                   Nộp câu trả lời
@@ -989,7 +989,7 @@ export function QuizClient({ deThiId, questions, previousAttempt }: QuizClientPr
                               setAnswers((prev) => prev.filter((a) => a.questionId !== question.id));
                             }
                           }}
-                          className="font-sans font-semibold text-[12px] rounded-[6px] px-3 py-1.5 transition-all"
+                          className="font-sans font-semibold text-[12px] rounded-[6px] px-3 py-1.5 transition-colors"
                           style={{ background: "var(--secondary)", color: "var(--muted-foreground)" }}
                         >
                           Sửa câu trả lời
@@ -1010,7 +1010,7 @@ export function QuizClient({ deThiId, questions, previousAttempt }: QuizClientPr
                       onChange={(e) => setEssayAnswer(e.target.value)}
                       placeholder="Nhập câu trả lời của bạn..."
                       rows={6}
-                      className="w-full p-4 rounded-[8px] font-sans text-[14px] leading-[1.6] outline-none transition-all resize-y"
+                      className="w-full p-4 rounded-[8px] font-sans text-[14px] leading-[1.6] outline-none transition-[border-color,box-shadow] resize-y"
                       style={{
                         background: "var(--card)",
                         border: "2px solid var(--border)",
@@ -1020,7 +1020,7 @@ export function QuizClient({ deThiId, questions, previousAttempt }: QuizClientPr
                     <button
                       onClick={handleEssaySubmit}
                       disabled={!essayAnswer.trim()}
-                      className="font-sans font-semibold text-[14px] rounded-[8px] px-6 py-3 transition-all duration-200 btn-press inline-flex items-center gap-2 disabled:opacity-50"
+                      className="font-sans font-semibold text-[14px] rounded-[8px] px-6 py-3 transition-transform duration-200 btn-press inline-flex items-center gap-2 disabled:opacity-50"
                       style={{ background: "#7C6FDB", color: "#FFFFFF" }}
                     >
                       Lưu câu trả lời
@@ -1130,7 +1130,7 @@ export function QuizClient({ deThiId, questions, previousAttempt }: QuizClientPr
           {currentIndex > 0 && (
             <button
               onClick={handlePrev}
-              className="font-sans font-semibold text-[14px] rounded-[12px] px-5 py-3 transition-all duration-200 btn-press inline-flex items-center gap-2 glass-card"
+              className="font-sans font-semibold text-[14px] rounded-[12px] px-5 py-3 transition-transform duration-200 btn-press inline-flex items-center gap-2 glass-card"
               style={{ color: "var(--foreground)" }}
             >
               <ArrowLeft className="w-4 h-4" />
@@ -1147,7 +1147,7 @@ export function QuizClient({ deThiId, questions, previousAttempt }: QuizClientPr
               <button
                 onClick={handleTestSubmitClick}
                 disabled={saving}
-                className="font-sans font-semibold text-[14px] rounded-[12px] px-6 py-3 transition-all duration-200 btn-press inline-flex items-center gap-2 disabled:opacity-60"
+                className="font-sans font-semibold text-[14px] rounded-[12px] px-6 py-3 transition-[background,box-shadow] duration-200 btn-press inline-flex items-center gap-2 disabled:opacity-60"
                 style={{ background: "linear-gradient(135deg, #F4899A 0%, #7C6FDB 100%)", color: "#FFFFFF", boxShadow: "0 4px 16px rgba(244,137,154,0.25)" }}
               >
                 {saving ? "Đang lưu..." : "Nộp bài"}
@@ -1158,7 +1158,7 @@ export function QuizClient({ deThiId, questions, previousAttempt }: QuizClientPr
           {isTestMode && phase === "answering" && currentIndex + 1 < questions.length && (
             <button
               onClick={handleNext}
-              className="font-sans font-semibold text-[14px] rounded-[12px] px-5 py-3 transition-all duration-200 btn-press inline-flex items-center gap-2 glass-card"
+              className="font-sans font-semibold text-[14px] rounded-[12px] px-5 py-3 transition-transform duration-200 btn-press inline-flex items-center gap-2 glass-card"
               style={{ color: "var(--foreground)" }}
             >
               Câu tiếp theo
@@ -1169,7 +1169,7 @@ export function QuizClient({ deThiId, questions, previousAttempt }: QuizClientPr
             <button
               onClick={handleNext}
               disabled={saving}
-              className="font-sans font-semibold text-[14px] rounded-[12px] px-6 py-3 transition-all duration-200 btn-press inline-flex items-center gap-2 disabled:opacity-60"
+              className="font-sans font-semibold text-[14px] rounded-[12px] px-6 py-3 transition-[background,box-shadow] duration-200 btn-press inline-flex items-center gap-2 disabled:opacity-60"
               style={{ background: "linear-gradient(135deg, #F4899A 0%, #7C6FDB 100%)", color: "#FFFFFF", boxShadow: "0 4px 16px rgba(244,137,154,0.25)" }}
             >
               {saving
@@ -1189,7 +1189,7 @@ export function QuizClient({ deThiId, questions, previousAttempt }: QuizClientPr
                   handleNext();
                 }
               }}
-              className="font-sans font-semibold text-[14px] rounded-[12px] px-6 py-3 transition-all duration-200 btn-press inline-flex items-center gap-2"
+              className="font-sans font-semibold text-[14px] rounded-[12px] px-6 py-3 transition-[background,box-shadow] duration-200 btn-press inline-flex items-center gap-2"
               style={{ background: "linear-gradient(135deg, #F4899A 0%, #7C6FDB 100%)", color: "#FFFFFF", boxShadow: "0 4px 16px rgba(244,137,154,0.25)" }}
             >
               {currentIndex + 1 >= questions.length ? "Quay lại kết quả" : "Câu tiếp theo"}
@@ -1230,7 +1230,7 @@ export function QuizClient({ deThiId, questions, previousAttempt }: QuizClientPr
                 <button
                   key={q.id}
                   onClick={() => handleJumpTo(i)}
-                  className="grid place-items-center w-9 h-9 rounded-[6px] font-sans font-semibold text-[12px] transition-all duration-150 btn-press"
+                  className="grid place-items-center w-9 h-9 rounded-[6px] font-sans font-semibold text-[12px] transition-[background,color] duration-150 btn-press"
                   style={{ background: bg, color: color }}
                   title={`Câu ${i + 1}`}
                 >
@@ -1282,7 +1282,7 @@ export function QuizClient({ deThiId, questions, previousAttempt }: QuizClientPr
               style={{ background: "var(--secondary)" }}
             >
               <div
-                className="h-full rounded-full transition-all duration-300"
+                className="h-full rounded-full transition-[width] duration-300"
                 style={{
                   width: `${(answers.length / questions.length) * 100}%`,
                   background: "#F4899A",

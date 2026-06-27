@@ -232,7 +232,7 @@ export function Chatbox() {
       >
         <button
           onClick={handleNewChat}
-          className="flex items-center gap-2 mx-3 mt-3 px-3 py-2.5 rounded-[12px] font-sans font-semibold text-[13px] transition-all btn-press hover:translate-y-[-1px]"
+          className="flex items-center gap-2 mx-3 mt-3 px-3 py-2.5 rounded-[12px] font-sans font-semibold text-[13px] transition-transform duration-200 btn-press hover:translate-y-[-1px]"
           style={{
             background: "linear-gradient(135deg, #F4899A 0%, #7C6FDB 100%)",
             color: "var(--primary-foreground)",
@@ -250,7 +250,7 @@ export function Chatbox() {
               <div
                 key={s.id}
                 onClick={() => setActiveSessionId(s.id)}
-                className="group flex items-center gap-2 px-3 py-2.5 rounded-[10px] cursor-pointer transition-all"
+                className="group flex items-center gap-2 px-3 py-2.5 rounded-[10px] cursor-pointer transition-colors"
                 style={{
                   background: isActive ? "var(--secondary)" : "transparent",
                 }}
@@ -296,7 +296,7 @@ export function Chatbox() {
           {/* Mobile: chat list toggle */}
           <button
             onClick={() => setShowSidebarMobile((v) => !v)}
-            className="md:hidden grid place-items-center w-9 h-9 rounded-full transition-all btn-press"
+            className="md:hidden grid place-items-center w-9 h-9 rounded-full transition-colors btn-press"
             style={{ background: "rgba(244,137,154,0.10)", color: "#F4899A" }}
           >
             <MessageSquare className="w-4 h-4" />
@@ -327,7 +327,7 @@ export function Chatbox() {
           {/* Mobile: new chat button */}
           <button
             onClick={handleNewChat}
-            className="md:hidden grid place-items-center w-9 h-9 rounded-full transition-all btn-press"
+            className="md:hidden grid place-items-center w-9 h-9 rounded-full transition-colors btn-press"
             style={{ background: "rgba(244,137,154,0.10)", color: "#F4899A" }}
           >
             <Plus className="w-4 h-4" />
@@ -349,7 +349,7 @@ export function Chatbox() {
               </div>
               <button
                 onClick={handleNewChat}
-                className="flex items-center gap-2 mx-3 mt-3 px-3 py-2.5 rounded-[12px] font-sans font-semibold text-[13px] transition-all btn-press"
+                className="flex items-center gap-2 mx-3 mt-3 px-3 py-2.5 rounded-[12px] font-sans font-semibold text-[13px] transition-transform duration-200 btn-press"
                 style={{
                   background: "linear-gradient(135deg, #F4899A 0%, #7C6FDB 100%)",
                   color: "var(--primary-foreground)",
@@ -368,7 +368,7 @@ export function Chatbox() {
                         setActiveSessionId(s.id);
                         setShowSidebarMobile(false);
                       }}
-                      className="group flex items-center gap-2 px-3 py-2.5 rounded-[10px] cursor-pointer transition-all"
+                      className="group flex items-center gap-2 px-3 py-2.5 rounded-[10px] cursor-pointer transition-colors"
                       style={{ background: isActive ? "var(--secondary)" : "transparent" }}
                     >
                       <MessageSquare className="w-3.5 h-3.5 flex-shrink-0" style={{ color: isActive ? "var(--accent)" : "var(--muted-foreground)" }} />
@@ -527,7 +527,7 @@ export function Chatbox() {
                 <button
                   key={s}
                   onClick={() => handleSuggestionClick(s)}
-                  className="block w-full text-left px-4 py-2.5 rounded-[14px] text-[13px] font-medium transition-all btn-press"
+                  className="block w-full text-left px-4 py-2.5 rounded-[14px] text-[13px] font-medium transition-colors btn-press"
                   style={{
                     background: "var(--card)",
                     border: "1px solid var(--border)",
@@ -597,7 +597,7 @@ export function Chatbox() {
             onClick={() => fileInputRef.current?.click()}
             disabled={files.length >= 3 || loading}
             title="Tải lên PDF (tối đa 3 file)"
-            className="grid place-items-center w-10 h-10 rounded-full transition-all disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0 btn-press"
+            className="grid place-items-center w-10 h-10 rounded-full transition-colors disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0 btn-press"
             style={{ background: "var(--secondary)", color: "var(--accent)" }}
           >
             <Paperclip className="w-[18px] h-[18px]" />
@@ -620,7 +620,7 @@ export function Chatbox() {
             type="submit"
             disabled={loading || (!input.trim() && files.length === 0) || promptsRemaining <= 0}
             title="Gửi"
-            className="grid place-items-center w-11 h-11 rounded-full transition-all disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0 btn-press"
+            className="grid place-items-center w-11 h-11 rounded-full transition-colors disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0 btn-press"
             style={{ background: "linear-gradient(135deg, #F4899A 0%, #7C6FDB 100%)", color: "var(--primary-foreground)", boxShadow: "0 4px 16px rgba(244,137,154,0.25)" }}
           >
             {loading ? (

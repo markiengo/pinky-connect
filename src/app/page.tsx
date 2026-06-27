@@ -165,7 +165,7 @@ export default function LandingPage() {
           </div>
           <Link
             href="/login"
-            className="font-sans font-medium text-[14px] rounded-[999px] px-5 py-2.5 transition-all duration-200 btn-press"
+            className="font-sans font-medium text-[14px] rounded-[999px] px-5 py-2.5 transition-transform duration-200 btn-press"
             style={{
               background: "rgba(255,255,255,0.10)",
               border: "1px solid rgba(255,255,255,0.22)",
@@ -241,7 +241,7 @@ export default function LandingPage() {
                   }}
                 />
                 <button
-                  className="font-sans font-semibold text-[14px] rounded-[999px] px-6 py-3.5 transition-all duration-200 btn-press whitespace-nowrap"
+                  className="font-sans font-semibold text-[14px] rounded-[999px] px-6 py-3.5 transition-transform duration-200 btn-press whitespace-nowrap"
                   style={{
                     background: "linear-gradient(135deg, #F4899A 0%, #E8788A 100%)",
                     color: "white",
@@ -253,7 +253,7 @@ export default function LandingPage() {
               </div>
               <Link
                 href="/signup"
-                className="font-sans font-semibold text-[14px] rounded-[999px] px-7 py-3.5 transition-all duration-200 btn-press inline-flex items-center gap-2"
+                className="font-sans font-semibold text-[14px] rounded-[999px] px-7 py-3.5 transition-transform duration-200 btn-press inline-flex items-center gap-2"
                 style={{
                   background: "white",
                   color: "#1E1B3A",
@@ -1103,7 +1103,7 @@ export default function LandingPage() {
                 </div>
                 <Link
                   href={tier.href}
-                  className="block w-full text-center font-sans font-semibold text-[14px] rounded-[12px] px-6 py-3.5 transition-all duration-200 btn-press mb-6"
+                  className="block w-full text-center font-sans font-semibold text-[14px] rounded-[12px] px-6 py-3.5 transition-transform duration-200 btn-press mb-6"
                   style={{
                     background: tier.highlight
                       ? "linear-gradient(135deg, #F4899A 0%, #E8788A 100%)"
@@ -1191,7 +1191,7 @@ export default function LandingPage() {
           </p>
           <Link
             href="/signup"
-            className="font-sans font-semibold text-[15px] rounded-[999px] px-8 py-4 transition-all duration-200 btn-press inline-flex items-center gap-2"
+            className="font-sans font-semibold text-[15px] rounded-[999px] px-8 py-4 transition-transform duration-200 btn-press inline-flex items-center gap-2"
             style={{
               background: "linear-gradient(135deg, #F4899A 0%, #E8788A 100%)",
               color: "white",

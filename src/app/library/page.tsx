@@ -75,7 +75,7 @@ export default async function LibraryPage({
           </div>
           <Link
             href="/library"
-            className="font-sans font-medium text-[13px] rounded-full px-4 py-2 transition-all duration-150 btn-press"
+            className="font-sans font-medium text-[13px] rounded-full px-4 py-2 transition-[background,color,box-shadow] duration-150 btn-press"
             style={
               !selectedSubject
                 ? {
@@ -110,7 +110,7 @@ export default async function LibraryPage({
               <Link
                 key={s.slug}
                 href={`/library?subject=${s.slug}`}
-                className="font-sans font-medium text-[13px] rounded-full px-4 py-2 transition-all duration-150 btn-press"
+                className="font-sans font-medium text-[13px] rounded-full px-4 py-2 transition-[background,color,box-shadow] duration-150 btn-press"
                 style={
                   selectedSubject === s.slug
                     ? {

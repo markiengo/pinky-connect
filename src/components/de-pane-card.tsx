@@ -59,7 +59,7 @@ export function DePaneCard({
   return (
     <Link
       href={`/quiz/${id}`}
-      className="group block overflow-hidden rounded-[16px] transition-all duration-300 hover:-translate-y-[4px] btn-press"
+      className="group block overflow-hidden rounded-[16px] transition-transform duration-300 hover:-translate-y-[4px] btn-press"
       style={{
         boxShadow: "var(--shadow-lifted)",
         background: "var(--card)",
@@ -128,7 +128,7 @@ export function DePaneCard({
           {/* CTA */}
           <div className="mt-auto pt-2">
             <span
-              className="font-sans font-semibold text-[14px] inline-flex items-center gap-1.5 transition-all duration-200 group-hover:gap-2"
+              className="font-sans font-semibold text-[14px] inline-flex items-center gap-1.5 transition-[gap] duration-200 group-hover:gap-2"
               style={{ color: tagStyle.color }}
             >
               Làm bài

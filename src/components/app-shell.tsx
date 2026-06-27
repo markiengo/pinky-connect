@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { LogoImage } from "@/components/logo-image";
 import { usePathname } from "next/navigation";
+import { useRef, useLayoutEffect, useState, useCallback } from "react";
 import {
   LayoutDashboard,
   Library,
@@ -45,6 +46,43 @@ export function AppShell({
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
 
+  const navRef = useRef<HTMLDivElement>(null);
+  const itemRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
+  const [indicator, setIndicator] = useState<{ top: number; height: number; visible: boolean }>({
+    top: 0,
+    height: 0,
+    visible: false,
+  });
+
+  const moveToHref = useCallback((href: string) => {
+    const targetEl = itemRefs.current[href];
+    const navEl = navRef.current;
+    if (targetEl && navEl) {
+      const itemRect = targetEl.getBoundingClientRect();
+      const navRect = navEl.getBoundingClientRect();
+      setIndicator({
+        top: itemRect.top - navRect.top,
+        height: itemRect.height,
+        visible: true,
+      });
+    }
+  }, []);
+
+  const updateIndicator = useCallback(() => {
+    moveToHref(pathname);
+  }, [pathname, moveToHref]);
+
+  useLayoutEffect(() => {
+    updateIndicator();
+  }, [updateIndicator]);
+
+  useLayoutEffect(() => {
+    if (typeof window === "undefined") return;
+    const onResize = () => updateIndicator();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [updateIndicator]);
+
   return (
     <div className="flex h-dvh overflow-hidden">
       {/* ── Desktop icon rail ── */}
@@ -72,19 +110,21 @@ export function AppShell({
         </Link>
 
         {/* nav items */}
-        <nav className="flex flex-col gap-1 mx-2">
+        <nav className="flex flex-col gap-1 mx-2 relative" ref={navRef}>
           {navItems.map(({ href, icon: Icon, label }) => {
             const active = pathname === href;
             return (
               <Link
                 key={href}
+                ref={(el) => { itemRefs.current[href] = el; }}
                 href={href}
+                prefetch
                 title={label}
-                className="flex items-center gap-3 h-10 px-3 rounded-[10px] transition-all duration-150"
+                className="relative flex items-center gap-3 h-10 px-3 rounded-[10px] transition-colors duration-150 z-10"
                 style={{
-                  background: active ? "var(--accent)" : "transparent",
                   color: active ? "var(--accent-foreground)" : "var(--muted-foreground)",
                 }}
+                onClick={() => moveToHref(href)}
                 onMouseEnter={(e) => {
                   if (!active) {
                     e.currentTarget.style.background = "var(--sidebar-accent)";
@@ -105,6 +145,19 @@ export function AppShell({
               </Link>
             );
           })}
+          {/* Sliding liquid indicator */}
+          <div
+            className="absolute left-0 right-0 rounded-[10px] pointer-events-none"
+            style={{
+              background: "var(--accent)",
+              boxShadow: "var(--shadow-card)",
+              transform: `translateY(${indicator.top}px)`,
+              height: indicator.height,
+              opacity: indicator.visible ? 1 : 0,
+              transition: "transform 250ms cubic-bezier(0.32, 0.72, 0, 1), opacity 150ms ease-out",
+              zIndex: 1,
+            }}
+          />
         </nav>
 
         {/* coming soon items */}
@@ -140,9 +193,12 @@ export function AppShell({
         <div className="flex items-center gap-1 mx-2 mb-1 p-1 rounded-[10px]" style={{ background: "var(--sidebar-accent)" }}>
           <button
             type="button"
-            onClick={() => setTheme("light")}
+            onClick={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect();
+              setTheme("light", { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
+            }}
             aria-label="Light mode"
-            className="grid place-items-center w-8 h-8 rounded-[8px] transition-all"
+            className="grid place-items-center w-8 h-8 rounded-[8px] transition-[background,color] duration-150"
             style={{
               background: theme === "light" ? "var(--background)" : "transparent",
               color: theme === "light" ? "#F4899A" : "var(--muted-foreground)",
@@ -152,9 +208,12 @@ export function AppShell({
           </button>
           <button
             type="button"
-            onClick={() => setTheme("dark")}
+            onClick={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect();
+              setTheme("dark", { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
+            }}
             aria-label="Dark mode"
-            className="grid place-items-center w-8 h-8 rounded-[8px] transition-all"
+            className="grid place-items-center w-8 h-8 rounded-[8px] transition-[background,color] duration-150"
             style={{
               background: theme === "dark" ? "var(--background)" : "transparent",
               color: theme === "dark" ? "#9F7AEA" : "var(--muted-foreground)",
@@ -191,7 +250,7 @@ export function AppShell({
             <button
               type="submit"
               title="Đăng xuất"
-              className="grid place-items-center w-9 h-9 rounded-full transition-all duration-150 flex-shrink-0"
+              className="grid place-items-center w-9 h-9 rounded-full transition-colors duration-150 flex-shrink-0"
               style={{ color: "var(--muted-foreground)", background: "transparent" }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = "var(--sidebar-accent)";
@@ -211,13 +270,16 @@ export function AppShell({
       </aside>
 
       {/* ── Main content ── */}
-      <main className="flex-1 min-w-0 overflow-y-auto overflow-x-hidden px-4 md:px-6 pt-5 pb-24 md:pb-7 scroll-smooth [scrollbar-width:thin] [scrollbar-color:rgba(30,27,58,0.4)_transparent] aurora-bg [content-visibility:auto]">
+      <main
+        key={pathname}
+        className="flex-1 min-w-0 overflow-y-auto overflow-x-hidden px-4 md:px-6 pt-5 pb-24 md:pb-7 scroll-smooth [scrollbar-width:thin] [scrollbar-color:rgba(30,27,58,0.4)_transparent] aurora-bg [content-visibility:auto] page-enter"
+      >
         {children}
       </main>
 
       {/* ── Mobile bottom nav ── */}
       <nav
-        className="md:hidden fixed inset-x-0 bottom-0 z-40 flex items-center justify-around h-16 safe-area-pb"
+        className="md:hidden fixed inset-x-0 bottom-0 z-40 flex items-center justify-around h-16 safe-area-pb relative"
         style={{
           background: "var(--sidebar)",
           backdropFilter: "blur(6px)",
@@ -230,6 +292,7 @@ export function AppShell({
             <Link
               key={href}
               href={href}
+              prefetch
               className="flex flex-col items-center gap-0.5 px-4 py-2 rounded-xl text-[11px] font-bold transition-colors"
               style={{
                 color: active ? "var(--accent)" : "var(--muted-foreground)",

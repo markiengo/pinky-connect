@@ -1,12 +1,12 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, useCallback } from "react";
+import { createContext, useContext, useEffect, useState, useCallback, useRef } from "react";
 
 type Theme = "light" | "dark";
 
 interface ThemeContextValue {
   theme: Theme;
-  setTheme: (theme: Theme) => void;
+  setTheme: (theme: Theme, origin?: { x: number; y: number }) => void;
 }
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
@@ -37,14 +37,56 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   }, [applyTheme, theme]);
 
   const setTheme = useCallback(
-    (next: Theme) => {
-      setThemeState(next);
-      try {
-        window.localStorage.setItem(STORAGE_KEY, next);
-      } catch {
-        // ignore storage errors
+    (next: Theme, origin?: { x: number; y: number }) => {
+      const supportsViewTransition =
+        typeof document !== "undefined" &&
+        "startViewTransition" in document &&
+        !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      const doTransition = () => {
+        setThemeState(next);
+        try {
+          window.localStorage.setItem(STORAGE_KEY, next);
+        } catch {
+          // ignore storage errors
+        }
+        applyTheme(next);
+      };
+
+      if (supportsViewTransition && origin) {
+        const x = origin.x;
+        const y = origin.y;
+        const endRadius = Math.hypot(
+          Math.max(x, window.innerWidth - x),
+          Math.max(y, window.innerHeight - y)
+        );
+
+        const transition = (document as Document & {
+          startViewTransition: (cb: () => void) => {
+            finished: Promise<void>;
+            ready: Promise<void>;
+            updateCallbackDone: Promise<void>;
+          };
+        }).startViewTransition(doTransition);
+
+        transition.ready.then(() => {
+          document.documentElement.animate(
+            {
+              clipPath: [
+                `circle(0px at ${x}px ${y}px)`,
+                `circle(${endRadius}px at ${x}px ${y}px)`,
+              ],
+            },
+            {
+              duration: 500,
+              easing: "cubic-bezier(0.32, 0.72, 0, 1)",
+              pseudoElement: "::view-transition-new(root)",
+            }
+          );
+        });
+      } else {
+        doTransition();
       }
-      applyTheme(next);
     },
     [applyTheme]
   );

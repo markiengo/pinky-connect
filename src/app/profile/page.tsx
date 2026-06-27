@@ -80,7 +80,7 @@ export default async function ProfilePage() {
             <button
               type="submit"
               title="Đăng xuất"
-              className="grid place-items-center rounded-[12px] transition-all duration-150 hover:bg-[var(--secondary)] glass-card"
+              className="grid place-items-center rounded-[12px] transition-colors duration-150 hover:bg-[var(--secondary)] glass-card"
               style={{
                 width: "44px",
                 height: "44px",
@@ -149,7 +149,7 @@ export default async function ProfilePage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <Link
             href="/history"
-            className="rounded-[16px] p-6 transition-all duration-300 hover:-translate-y-[3px] btn-press flex items-center gap-4 float-reveal glass-card"
+            className="rounded-[16px] p-6 transition-transform duration-300 hover:-translate-y-[3px] btn-press flex items-center gap-4 float-reveal glass-card"
             style={{ borderColor: "rgba(244,137,154,0.18)" }}
           >
             <div
@@ -176,7 +176,7 @@ export default async function ProfilePage() {
 
           <Link
             href="/library"
-            className="rounded-[16px] p-6 transition-all duration-300 hover:-translate-y-[3px] btn-press flex items-center gap-4 float-reveal glass-card"
+            className="rounded-[16px] p-6 transition-transform duration-300 hover:-translate-y-[3px] btn-press flex items-center gap-4 float-reveal glass-card"
             style={{ borderColor: "rgba(244,137,154,0.18)", animationDelay: "80ms" }}
           >
             <div

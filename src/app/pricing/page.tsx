@@ -101,7 +101,7 @@ export default function PricingPage() {
         </div>
         <Link
           href="/login"
-          className="font-sans font-medium text-[14px] rounded-[999px] px-5 py-2.5 transition-all duration-200 btn-press"
+          className="font-sans font-medium text-[14px] rounded-[999px] px-5 py-2.5 transition-transform duration-200 btn-press"
           style={{
             background: "rgba(30,27,58,0.06)",
             border: "1px solid rgba(30,27,58,0.12)",
@@ -226,7 +226,7 @@ export default function PricingPage() {
 
               <Link
                 href={tier.href}
-                className="block w-full text-center font-sans font-semibold text-[14px] rounded-[12px] px-6 py-3.5 transition-all duration-200 btn-press mb-8"
+                className="block w-full text-center font-sans font-semibold text-[14px] rounded-[12px] px-6 py-3.5 transition-transform duration-200 btn-press mb-8"
                 style={{
                   background: tier.highlight
                     ? "linear-gradient(135deg, #F4899A 0%, #E8788A 100%)"
@@ -329,7 +329,7 @@ export default function PricingPage() {
             ].map((d) => (
               <div
                 key={d.label}
-                className="reveal rounded-[16px] p-6 transition-all duration-300 hover:-translate-y-[3px]"
+                className="reveal rounded-[16px] p-6 transition-transform duration-300 hover:-translate-y-[3px]"
                 style={{
                   animationDelay: "100ms",
                   background: d.dark
@@ -421,7 +421,7 @@ export default function PricingPage() {
           </p>
           <Link
             href="/signup"
-            className="font-sans font-semibold text-[14px] rounded-[999px] px-7 py-3.5 transition-all duration-200 btn-press inline-flex items-center gap-2"
+            className="font-sans font-semibold text-[14px] rounded-[999px] px-7 py-3.5 transition-transform duration-200 btn-press inline-flex items-center gap-2"
             style={{
               background: "linear-gradient(135deg, #F4899A 0%, #E8788A 100%)",
               color: "#FFFFFF",

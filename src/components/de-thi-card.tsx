@@ -34,7 +34,7 @@ export function DeThiCard({ card }: { card: DeThiCardData }) {
   return (
     <Link
       href={`/quiz/${card.id}`}
-      className="relative flex flex-col min-h-[160px] p-4 rounded-[12px] transition-all duration-200 hover:-translate-y-[3px] group"
+      className="relative flex flex-col min-h-[160px] p-4 rounded-[12px] transition-transform duration-200 hover:-translate-y-[3px] group"
       style={{ background: color }}
     >
       {/* top row */}

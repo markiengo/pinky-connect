@@ -83,7 +83,7 @@ export default function SignupPage() {
             <button
               type="button"
               disabled
-              className="h-11 rounded-[12px] text-sm font-semibold transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+              className="h-11 rounded-[12px] text-sm font-semibold transition-opacity disabled:opacity-50 flex items-center justify-center gap-2"
               style={{
                 background: "var(--secondary)",
                 color: "var(--secondary-foreground)",
@@ -101,7 +101,7 @@ export default function SignupPage() {
             <button
               type="button"
               disabled
-              className="h-11 rounded-[12px] text-sm font-semibold transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+              className="h-11 rounded-[12px] text-sm font-semibold transition-opacity disabled:opacity-50 flex items-center justify-center gap-2"
               style={{
                 background: "var(--secondary)",
                 color: "var(--secondary-foreground)",
@@ -141,7 +141,7 @@ export default function SignupPage() {
                 autoComplete="username"
                 required
                 minLength={3}
-                className="w-full h-12 px-4 rounded-[12px] text-sm font-medium outline-none transition-all"
+                className="w-full h-12 px-4 rounded-[12px] text-sm font-medium outline-none transition-[border-color,box-shadow]"
                 style={{
                   background: "var(--muted)",
                   border: "1px solid var(--input)",
@@ -174,7 +174,7 @@ export default function SignupPage() {
                 autoComplete="new-password"
                 required
                 minLength={6}
-                className="w-full h-12 px-4 rounded-[12px] text-sm font-medium outline-none transition-all"
+                className="w-full h-12 px-4 rounded-[12px] text-sm font-medium outline-none transition-[border-color,box-shadow]"
                 style={{
                   background: "var(--muted)",
                   border: "1px solid var(--input)",
@@ -195,7 +195,7 @@ export default function SignupPage() {
             <button
               type="submit"
               disabled={pending}
-              className="w-full h-12 rounded-[12px] text-sm font-extrabold transition-all hover:-translate-y-px disabled:opacity-60 disabled:translate-y-0 mt-2"
+              className="w-full h-12 rounded-[12px] text-sm font-extrabold transition-transform hover:-translate-y-px disabled:opacity-60 disabled:translate-y-0 mt-2"
               style={{
                 background: "var(--primary)",
                 color: "var(--primary-foreground)",
@@ -255,7 +255,7 @@ export default function SignupPage() {
             background: "var(--card)",
             border: "1px solid color-mix(in srgb, var(--destructive) 25%, transparent)",
             boxShadow: "var(--shadow-card)",
-            animation: "float-reveal 0.3s ease-out",
+            animation: "floatReveal 300ms cubic-bezier(0.23, 1, 0.32, 1)",
           }}
         >
           <AlertCircle className="w-5 h-5 flex-shrink-0" style={{ color: "var(--destructive)" }} />

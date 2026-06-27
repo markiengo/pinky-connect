@@ -863,7 +863,7 @@ function EventEditModal({
             <button
               key={c}
               onClick={() => setColor(c)}
-              className="w-6 h-6 rounded-full transition-all"
+              className="w-6 h-6 rounded-full transition-transform"
               style={{
                 backgroundColor: c,
                 border: color === c ? "2px solid var(--foreground)" : "2px solid transparent",

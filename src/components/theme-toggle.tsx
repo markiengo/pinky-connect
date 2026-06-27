@@ -18,10 +18,13 @@ export function ThemeToggle() {
     >
       <button
         type="button"
-        onClick={() => setTheme("light")}
+        onClick={(e) => {
+          const rect = e.currentTarget.getBoundingClientRect();
+          setTheme("light", { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
+        }}
         aria-label="Light mode"
         aria-pressed={theme === "light"}
-        className="grid place-items-center w-9 h-9 rounded-[10px] transition-all duration-200"
+        className="grid place-items-center w-9 h-9 rounded-[10px] transition-[background,color,box-shadow] duration-200"
         style={{
           background: theme === "light" ? "#FFFFFF" : "transparent",
           color: theme === "light" ? "#F4899A" : "rgba(255,255,255,0.45)",
@@ -32,10 +35,13 @@ export function ThemeToggle() {
       </button>
       <button
         type="button"
-        onClick={() => setTheme("dark")}
+        onClick={(e) => {
+          const rect = e.currentTarget.getBoundingClientRect();
+          setTheme("dark", { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
+        }}
         aria-label="Dark mode"
         aria-pressed={theme === "dark"}
-        className="grid place-items-center w-9 h-9 rounded-[10px] transition-all duration-200"
+        className="grid place-items-center w-9 h-9 rounded-[10px] transition-[background,color,box-shadow] duration-200"
         style={{
           background: theme === "dark" ? "#FFFFFF" : "transparent",
           color: theme === "dark" ? "#9F7AEA" : "rgba(255,255,255,0.45)",

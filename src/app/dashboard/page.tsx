@@ -163,7 +163,7 @@ export default async function DashboardPage() {
               </p>
               <Link
                 href="/library"
-                className="font-sans font-semibold text-[14px] rounded-[12px] px-6 py-3 transition-all duration-200 btn-press inline-flex items-center gap-2"
+                className="font-sans font-semibold text-[14px] rounded-[12px] px-6 py-3 transition-transform duration-200 btn-press inline-flex items-center gap-2"
                 style={{
                   background: "linear-gradient(135deg, #F4899A 0%, #7C6FDB 100%)",
                   color: "#FFFFFF",
@@ -179,7 +179,7 @@ export default async function DashboardPage() {
                 <Link
                   key={a.id}
                   href={`/quiz/${a.deThiId}`}
-                  className="flex items-center justify-between p-4 rounded-[12px] transition-all duration-200 group"
+                  className="flex items-center justify-between p-4 rounded-[12px] transition-transform duration-200 group"
                   style={{
                     background: "var(--card)",
                     border: "1px solid var(--border)",
@@ -312,7 +312,7 @@ function SubjectCard({
   return (
     <Link
       href={`/library?subject=${subject.slug}`}
-      className="group relative rounded-[16px] p-6 text-white transition-all duration-300 hover:-translate-y-[4px] hover:scale-[1.02] btn-press float-reveal block overflow-hidden"
+      className="group relative rounded-[16px] p-6 text-white transition-transform duration-300 hover:-translate-y-[4px] hover:scale-[1.02] btn-press float-reveal block overflow-hidden"
       style={{
         animationDelay: `${index * 100}ms`,
         boxShadow: "var(--shadow-lifted)",
@@ -389,7 +389,7 @@ function QuickAction({
   return (
     <Link
       href={href}
-      className="rounded-[16px] p-6 transition-all duration-300 hover:-translate-y-[3px] btn-press flex items-center gap-4 float-reveal glass-card"
+      className="rounded-[16px] p-6 transition-transform duration-300 hover:-translate-y-[3px] btn-press flex items-center gap-4 float-reveal glass-card"
       style={{
         borderColor: accentBorder,
         animationDelay: delay,
@@ -416,7 +416,7 @@ function QuickAction({
         </p>
       </div>
       <div
-        className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-200"
+        className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-transform duration-200"
         style={{ background: accentBg }}
       >
         <ArrowRight className="w-4 h-4" style={{ color: accentColor }} />

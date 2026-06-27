@@ -399,11 +399,42 @@
   }
 }
 
+/* --- View Transitions: liquid theme switch --- */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) {
+  z-index: 1;
+}
+::view-transition-new(root) {
+  z-index: 9999;
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+}
+
 /* --- Reduced motion --- */
 @media (prefers-reduced-motion: reduce) {
-  .reveal {
-    animation: none;
-    opacity: 1;
+  .reveal,
+  .dream-reveal,
+  .float-reveal,
+  .card-in,
+  .chat-msg-in,
+  .graph-path,
+  .graph-bar,
+  .graph-dot,
+  .petal,
+  .page-enter {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    stroke-dashoffset: 0 !important;
   }
   .skeleton {
     animation: none;
@@ -594,7 +625,7 @@
 
 .dream-reveal {
   opacity: 0;
-  animation: dreamReveal 500ms var(--ease-out) forwards;
+  animation: dreamReveal 300ms var(--ease-out) forwards;
 }
 
 /* Staggered float reveal */
@@ -611,7 +642,7 @@
 
 .float-reveal {
   opacity: 0;
-  animation: floatReveal 600ms var(--ease-out) forwards;
+  animation: floatReveal 300ms var(--ease-out) forwards;
 }
 
 /* Soft glow pulse for active nav */
@@ -689,18 +720,18 @@
 }
 
 @keyframes growBar {
-  from { transform: scaleY(0); }
+  from { transform: scaleY(0.02); }
   to { transform: scaleY(1); }
 }
 
 .graph-bar {
   transform-origin: bottom;
-  transform: scaleY(0);
-  animation: growBar 800ms var(--ease-out) forwards;
+  transform: scaleY(0.02);
+  animation: growBar 600ms var(--ease-out) forwards;
 }
 
 @keyframes fadeInDot {
-  from { opacity: 0; transform: scale(0); }
+  from { opacity: 0; transform: scale(0.5); }
   to { opacity: 1; transform: scale(1); }
 }
 
@@ -735,11 +766,18 @@
   from { opacity: 0; transform: translateY(12px) scale(0.97); }
   to   { opacity: 1; transform: translateY(0) scale(1); }
 }
-.card-in { animation: cardIn 350ms var(--ease-out) forwards; }
+.card-in { animation: cardIn 250ms var(--ease-out) forwards; }
 
 /* Typing dots */
 @keyframes typingDot {
   0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
   30%           { transform: translateY(-4px); opacity: 1; }
 }
+
+/* Page enter — instant fade-in on route change */
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.page-enter { animation: pageEnter 180ms cubic-bezier(0.32, 0.72, 0, 1); }
 .typing-dot { animation: typingDot 1.2s ease-in-out infinite; }

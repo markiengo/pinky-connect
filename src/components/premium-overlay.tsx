@@ -33,7 +33,7 @@ export function PremiumOverlay({ open, onClose }: PremiumOverlayProps) {
       className="fixed inset-0 z-50 flex items-center justify-center"
       style={{
         opacity: open ? 1 : 0,
-        transition: "opacity 300ms ease-out",
+        transition: "opacity 300ms cubic-bezier(0.23, 1, 0.32, 1)",
         pointerEvents: open ? "auto" : "none",
       }}
     >
@@ -86,7 +86,7 @@ export function PremiumOverlay({ open, onClose }: PremiumOverlayProps) {
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 grid place-items-center w-9 h-9 rounded-full transition-all hover:bg-white/10"
+          className="absolute top-4 right-4 z-10 grid place-items-center w-9 h-9 rounded-full transition-colors hover:bg-white/10"
           style={{ color: "rgba(255,255,255,0.5)" }}
         >
           <X className="w-[18px] h-[18px]" />
@@ -132,7 +132,7 @@ export function PremiumOverlay({ open, onClose }: PremiumOverlayProps) {
                   border: "1px solid rgba(255,255,255,0.06)",
                   opacity: open ? 1 : 0,
                   transform: open ? "translateX(0)" : "translateX(-12px)",
-                  transition: `opacity 400ms ease-out ${150 + i * 80}ms, transform 400ms ease-out ${150 + i * 80}ms`,
+                  transition: `opacity 400ms cubic-bezier(0.23, 1, 0.32, 1) ${150 + i * 80}ms, transform 400ms cubic-bezier(0.23, 1, 0.32, 1) ${150 + i * 80}ms`,
                 }}
               >
                 <span
@@ -174,7 +174,7 @@ export function PremiumOverlay({ open, onClose }: PremiumOverlayProps) {
             <button
               onClick={handleUpgrade}
               disabled={upgrading}
-              className="w-full h-13 py-3.5 rounded-[14px] font-sans font-bold text-[15px] transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed inline-flex items-center justify-center gap-2"
+              className="w-full h-13 py-3.5 rounded-[14px] font-sans font-bold text-[15px] transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed inline-flex items-center justify-center gap-2"
               style={{
                 background: "linear-gradient(135deg, #9F7AEA 0%, #7C6FDB 100%)",
                 color: "#FFFFFF",
@@ -196,7 +196,7 @@ export function PremiumOverlay({ open, onClose }: PremiumOverlayProps) {
 
             <button
               onClick={onClose}
-              className="mt-3 font-sans font-medium text-[13px] transition-colors hover:text-white/70"
+              className="mt-3 font-sans font-medium text-[13px] transition-colors duration-200 hover:text-white/70"
               style={{ color: "rgba(255,255,255,0.35)" }}
             >
               Để sau

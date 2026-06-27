@@ -97,6 +97,73 @@
 
 ---
 
+## Animation Smoothness Session (June 27-28, 2026)
+
+### What Was Done
+Applied Emil Kowalski's design engineering principles across the entire codebase:
+
+1. **globals.css keyframe fixes**
+   - `growBar`: `scaleY(0)` → `scaleY(0.02)` (bars grow from sliver, not nothing)
+   - `fadeInDot`: `scale(0)` → `scale(0.5)` (dots appear from visible start)
+   - Durings tightened: `dreamReveal` 500→300ms, `floatReveal` 600→300ms, `cardIn` 350→250ms, `growBar` 800→600ms
+   - Reduced-motion block expanded: added `dream-reveal`, `float-reveal`, `card-in`, `chat-msg-in`, `graph-path`, `graph-bar`, `graph-dot`, `petal`, `page-enter`
+
+2. **Replaced all `transition-all` with specific properties** (~60+ instances across 15 files)
+   - `transition-transform` for hover lift/scale
+   - `transition-colors` for background/color hover
+   - `transition-opacity` for show/hide
+   - `transition-[background,color,box-shadow]` for multi-property state changes
+   - `transition-[border-color,box-shadow]` for input focus
+   - `transition-[gap]` for arrow-on-hover widening
+   - `transition-[width]` for progress bars
+
+3. **Easing curve fixes**
+   - Login/signup error banners: `float-reveal 0.3s ease-out` → `floatReveal 300ms cubic-bezier(0.23, 1, 0.32, 1)`
+   - premium-overlay.tsx inline transitions: bare `ease-out` → `cubic-bezier(0.23, 1, 0.32, 1)`
+
+4. **Liquid theme transition** (View Transitions API)
+   - `theme-provider.tsx`: `setTheme()` accepts `{ x, y }` origin, uses `document.startViewTransition()` with circular `clip-path` expand
+   - 500ms duration, `cubic-bezier(0.32, 0.72, 0, 1)` liquid easing
+   - Fallback: instant switch if API unsupported or reduced-motion preferred
+   - CSS: `::view-transition-old/new(root)` rules in globals.css
+
+5. **Sliding liquid nav indicator** (app-shell.tsx)
+   - Highlight pill slides between active sidebar items using `transform: translateY()`
+   - Moves on click (not pathname change) for zero perceived lag
+   - 250ms with `cubic-bezier(0.32, 0.72, 0, 1)`
+   - `prefetch` on all nav links for instant page loads
+   - `key={pathname}` on `<main>` + `page-enter` CSS animation (180ms fade-in)
+
+### Key Insights
+- **View Transitions API**: `::view-transition-new(root)` z-index must be 9999 to appear above old state
+- **Nav indicator on click vs pathname**: Moving indicator on `onClick` (not waiting for `useLayoutEffect` on pathname change) eliminates perceived lag
+- **`prefetch` on `<Link>`**: Critical for instant navigation feel in Next.js
+- **`key={pathname}` remount trick**: Forces React to remount `<main>` on route change, retriggering CSS enter animation
+- **`transition-[gap]`**: Tailwind arbitrary value for animating `gap` property on flex containers (arrow hover effects)
+- **Pre-existing lint warnings**: `@custom-variant`, `@theme`, `@apply` in globals.css are Tailwind v4 at-rules — not errors, safe to ignore
+
+### Files Modified
+- `src/app/globals.css` — keyframes, durations, reduced-motion, view-transition CSS, page-enter
+- `src/components/theme-provider.tsx` — View Transitions API for liquid theme switch
+- `src/components/theme-toggle.tsx` — pass click coordinates to setTheme
+- `src/components/app-shell.tsx` — sliding nav indicator, prefetch, page-enter, theme toggle coordinates
+- `src/components/premium-overlay.tsx` — specific transitions, custom easing
+- `src/components/quiz-client.tsx` — all transition-all replaced, progress bar duration 700→300ms
+- `src/components/chatbox.tsx` — all transition-all replaced
+- `src/components/de-thi-card.tsx` — transition-all → transition-transform
+- `src/components/de-pane-card.tsx` — transition-all replaced
+- `src/components/calendar/calendar-client.tsx` — transition-all → transition-transform
+- `src/app/page.tsx` — transition-all replaced
+- `src/app/dashboard/page.tsx` — transition-all replaced
+- `src/app/pricing/page.tsx` — transition-all replaced
+- `src/app/login/page.tsx` — transition-all replaced, easing fix
+- `src/app/signup/page.tsx` — transition-all replaced, easing fix
+- `src/app/profile/page.tsx` — transition-all replaced
+- `src/app/library/page.tsx` — transition-all replaced
+- `src/app/history/page.tsx` — transition-all replaced
+
+---
+
 ## What's Next (Potential v2)
 - Google Calendar sync (Pro tier feature per pricing strategy)
 - Adaptive exam planner (adjusts based on quiz performance)
