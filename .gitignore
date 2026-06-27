@@ -38,6 +38,7 @@ prisma/supabase-seed.mts
 prisma/export*.json
 prisma/export*.sql
 prisma/batch*.sql
+prisma/schema-supabase*.prisma
 
 # Agent tooling (local only, not shared)
 .claude/cache/
