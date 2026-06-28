@@ -317,7 +317,7 @@ export async function generateSchedule(planId: string) {
   }[] = [];
 
   // Schedule day by day
-  let currentDate = new Date(today);
+  const currentDate = new Date(today);
 
   while (currentDate <= latestExam && subjectState.some((s) => s.remainingHours > 0.01)) {
     // Get subjects that still need hours and haven't passed exam date
@@ -330,66 +330,76 @@ export async function generateSchedule(planId: string) {
       continue;
     }
 
-    // Track used time slots per frame for this day
-    const frameUsedSlots: { start: number; end: number }[][] = TIME_FRAMES.map(() => []);
-
-    // Distribute subjects across frames, rotating for variety
-    // Assign subjects to frames in round-robin order
-    const frameAssignments: typeof activeSubjects[] = TIME_FRAMES.map(() => []);
-
-    activeSubjects.forEach((subj, idx) => {
-      const frameIdx = idx % TIME_FRAMES.length;
-      frameAssignments[frameIdx].push(subj);
+    // Build chunks: split each subject's daily hours into max-2h sessions
+    type Chunk = { subjectId: string; name: string; deThiId?: string; minutes: number };
+    const chunkQueues: Chunk[][] = activeSubjects.map((subj) => {
+      const todayHours = Math.min(subj.dailyHours, subj.remainingHours);
+      const totalMinutes = Math.round(todayHours * 60);
+      const chunks: Chunk[] = [];
+      let remaining = totalMinutes;
+      while (remaining > 0) {
+        const chunkMin = Math.min(remaining, MAX_SESSION_HOURS * 60);
+        chunks.push({
+          subjectId: subj.id,
+          name: subj.name,
+          deThiId: subj.deThiId,
+          minutes: chunkMin,
+        });
+        remaining -= chunkMin;
+      }
+      return chunks;
     });
 
-    // For each frame, schedule its assigned subjects
+    // Interleave chunks across subjects for variety
+    const interleaved: Chunk[] = [];
+    let hasMore = true;
+    while (hasMore) {
+      hasMore = false;
+      for (const queue of chunkQueues) {
+        if (queue.length > 0) {
+          interleaved.push(queue.shift()!);
+          hasMore = true;
+        }
+      }
+    }
+
+    // Assign interleaved chunks to frames round-robin
+    const frameAssignments: Chunk[][] = TIME_FRAMES.map(() => []);
+    interleaved.forEach((chunk, idx) => {
+      const frameIdx = idx % TIME_FRAMES.length;
+      frameAssignments[frameIdx].push(chunk);
+    });
+
+    // For each frame, schedule its assigned chunks sequentially
     for (let frameIdx = 0; frameIdx < TIME_FRAMES.length; frameIdx++) {
       const frame = TIME_FRAMES[frameIdx];
       const frameStartMin = frame.startHour * 60 + frame.startMin;
       const frameEndMin = frame.endHour * 60 + frame.endMin;
 
-      const subjectsInFrame = frameAssignments[frameIdx];
-      if (subjectsInFrame.length === 0) continue;
+      const chunksInFrame = frameAssignments[frameIdx];
+      if (chunksInFrame.length === 0) continue;
 
-      // Calculate how much time each subject gets in this frame
-      // Total daily hours for subjects in this frame
-      const totalDailyInFrame = subjectsInFrame.reduce((sum, s) => sum + s.dailyHours, 0);
-
-      // Allocate time proportionally, but cap at frame duration minus breaks
       let cursor = frameStartMin;
 
-      for (const subj of subjectsInFrame) {
+      for (let ci = 0; ci < chunksInFrame.length; ci++) {
+        const chunk = chunksInFrame[ci];
+        const subj = subjectState.find((s) => s.id === chunk.subjectId)!;
         if (subj.remainingHours <= 0.01) continue;
 
-        // How much of this subject's daily hours go in this frame
-        const proportion = subj.dailyHours / totalDailyInFrame;
-        const allocatedMin = Math.min(
-          subj.remainingHours * 60,
-          subj.dailyHours * proportion * 60,
-          MAX_SESSION_HOURS * 60,
-          frameEndMin - cursor - BREAK_MINUTES
-        );
-
-        // Snap and enforce minimum
-        let sessionMin = snapToQuarter(Math.round(allocatedMin));
+        let sessionMin = snapToQuarter(chunk.minutes);
         if (sessionMin < MIN_SESSION_MINUTES) {
-          // If remaining time in frame is too small, skip
-          if (frameEndMin - cursor < MIN_SESSION_MINUTES + BREAK_MINUTES) break;
+          if (frameEndMin - cursor < MIN_SESSION_MINUTES) break;
           sessionMin = Math.min(MIN_SESSION_MINUTES, snapToQuarter(frameEndMin - cursor));
         }
 
-        // Check if there's room (session + break, but no break needed if last in frame)
-        const isLastInFrame = subjectsInFrame.indexOf(subj) === subjectsInFrame.length - 1;
-        const neededMin = sessionMin + (isLastInFrame ? 0 : BREAK_MINUTES);
+        // Fit within frame
         if (cursor + sessionMin > frameEndMin) {
-          // Try to fit without break
           sessionMin = snapToQuarter(frameEndMin - cursor);
           if (sessionMin < MIN_SESSION_MINUTES) break;
         }
 
         const sessionStartMin = snapToQuarter(cursor);
         const sessionEndMin = sessionStartMin + sessionMin;
-
         if (sessionEndMin > frameEndMin) break;
 
         const startTime = new Date(currentDate);
@@ -411,11 +421,9 @@ export async function generateSchedule(planId: string) {
         const sessionHours = sessionMin / 60;
         subj.remainingHours = Math.round((subj.remainingHours - sessionHours) * 100) / 100;
 
-        frameUsedSlots[frameIdx].push({ start: sessionStartMin, end: sessionEndMin });
-
-        // Move cursor past session + break
-        cursor = sessionEndMin + BREAK_MINUTES;
-
+        // Move cursor past session + break (no break after last chunk in frame)
+        const isLast = ci === chunksInFrame.length - 1;
+        cursor = sessionEndMin + (isLast ? 0 : BREAK_MINUTES);
         if (cursor >= frameEndMin) break;
       }
     }
